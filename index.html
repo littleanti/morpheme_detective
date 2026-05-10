@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FF7757">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>형태소 탐정</title>
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- §10 폰트 — Jua(제목) + Gowun Dodum(본문) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <!-- CSS 로드 순서 유지 -->
+  <link rel="stylesheet" href="src/css/tokens.css">
+  <link rel="stylesheet" href="src/css/base.css">
+  <link rel="stylesheet" href="src/css/screens.css">
+  <link rel="stylesheet" href="src/css/stage.css">
+  <link rel="stylesheet" href="src/css/magnifier.css">
+  <link rel="stylesheet" href="src/css/word-blocks.css">
+  <link rel="stylesheet" href="src/css/morph.css">
+</head>
+<body>
+
+  <!-- ── 시작 화면 F1·F2 (§10 규격) ──────────────────────────── -->
+  <section id="start-screen" class="screen active" aria-label="시작 화면">
+    <button id="btn-settings" class="btn small ghost start-settings-btn"
+            aria-label="설정 열기">⚙️ 설정</button>
+
+    <div class="start-content">
+      <h1 class="start-title">🔍 형태소 탐정</h1>
+      <p class="start-subtitle">
+        익숙한 단어 속 숨은 한자를 찾아라!<br>
+        <small style="font-size:0.85em;opacity:0.7">초등 1·2학년 한자 형태소 인식 게임</small>
+      </p>
+      <div class="start-cta">
+        <!-- F1: ≥64dp 큰 버튼 -->
+        <button id="btn-start" class="btn big" aria-label="탐정 시작">
+          🔍 탐정 시작
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 사건 선택 화면 (M6에서 구현) ────────────────────────── -->
+  <section id="stage-select-screen" class="screen" aria-label="사건 선택">
+    <div class="card-screen">
+      <h2 class="stage-select-title">오늘의 사건을 선택하세요</h2>
+      <p style="color:var(--color-text-dim);font-size:0.9rem">M6에서 구현 예정</p>
+      <br>
+      <button id="btn-stage-select-back" class="btn small ghost">← 돌아가기</button>
+    </div>
+  </section>
+
+  <!-- ── 플레이 화면 (M2 ~ M5에서 구현) ──────────────────────── -->
+  <section id="play-screen" class="screen" aria-label="게임 플레이">
+    <div class="stage-canvas" id="stage-canvas">
+      <!-- M2: 주차장 SVG 일러스트 + hit zone overlay -->
+    </div>
+    <div class="stage-dock" id="stage-dock">
+      <!-- M3: word-block / M5: card-deck -->
+    </div>
+  </section>
+
+  <!-- ── 설정 화면 (M7에서 구현) ──────────────────────────────── -->
+  <section id="settings-screen" class="screen" aria-label="설정">
+    <div class="card-screen">
+      <h2 class="settings-header">⚙️ 설정</h2>
+      <p style="color:var(--color-text-dim);font-size:0.9rem">M7에서 구현 예정</p>
+      <br>
+      <button id="btn-settings-back" class="btn small ghost">← 돌아가기</button>
+    </div>
+  </section>
+
+  <!-- ── 미션 완료 화면 (M6에서 구현) ────────────────────────── -->
+  <section id="mission-screen" class="screen" aria-label="미션 완료">
+    <div class="card-screen" style="text-align:center">
+      <h2 class="mission-title">🌟 미션 완료!</h2>
+      <p style="color:var(--color-text-dim)">M6에서 구현 예정</p>
+    </div>
+  </section>
+
+  <!-- ── 종료 화면 (M6에서 구현) ──────────────────────────────── -->
+  <section id="end-screen" class="screen" aria-label="종료">
+    <div class="card-screen" style="text-align:center">
+      <h2 class="end-title">오늘의 탐정 활동</h2>
+      <p style="color:var(--color-text-dim)">M6에서 구현 예정</p>
+    </div>
+  </section>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

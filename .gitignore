@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# OMC state
+.omc/state/
+.omc/autopilot/
+.omc/plans/
+!.omc/plans/autopilot-impl.md
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts (현재 없음 — 빌드 미사용)
+dist/
+build/

@@ -1,0 +1,182 @@
+/* ================================================================
+   §10 홈·설정·완료 화면 디자인 공통 규격
+   기준: 1_chosung_quiz/src/css/components.css · screens.css
+   ================================================================ */
+
+/* ── 공통 버튼 ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Jua', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  background: var(--coral);
+  color: #fff;
+  box-shadow: 0 5px 0 var(--coral-dark), 0 8px 18px var(--shadow);
+  transition: transform 0.12s, box-shadow 0.12s;
+  user-select: none;
+  min-height: 48px;
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--coral-dark);
+}
+
+/* 크기 변형 */
+.btn.big {
+  font-size: 1.45rem;
+  padding: 18px 44px;
+  min-height: 64px; /* PRD F1 ≥64dp */
+}
+.btn.small {
+  font-size: 1rem;
+  padding: 10px 20px;
+  min-height: 40px;
+}
+
+/* 색상 변형 */
+.btn.mint {
+  background: var(--mint);
+  box-shadow: 0 5px 0 var(--mint-dark), 0 8px 18px var(--shadow);
+}
+.btn.mint:active { box-shadow: 0 1px 0 var(--mint-dark); }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  box-shadow: 0 3px 0 var(--navy);
+}
+.btn.ghost:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+/* ── 시작 화면 F1 · F2 ─────────────────────────────────────────── */
+#start-screen {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.start-settings-btn {
+  position: absolute;
+  top:   max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  max-width: 400px;
+  padding: 0 24px;
+}
+
+/* §10: 시작 화면 제목 — Jua, 3rem, coral, rotate(-2deg) */
+.start-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 3rem;
+  color: var(--coral);
+  letter-spacing: 2px;
+  transform: rotate(-2deg);
+  text-shadow: 4px 4px 0 var(--yellow);
+  line-height: 1.2;
+}
+
+/* §10: 설명 — Gowun Dodum */
+.start-subtitle {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: var(--color-text-dim);
+  line-height: 1.6;
+}
+
+.start-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* 가로 모드: 세로 공간 절약 */
+@media (orientation: landscape) {
+  .start-title   { font-size: 2.2rem; }
+  .start-content { gap: 12px; }
+  .start-cta     { flex-direction: row; justify-content: center; }
+}
+
+/* ── 사건 선택 화면 (M6에서 구현) ─────────────────────────────── */
+#stage-select-screen {
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-select-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 1.8rem;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+
+/* ── 설정 화면 (M7에서 구현) ──────────────────────────────────── */
+#settings-screen {
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+/* §10: 설정 화면 제목 — Jua, 1.8rem, coral */
+.settings-header {
+  font-family: 'Jua', sans-serif;
+  font-size: 1.8rem;
+  color: var(--coral);
+  margin-bottom: 20px;
+}
+
+.settings-section {
+  background: white;
+  border: 2px solid var(--navy);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 4px 0 var(--navy);
+  margin-bottom: 12px;
+}
+
+/* ── 미션 완료 화면 (M6에서 구현) ────────────────────────────── */
+#mission-screen {
+  align-items: center;
+  justify-content: center;
+}
+
+/* §10: 완료 화면 제목 — Jua, 2.1rem, coral */
+.mission-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 2.1rem;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+
+/* ── 종료 화면 (M6에서 구현) ─────────────────────────────────── */
+#end-screen {
+  align-items: center;
+  justify-content: center;
+}
+
+.end-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 2.1rem;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
