@@ -2,7 +2,7 @@
 
 > Technical Requirements Document
 > Last updated: 2026-05-12
-> Status: **M2 완료** — 디렉터리 골격 + 데이터 코어 + 시작 화면 + 주차장 SVG 일러스트 + hit zone 3개 발광·탭 동작, `npm run validate` 통과
+> Status: **M3 완료** — M2 위에 hangul.js / tts.js / word-block.js / magnifier.js 추가 + pointer.js 강화 + stage.js·main.js 통합. 객체 탭 → 음절 분리 + 핵심 한자 하이라이트 + TTS + 돋보기 자석 + spring-back 거절 동작. `npm run validate` 통과, 신규 7개 JS 모듈 `node --check` 통과.
 > Target: 모바일 태블릿 1순위, 폰 2순위, PC 보조
 
 ## 1. 기술 스택

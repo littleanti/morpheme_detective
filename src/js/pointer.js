@@ -1,18 +1,44 @@
-// Pointer Events 통합 — M2 기본형, M3 에서 자석 흡착·capture 강화
+// Pointer Events 통합 — TRD §4.1
+// down/move/up/cancel + setPointerCapture. 화면 전환 시 releaseAll().
+const ACTIVE = new WeakMap(); // el → Set<pointerId>
+
 export function attachPointer(el, { down, move, up, cancel } = {}) {
+  if (!el) return () => {};
   const offs = [];
-  if (down) {
-    const h = e => { try { el.setPointerCapture?.(e.pointerId); } catch (_) {} down(e); };
-    el.addEventListener('pointerdown', h);
-    offs.push([el, 'pointerdown', h]);
-  }
-  if (move)   { el.addEventListener('pointermove',   move);   offs.push([el, 'pointermove',   move]);   }
-  if (up)     { el.addEventListener('pointerup',     up);     offs.push([el, 'pointerup',     up]);     }
-  if (cancel) { el.addEventListener('pointercancel', cancel); offs.push([el, 'pointercancel', cancel]); }
-  return () => offs.forEach(([t, name, h]) => t.removeEventListener(name, h));
+  const ids = ACTIVE.get(el) || new Set();
+  ACTIVE.set(el, ids);
+
+  const onDown = e => {
+    try { el.setPointerCapture?.(e.pointerId); } catch (_) {}
+    ids.add(e.pointerId);
+    if (down) down(e);
+  };
+  const onUp = e => {
+    ids.delete(e.pointerId);
+    try { el.releasePointerCapture?.(e.pointerId); } catch (_) {}
+    if (up) up(e);
+  };
+  const onCancel = e => {
+    ids.delete(e.pointerId);
+    try { el.releasePointerCapture?.(e.pointerId); } catch (_) {}
+    if (cancel) cancel(e);
+  };
+
+  el.addEventListener('pointerdown',   onDown);   offs.push(['pointerdown',   onDown]);
+  if (move)   { el.addEventListener('pointermove', move); offs.push(['pointermove', move]); }
+  el.addEventListener('pointerup',     onUp);     offs.push(['pointerup',     onUp]);
+  el.addEventListener('pointercancel', onCancel); offs.push(['pointercancel', onCancel]);
+
+  return () => offs.forEach(([name, h]) => el.removeEventListener(name, h));
 }
 
-// 모든 pointer capture 해제 — 화면 전환 시 호출 (TRD §2.4 부작용)
+// 화면 전환 시 일괄 release — TRD §2.4 부작용
 export function releaseAll(el) {
-  // M3: pointerId 추적 큐를 만들어 일괄 release
+  if (!el) return;
+  const ids = ACTIVE.get(el);
+  if (!ids) return;
+  ids.forEach(id => {
+    try { el.releasePointerCapture?.(id); } catch (_) {}
+  });
+  ids.clear();
 }

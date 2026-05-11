@@ -72,6 +72,23 @@
   animation: hitPulse 1.2s ease-in-out infinite;
 }
 
+/* M3 #6: hit zone 외 클릭 시 부드러운 거절(spring-back) */
+.spring-back {
+  fill: rgba(255, 119, 87, 0.5);
+  stroke: rgba(255, 119, 87, 0.95);
+  stroke-width: 2;
+  pointer-events: none;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: springBack 360ms ease-out forwards;
+}
+
+@keyframes springBack {
+  0%   { transform: scale(0.3); opacity: 0.0; }
+  35%  { transform: scale(1.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0.0; }
+}
+
 @keyframes hitPulse {
   0%, 100% {
     fill:   rgba(255, 209, 102, 0);

@@ -1,12 +1,17 @@
-// 일러스트 로드 + hit zone 등록 — M2 핵심
+// 일러스트 로드 + hit zone 등록 + 객체 탭 → 단어 분리·TTS — M2~M3
 import { STAGES } from '../data/stages.js';
+import { HANJA }  from '../data/hanja.js';
 import { state }  from './state.js';
 import { PULSE_DURATION } from './config.js';
+import { showWord, clearWord } from './word-block.js';
+import { speakHanja, cancel as cancelTts } from './tts.js';
+import { getSnappedHitZone } from './magnifier.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 let pulseTimer  = null;
 let hitListener = null;
 let svgEl       = null;
+let currentStage = null;
 
 export async function loadStage(stageId) {
   const stage = STAGES[stageId];
@@ -15,6 +20,7 @@ export async function loadStage(stageId) {
   unloadStage(); // 이전 스테이지 정리
 
   state.stage.currentStageId = stageId;
+  currentStage = stage;
 
   const canvas = document.getElementById('stage-canvas');
   if (!canvas) throw new Error('#stage-canvas 없음');
@@ -55,24 +61,64 @@ function attachHitZones(svg, objects) {
   state.stage.hitZones = objects.slice();
 
   hitListener = e => {
-    const target = e.target.closest('.hit-zone');
-    if (!target) return; // 빈 영역 탭은 무반응 (M2 DoD)
+    let target = e.target.closest('.hit-zone');
+    // 마우스/터치 UX: 커서가 살짝 빗나갔어도 돋보기가 hit zone에 스냅돼 있으면 그곳으로 라우팅
+    if (!target) target = getSnappedHitZone();
+    if (!target) {
+      // 빈 영역 탭은 무반응 + spring-back 시각 피드백 (PRD F4·M3 #6)
+      springBackFlash(svg, e);
+      return;
+    }
     onHit({
       objectId: target.dataset.objectId,
       wordId:   target.dataset.wordId,
       label:    target.getAttribute('aria-label'),
     });
   };
-  // click 으로 키보드 Enter 도 자동 처리됨
   svg.addEventListener('click', hitListener);
 }
 
 function onHit({ objectId, wordId, label }) {
-  stopPulse(); // 첫 발견 시 펄스 중단 (PRD F5 — 인지 학습 후 자동 종료)
+  stopPulse();
   console.log(`[stage] hit objectId="${objectId}" wordId="${wordId}" label="${label}"`);
-  // M3: word-block 분리 + 한자 음절 하이라이트
-  // M4: morph 애니메이션
-  // M5: 어휘 카드 등장
+
+  const word = currentStage?.words?.[wordId];
+  if (!word) return;
+
+  // M3: 단어 → 음절 분리 + 핵심 한자 음절 하이라이트
+  showWord({
+    wordId,
+    text:              word.text,
+    syllables:         word.syllables,
+    targetSyllableIdx: word.targetSyllableIdx,
+    targetHanjaId:     word.targetHanjaId,
+  });
+
+  // M3: TTS "차, 수레 차" (하이라이트 트랜지션 시작 직후)
+  const hanja = HANJA[word.targetHanjaId];
+  if (hanja) {
+    setTimeout(() => speakHanja({ reading: hanja.reading, meaning: hanja.meaning }), 260);
+  }
+
+  // M4: morph 애니메이션, M5: 어휘 카드 — 이후 마일스톤
+}
+
+function springBackFlash(svg, e) {
+  // 빈 영역 탭 — 짧은 시각 피드백(부드러운 거절)
+  const pt = svg.createSVGPoint?.();
+  if (!pt) return;
+  pt.x = e.clientX; pt.y = e.clientY;
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return;
+  const local = pt.matrixTransform(ctm.inverse());
+
+  const r = document.createElementNS(SVG_NS, 'circle');
+  r.setAttribute('cx', String(local.x));
+  r.setAttribute('cy', String(local.y));
+  r.setAttribute('r', '4');
+  r.setAttribute('class', 'spring-back');
+  svg.appendChild(r);
+  setTimeout(() => r.remove(), 360);
 }
 
 function startPulse() {
@@ -89,14 +135,17 @@ function stopPulse() {
 }
 
 export function unloadStage() {
+  cancelTts();
   if (pulseTimer) { clearTimeout(pulseTimer); pulseTimer = null; }
   if (svgEl && hitListener) svgEl.removeEventListener('click', hitListener);
   const canvas = document.getElementById('stage-canvas');
   if (canvas) canvas.innerHTML = '';
+  clearWord();
   state.stage.currentStageId    = null;
   state.stage.illustrationLoaded = false;
   state.stage.hitZones          = [];
   state.stage.pulseUntilTs      = 0;
-  hitListener = null;
-  svgEl       = null;
+  hitListener  = null;
+  svgEl        = null;
+  currentStage = null;
 }

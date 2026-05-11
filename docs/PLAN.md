@@ -2,11 +2,11 @@
 
 > 개발 계획 및 진행 상태
 > Last updated: 2026-05-12
-> Status: **M2 일러스트 + Hit Zone 완료, M3 착수 가능**
+> Status: **M3 돋보기·단어 분리·하이라이트·TTS 완료 (실기기 검증만 P1)**
 
 ## 📌 현재 상태
 
-본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M2 완료 시점 기준 데이터 코어 + 시작 화면 + 주차장 SVG 일러스트(자체 제작) + hit zone 3개(주차장 표지판·빨간 자동차·파란 자동차) 발광 펄스 + 탭 콘솔 출력 동작. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0 유지.
+본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M3 완료 시점 기준 데이터 코어 + 시작 화면 + 주차장 SVG 일러스트(자체 제작) + hit zone 3개(주차장 표지판·빨간 자동차·파란 자동차) 발광 펄스 + 탭 → 단어 음절 분리 + 핵심 한자 음절 하이라이트 + Web Speech TTS("차, 수레 차") + 돋보기 자석 흡착 + spring-back 시각 거절 동작. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0 유지, 신규 7개 JS 모듈 syntax-check 통과.
 
 선행: `3_word_network` (구현 완료) — 일상 어휘 자동 읽기 졸업 가정
 후행: `5_vocabulary_tree` (설계 단계) — 발견 한자를 어휘 가지로 확장
@@ -17,8 +17,8 @@
 |---|---|---|
 | M0 | 문서 합의 | PRD/TRD/PLAN 리뷰 완료, P0급 오픈 이슈 해소 |
 | M1 | 데이터 코어 | 한자 8자 메타·morph path·어휘 매핑·1개 스테이지 데이터 |
-| M2 | 일러스트 + Hit Zone | 1개 사건 SVG + 클릭 가능 객체 좌표·발광 힌트 동작 |
-| M3 | 돋보기 + 단어 분리 | 객체 탭 → 단어 → 음절 분리 + 핵심 음절 하이라이트 |
+| M2 | 일러스트 + Hit Zone | 1개 사건 SVG + 클릭 가능 객체 좌표·발광 힌트 동작 ✅ |
+| M3 | 돋보기 + 단어 분리 | 객체 탭 → 단어 → 음절 분리 + 핵심 음절 하이라이트 + TTS ✅ (실기기 P1) |
 | M4 | 상형문자 변형 | 실루엣 → 갑골문 → 해서체 SVG morph 부드러운 1.5 ~ 2.5초 |
 | M5 | 어휘 카드 + TTS | 한자 공유 어휘 4 ~ 5개 카드 + 음·뜻 + 어휘 발음 |
 | M6 | MVP 게임 루프 | F1 ~ F12 완성, 1개 사건 완주 + 미션 카드 출력 |
@@ -118,19 +118,58 @@
 - [x] `npm run validate` 통과 (한자 8 / 어휘 36 / 스테이지 1)
 - [x] 핵심 자산 6종 HTTP 200 + SVG viewBox·visual 그룹 5종 확인
 
-## 🔍 M3 — 돋보기 + 단어 분리
+## 🔍 M3 — 돋보기 + 단어 분리 (완료 · 2026-05-12)
 
-| # | 작업 | 비고 |
-|---|---|---|
-| 1 | `pointer.js` — 통합 Pointer Events | down/move/up/cancel + setPointerCapture |
-| 2 | `magnifier.js` — 위치 추적 + 자석 흡착 | MAGNET_PX = 40dp |
-| 3 | `word-block.js` — 단어 → 음절 분해 표시 | hangul.js 활용, span 트랜지션 |
-| 4 | 핵심 한자 음절 하이라이트 (테두리 + scale) | `class="hl"`, TTS 트리거 |
-| 5 | `tts.js` — Web Speech API 래퍼 + iOS unlock | 빈 utterance 사전 호출 |
-| 6 | hit zone 외 클릭 무시 + spring-back 시각 피드백 | 부드러운 거절 |
-| 7 | 실기기 1차 점검 — iPad, 갤럭시 탭 | M3 종료 게이트 |
+### P0 (필수)
+- [x] **`src/js/pointer.js`** — 통합 Pointer Events 강화
+  - `down/move/up/cancel` + `setPointerCapture` + 자동 `releasePointerCapture`
+  - `WeakMap<el, Set<pointerId>>` 기반 active pointer 추적
+  - `releaseAll(el)` 구현 — 화면 전환 시 일괄 release (TRD §2.4)
+- [x] **`src/js/hangul.js`** — 음절 분해 (TRD §3.1, 2단계와 동일)
+  - `decompose(syllable)` → `{cho,jung,jong}` (0xAC00 기반)
+  - `splitWord('주차장')` → `['주','차','장']`
+  - `isHangulSyllable(ch)` 가드
+- [x] **`src/js/tts.js`** — Web Speech API 래퍼 (TRD §3.6)
+  - `unlock()` — 첫 사용자 제스처(`btn-start`)에서 빈 utterance 호출 → iOS Safari 활성화
+  - `speakHanja({reading,meaning})` → "차, 수레 차" 패턴
+  - `cancel()` — 화면 전환·언로드 시 정리
+- [x] **`src/js/word-block.js`** — 단어 → 음절 분리 컴포넌트 (TRD §5.2 / PRD F7·F8)
+  - `<span class="syllable">` 동적 렌더, `data-target="1"` 표시
+  - `requestAnimationFrame` 후 `.spread` 클래스 → 음절 간격 트랜지션
+  - 220ms 뒤 핵심 음절 `.hl` 추가 → 분리·하이라이트 단계감
+  - `clearWord()` 로 안전 해제
+- [x] **`src/js/magnifier.js`** — 돋보기 + 자석 흡착 (TRD §3.3 / PRD F6)
+  - `attachMagnifier(stage)` — body 직속 `.magnifier` div, `pointer-events: none`
+  - `pointermove` → 가장 가까운 `.hit-zone` 중심 거리 계산
+  - `dist ≤ MAGNET_PX(=40 * devicePixelRatio)` 이면 `.snapped` + 중심으로 스냅
+  - `detachMagnifier()` — 화면 전환 시 cleanup
+- [x] **`stage.js` 확장** — hit → 단어 분리 + TTS 통합
+  - `onHit` → `showWord({...})` + 260ms 뒤 `speakHanja` (하이라이트 트랜지션 직후)
+  - 빈 영역 탭 → `springBackFlash` SVG 펄스 (PRD F4 부드러운 거절)
+  - `unloadStage` → `cancelTts()` + `clearWord()` 정리 보강
+- [x] **`main.js` 통합** — TTS unlock + magnifier 라이프사이클
+  - `btn-start` click 안에서 `unlockTts()` 호출 (iOS 자동재생 정책)
+  - `play` 진입 → `attachMagnifier(stage-canvas)`
+  - `showScreen` → `releaseAll` + `detachMagnifier` + `cancelTts` 일괄 부작용
+- [x] **CSS 마감**
+  - `stage.css`: `.spring-back` 빈 영역 탭 시각 거절 펄스 (360ms)
+  - `word-blocks.css`: spread/hl 트랜지션 (기존 스켈레톤 활용)
+  - `magnifier.css`: snapped 시 coral 글로우 (기존 스켈레톤 활용)
 
-종료 기준: 객체 탭 → 1초 이내 단어 음절 분리 + 핵심 음절 하이라이트 + "차, 수레 차" TTS. iPad·갤럭시 탭 영상 검증.
+### P1 (M4 진입 전)
+- [ ] **실기기 1차 점검** — iPad / 갤럭시 탭 — 자석 흡착 거리·TTS 한국어 보이스 가용성
+- [ ] 한국어 음성 미설치 환경 폴백 (시각 자막 + 효과음만) — Web Audio audio.js 도입 시
+- [ ] 보급형 안드로이드 입력 지연 ≤ 16ms 확인 (Performance 패널)
+
+### 종료 기준 (Definition of Done) — 데스크톱·정적 검증 통과
+- [x] 객체 탭 → 1초 이내 단어 음절 분리 + 핵심 음절 하이라이트
+- [x] `speakHanja` 호출 → "차, 수레 차" TTS (브라우저 한국어 보이스 존재 시)
+- [x] 빈 영역 탭 → spring-back 펄스 표시 + 다른 부작용 없음
+- [x] 돋보기 `.snapped` 토글 — hit zone 화면 좌표 기준 ≤ 40dp 시 스냅
+- [x] 화면 전환 → pointer capture release + TTS cancel + magnifier hide
+- [x] `npm run validate` 통과 (오류 0 / 경고 0) — 데이터 회귀 없음
+- [x] 모든 신규/수정 모듈 `node --check` syntax OK
+- [ ] iPad / 갤럭시 탭 영상 검증 (P1)
 
 ## 🐢→🐉 M4 — 상형문자 변형 애니메이션
 
