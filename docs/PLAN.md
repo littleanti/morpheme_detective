@@ -1,12 +1,12 @@
 # 🗂️ PLAN — 형태소 탐정 게임
 
 > 개발 계획 및 진행 상태
-> Last updated: 2026-05-10
-> Status: **M1 데이터 코어 완료, M2 착수 가능**
+> Last updated: 2026-05-12
+> Status: **M2 일러스트 + Hit Zone 완료, M3 착수 가능**
 
 ## 📌 현재 상태
 
-본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M1 완료 시점 기준 디렉터리 골격(TRD §2.1) + 데이터 코어(한자 8자/어휘 36개/주차장 1스테이지) + 시작 화면(F1·F2, §10 규격) 구현 완료. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0 통과.
+본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M2 완료 시점 기준 데이터 코어 + 시작 화면 + 주차장 SVG 일러스트(자체 제작) + hit zone 3개(주차장 표지판·빨간 자동차·파란 자동차) 발광 펄스 + 탭 콘솔 출력 동작. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0 유지.
 
 선행: `3_word_network` (구현 완료) — 일상 어휘 자동 읽기 졸업 가정
 후행: `5_vocabulary_tree` (설계 단계) — 발견 한자를 어휘 가지로 확장
@@ -81,18 +81,42 @@
 - [x] `npx serve -p 3004` HTTP 200 + 시작 화면 13개 핵심 요소 렌더링
 - [x] code-reviewer CRITICAL 이슈 0건 (인라인 onclick → event listener 패턴 수정 완료)
 
-## 🎨 M2 — 일러스트 + Hit Zone
+## 🎨 M2 — 일러스트 + Hit Zone (완료 · 2026-05-12)
 
-| # | 작업 | 비고 |
-|---|---|---|
-| 1 | 1개 사건 일러스트 SVG 자체 제작 | **주차장** 씬, 인라인 SVG (M0 결정) |
-| 2 | `stage.js` — 일러스트 로드 + viewBox 정규화 | inline SVG 또는 `<img>` + 오버레이 |
-| 3 | hit zone 좌표 데이터 정의 | `<polygon>`/`<rect>` + wordId 매핑 |
-| 4 | 발광 힌트 펄스 애니메이션 (5초) | F5 — `glowPulse` keyframes |
-| 5 | hit zone 80×80dp 최소 크기 검증 | 보급형 폰 시뮬레이터 + 실기기 |
-| 6 | `viewport.js` 골격 (P1 줌/팬) | 폰 모드 대응 — 단계 1: 비활성, 단계 2: 2x 토글 |
+### P0 (필수)
+- [x] **주차장 SVG 일러스트 자체 제작** — `src/assets/stages/parking-lot.svg`
+  - viewBox `0 0 1600 900` (16:9, preserveAspectRatio meet)
+  - 구성: 하늘 그래디언트 + 해/구름 + 원경 건물(창문) + 나무 + 아스팔트 + 주차선(원근) + 표지판 + 자동차 2대
+- [x] **`src/js/stage.js`** — 일러스트 로드 + hit zone overlay 동적 삽입
+  - `fetch(illustrationSrc)` → `innerHTML` 주입 → `<svg>` 추출 → `<g id="hit-zone-overlay">` 추가
+  - `unloadStage()` 로 안전 해제 (pulse timer · listener 정리)
+- [x] **hit zone 좌표 데이터** — `src/data/stages.js`
+  - 3개: `sign-juchajang` (주차장 표지판 · 기둥 포함 L자형 polygon)
+  - `car-body-1` (빨간 자동차 전경 · 사각형)
+  - `car-body-2` (파란 자동차 배경 · 사각형)
+  - 좌표 모두 viewBox(1600×900) 기준, 폴리곤 영역 ≥ 80×80dp 환산
+- [x] **발광 힌트 펄스** (PRD F5)
+  - `.hit-zone.pulse { animation: hitPulse 1.2s ease-in-out infinite }`
+  - SVG polygon `fill`/`stroke` 보간 (rgba 황색)
+  - 5초 후 `setTimeout(stopPulse)` 자동 중단
+  - 첫 클릭 시 즉시 중단 (인지 학습 후 종료)
+- [x] **빈 영역 탭 무반응** — `e.target.closest('.hit-zone')` 가드
+- [x] **`src/js/utils.js`** — `clamp` · `dist` · `dprPx` · `clientToViewBox` · `throttle`
+- [x] **`src/js/pointer.js`** — Pointer Events 통합 attach/release (M3 확장 기반)
+- [x] **`src/js/viewport.js`** — 줌/팬 스켈레톤 (P1, M7 활성화 예정)
+- [x] **`main.js` 통합** — 시작 → 주차장 자동 로드 → 플레이 화면 + 홈 복귀 버튼
+- [x] **`stage.css` 갱신** — SVG polygon 기반 `.hit-zone` 스타일 (focus/hover/pulse)
+- [x] **`npm run dev`** 추가 (개발 서버 별칭)
 
-종료 기준: 1개 일러스트 위에서 클릭 가능 객체 3 ~ 5개가 발광하고, 탭 시 콘솔에 `wordId` 출력. 빈 영역 탭은 무반응.
+### P1 (M3 진입 전)
+- [ ] hit zone 80×80dp 실기기 검증 — iPad Mini / 갤럭시 탭 A8
+
+### 종료 기준 (Definition of Done) — 충족
+- [x] 1개 일러스트 위에 클릭 가능 객체 3개 발광 (3~5 범위 충족)
+- [x] 객체 탭 시 콘솔 `[stage] hit objectId="…" wordId="…" label="…"` 출력
+- [x] 빈 영역 탭 무반응 (closest 가드)
+- [x] `npm run validate` 통과 (한자 8 / 어휘 36 / 스테이지 1)
+- [x] 핵심 자산 6종 HTTP 200 + SVG viewBox·visual 그룹 5종 확인
 
 ## 🔍 M3 — 돋보기 + 단어 분리
 

@@ -55,12 +55,14 @@
     </div>
   </section>
 
-  <!-- ── 플레이 화면 (M2 ~ M5에서 구현) ──────────────────────── -->
+  <!-- ── 플레이 화면 (M2 일러스트+Hit Zone, M3~M5에서 확장) ─── -->
   <section id="play-screen" class="screen" aria-label="게임 플레이">
     <div class="stage-canvas" id="stage-canvas">
-      <!-- M2: 주차장 SVG 일러스트 + hit zone overlay -->
+      <!-- M2: stage.js 가 주차장 SVG + hit zone overlay 삽입 -->
     </div>
     <div class="stage-dock" id="stage-dock">
+      <button id="btn-play-back" class="btn small ghost" aria-label="홈으로">← 홈</button>
+      <p class="dock-hint">반짝이는 곳을 탭하세요!</p>
       <!-- M3: word-block / M5: card-deck -->
     </div>
   </section>

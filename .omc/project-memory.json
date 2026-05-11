@@ -95,20 +95,80 @@
   "hotPaths": [
     {
       "path": "docs\\PLAN.md",
-      "accessCount": 4,
-      "lastAccessed": 1778413471489,
+      "accessCount": 6,
+      "lastAccessed": 1778516029890,
       "type": "file"
     },
     {
       "path": "docs\\PRD.md",
-      "accessCount": 2,
-      "lastAccessed": 1778413276427,
+      "accessCount": 3,
+      "lastAccessed": 1778516036236,
       "type": "file"
     },
     {
       "path": "docs\\TRD.md",
+      "accessCount": 2,
+      "lastAccessed": 1778516044579,
+      "type": "file"
+    },
+    {
+      "path": "src\\assets\\stages\\parking-lot.svg",
       "accessCount": 1,
-      "lastAccessed": 1778413282616,
+      "lastAccessed": 1778414229603,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\utils.js",
+      "accessCount": 1,
+      "lastAccessed": 1778414235718,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\pointer.js",
+      "accessCount": 1,
+      "lastAccessed": 1778414241533,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\viewport.js",
+      "accessCount": 1,
+      "lastAccessed": 1778414244262,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\stage.js",
+      "accessCount": 1,
+      "lastAccessed": 1778414260880,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\stages.js",
+      "accessCount": 1,
+      "lastAccessed": 1778414285969,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1778515955639,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\main.js",
+      "accessCount": 1,
+      "lastAccessed": 1778515968977,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 1,
+      "lastAccessed": 1778515973728,
+      "type": "file"
+    },
+    {
+      "path": "src\\css\\stage.css",
+      "accessCount": 1,
+      "lastAccessed": 1778515981450,
       "type": "file"
     }
   ],

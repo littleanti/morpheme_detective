@@ -1,8 +1,8 @@
 # 📋 PRD — 형태소 탐정 게임
 
 > Product Requirements Document
-> Last updated: 2026-05-10
-> Status: **M1 데이터 코어 + 시작 화면 구현 완료** (M2 일러스트 착수 가능)
+> Last updated: 2026-05-12
+> Status: **M2 일러스트 + Hit Zone 완료** — 주차장 SVG + 3개 발광 객체 + 탭 인식 동작 (M3 돋보기·단어 분리 착수 가능)
 
 ## 1. 제품 개요
 

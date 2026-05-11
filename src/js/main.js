@@ -1,5 +1,6 @@
-// 진입점 — M1: 시작 화면 표시 + 기본 내비게이션 골격
+// 진입점 — M1: 시작 화면, M2: 스테이지 로드 + hit zone
 import { SCREENS } from './config.js';
+import { loadStage, unloadStage } from './stage.js';
 
 let activeScreen = null;
 
@@ -12,13 +13,17 @@ export function showScreen(id) {
 document.addEventListener('DOMContentLoaded', () => {
   showScreen(SCREENS.START);
 
-  document.getElementById('btn-start')?.addEventListener('click', () => {
-    // M6에서 구현 — 사건 선택 화면으로 이동
-    showScreen(SCREENS.STAGE_SELECT);
+  // 시작 → 주차장 사건 자동 진입 (M6 에서 stage-select 통해 분기)
+  document.getElementById('btn-start')?.addEventListener('click', async () => {
+    try {
+      await loadStage('parking-lot');
+      showScreen(SCREENS.PLAY);
+    } catch (e) {
+      console.error('[main] stage 로드 실패:', e);
+    }
   });
 
   document.getElementById('btn-settings')?.addEventListener('click', () => {
-    // M7에서 구현
     showScreen(SCREENS.SETTINGS);
   });
 
@@ -27,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-settings-back')?.addEventListener('click', () => {
+    showScreen(SCREENS.START);
+  });
+
+  document.getElementById('btn-play-back')?.addEventListener('click', () => {
+    unloadStage();
     showScreen(SCREENS.START);
   });
 });

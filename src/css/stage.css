@@ -29,24 +29,58 @@
   border-left: 2px solid var(--color-border);
 }
 
-/* hit zone (M2에서 좌표 채움) */
+/* ── 일러스트 컨테이너 ─────────────────────────────────────── */
+.stage-illustration {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* preserveAspectRatio="xMidYMid meet" 가 letterbox 처리 */
+}
+
+/* ── 컨트롤 도크 보조 ──────────────────────────────────────── */
+.dock-hint {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 0.95rem;
+  color: var(--color-text-dim);
+  text-align: center;
+  padding: 8px 4px;
+}
+
+/* ── SVG hit zone (polygon, viewBox 좌표계) ────────────────── */
 .hit-zone {
-  position: absolute;
   cursor: pointer;
   pointer-events: all;
-  fill: transparent;
+  fill:   transparent;
   stroke: transparent;
-  min-width:  80px; /* HIT_MIN_DP */
-  min-height: 80px;
+  stroke-width: 6;
+  transition: fill 0.2s, stroke 0.2s;
+  outline: none;
 }
 
+.hit-zone:hover {
+  fill:   rgba(255, 209, 102, 0.18);
+  stroke: rgba(255, 119, 87,  0.6);
+}
+
+.hit-zone:focus-visible {
+  fill:   rgba(255, 209, 102, 0.25);
+  stroke: var(--coral);
+}
+
+/* PRD F5: 첫 5초 발광 펄스 */
 .hit-zone.pulse {
-  animation: glowPulse 1.2s ease-in-out infinite;
+  animation: hitPulse 1.2s ease-in-out infinite;
 }
 
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 0   transparent); }
-  50%       { opacity: 1.0; filter: drop-shadow(0 0 8px gold);       }
+@keyframes hitPulse {
+  0%, 100% {
+    fill:   rgba(255, 209, 102, 0);
+    stroke: rgba(255, 209, 102, 0);
+  }
+  50% {
+    fill:   rgba(255, 209, 102, 0.30);
+    stroke: rgba(255, 209, 102, 0.95);
+  }
 }
 
 /* ── 세로(Portrait) 레이아웃 ───────────────────────────────────── */

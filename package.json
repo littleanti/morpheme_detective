@@ -2,6 +2,7 @@
   "name": "4-morpheme-detective",
   "type": "module",
   "scripts": {
+    "dev": "npx serve -p 3004",
     "serve": "npx serve -p 3004",
     "validate": "node scripts/validate-data.js"
   }
