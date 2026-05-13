@@ -1,12 +1,12 @@
 # 🗂️ PLAN — 형태소 탐정 게임
 
 > 개발 계획 및 진행 상태
-> Last updated: 2026-05-12
-> Status: **M3 돋보기·단어 분리·하이라이트·TTS 완료 (실기기 검증만 P1)**
+> Last updated: 2026-05-14
+> Status: **M4 상형문자 변형 (車/水/火) 완료 — M5 진입 점검 단계**
 
 ## 📌 현재 상태
 
-본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M3 완료 시점 기준 데이터 코어 + 시작 화면 + 주차장 SVG 일러스트(자체 제작) + hit zone 3개(주차장 표지판·빨간 자동차·파란 자동차) 발광 펄스 + 탭 → 단어 음절 분리 + 핵심 한자 음절 하이라이트 + Web Speech TTS("차, 수레 차") + 돋보기 자석 흡착 + spring-back 시각 거절 동작. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0 유지, 신규 7개 JS 모듈 syntax-check 통과.
+본 게임은 부모 `AGENTS.md`(2026-04-25)의 7단계 로드맵 중 **4단계(형태소 인식)** 에 해당. M4 완료 시점 기준 데이터 코어 + 시작 화면 + 주차장 SVG + hit zone 3개 발광 펄스 + 탭/클릭 → 단어 음절 분리 + 핵심 한자 음절 하이라이트 + Web Speech TTS + 돋보기 자석(실기기 통과) + spring-back 거절 + **상형문자 변형(車/水/火 3단계 path lerp + cross-fade 폴백)** 동작. 검증 스크립트(`npm run validate`) 오류 0 / 경고 0, morph 토큰 보간 호환 100%(車 11/11, 水 11/11, 火 11/11), 신규 8개 JS 모듈 syntax-check 통과.
 
 선행: `3_word_network` (구현 완료) — 일상 어휘 자동 읽기 졸업 가정
 후행: `5_vocabulary_tree` (설계 단계) — 발견 한자를 어휘 가지로 확장
@@ -18,8 +18,8 @@
 | M0 | 문서 합의 | PRD/TRD/PLAN 리뷰 완료, P0급 오픈 이슈 해소 |
 | M1 | 데이터 코어 | 한자 8자 메타·morph path·어휘 매핑·1개 스테이지 데이터 |
 | M2 | 일러스트 + Hit Zone | 1개 사건 SVG + 클릭 가능 객체 좌표·발광 힌트 동작 ✅ |
-| M3 | 돋보기 + 단어 분리 | 객체 탭 → 단어 → 음절 분리 + 핵심 음절 하이라이트 + TTS ✅ (실기기 P1) |
-| M4 | 상형문자 변형 | 실루엣 → 갑골문 → 해서체 SVG morph 부드러운 1.5 ~ 2.5초 |
+| M3 | 돋보기 + 단어 분리 | 객체 탭 → 단어 → 음절 분리 + 핵심 음절 하이라이트 + TTS ✅ (실기기 통과 2026-05-14) |
+| M4 | 상형문자 변형 | 실루엣 → 갑골문 → 해서체 SVG morph 부드러운 1.5 ~ 2.5초 ✅ (車/水/火) |
 | M5 | 어휘 카드 + TTS | 한자 공유 어휘 4 ~ 5개 카드 + 음·뜻 + 어휘 발음 |
 | M6 | MVP 게임 루프 | F1 ~ F12 완성, 1개 사건 완주 + 미션 카드 출력 |
 | M7 | 다중 사건 + 확장 | 사건 4개+, F13 ~ F19 확장 기능 |
@@ -157,7 +157,7 @@
   - `magnifier.css`: snapped 시 coral 글로우 (기존 스켈레톤 활용)
 
 ### P1 (M4 진입 전)
-- [ ] **실기기 1차 점검** — iPad / 갤럭시 탭 — 자석 흡착 거리·TTS 한국어 보이스 가용성
+- [x] **실기기 1차 점검** — iPad / 갤럭시 탭 — 자석 흡착 + 한국어 TTS 동작 확인 (2026-05-14)
 - [ ] 한국어 음성 미설치 환경 폴백 (시각 자막 + 효과음만) — Web Audio audio.js 도입 시
 - [ ] 보급형 안드로이드 입력 지연 ≤ 16ms 확인 (Performance 패널)
 
@@ -171,20 +171,76 @@
 - [x] 모든 신규/수정 모듈 `node --check` syntax OK
 - [ ] iPad / 갤럭시 탭 영상 검증 (P1)
 
-## 🐢→🐉 M4 — 상형문자 변형 애니메이션
+## 🐢→🐉 M4 — 상형문자 변형 애니메이션 (완료 · 2026-05-14)
 
-| # | 작업 | 비고 |
-|---|---|---|
-| 1 | `morph.js` — path 토큰 정규화 + 좌표 lerp | 단계 1: 기본 보간 |
-| 2 | requestAnimationFrame 루프 + duration 제어 | 1.5 ~ 2.5s, easing |
-| 3 | 단순 cross-fade 폴백 | 저사양 디바이스 / 토큰 수 미스매치 시 |
-| 4 | 저사양 감지 (`deviceMemory`, `hardwareConcurrency`) | 폴백 자동 전환 |
-| 5 | transform-origin = viewBox 중앙 고정 | 회전·스케일 안정성 |
-| 6 | 한자 8자 모두 동작 검증 | M1.6과 동기화 |
-| 7 | 보급형 안드로이드 30fps+ 측정 | Performance 패널 |
-| 8 | (선택) `flubber` 라이브러리 평가 | 자체 구현이 부족할 시 P1로 |
+### P0 (필수)
+- [x] **`src/js/morph.js`** — SVG path morph 엔진
+  - `tokenize(d)` — `[A-Za-z]+숫자열` 정규식 기반 명령 토큰화
+  - `isInterpolatable(a,b)` — 명령 시퀀스·인자 개수 1:1 매칭 검사
+  - `lerpTokens(a,b,t)` — 인자 단위 선형 보간 + `serialize()` 직렬화
+  - `animatePath(pathEl, fromD, toD, dur)` — `requestAnimationFrame` + `easeInOutCubic`
+  - `morphSequence(pathEl, paths, dur)` — n단계 순차 보간(0→1→2)
+  - `crossFadeSequence(container, paths, dur)` — 폴백: `.morph-stage.active` opacity 시퀀싱
+  - `isLowEndDevice()` — `deviceMemory < 2 || hardwareConcurrency < 4`
+  - `runMorph(container, data, dur)` — 호환·기기성능 자동 분기 (lerp ↔ cross-fade)
+  - `loadHanjaPaths(meta)` — `morphPathsRef` lazy fetch + `Map` 캐시
+  - `cancelMorph()` — rAF 취소 + cleanup
+- [x] **`src/assets/hanja/水.json`** — 3-step path (M+9L+Z=11) placeholder
+- [x] **`src/assets/hanja/火.json`** — 3-step path (M+9L+Z=11) placeholder
+- [x] **`stage.js` 통합** — `onHit` → TTS와 병렬로 `triggerMorph(hanja)` 호출
+  - 한자 JSON `loadHanjaPaths` → `runMorph` → `state.detection.morphPhase` 진행
+  - `unloadStage` 에 `cancelMorph` + `.morph-stage` 클리어 + `aria-hidden` 복귀
+- [x] **`index.html`** — `#morph-container.morph-container` + `.morph-backdrop` 도크 삽입
+- [x] **`morph.css` 활용** — `.morph-stage`/`.morph-path`/`.morph-backdrop` 기존 스켈레톤
+  - viewBox 0 0 200 200 고정, `preserveAspectRatio="xMidYMid meet"` → transform-origin 중앙 고정
+- [x] **저사양 자동 폴백** — `runMorph` 가 토큰 미스매치 또는 `isLowEndDevice()` 시 cross-fade 분기
+- [x] **검증 확장** — `scripts/validate-data.js` 가 車·水·火 명령 수 일치 검사
+  - `npm run validate` → 車/水/火 각 11개 명령 일치, 오류 0 / 경고 0
 
-종료 기준: 車/水/火 3자 morph 부드럽게 동작 + 보급형 안드로이드 30fps+ + 폴백 동작 영상 검증.
+### P1 (M5 진입 전)
+- [ ] 보급형 안드로이드(2GB RAM) 30fps+ Performance 패널 측정
+- [ ] `flubber` 라이브러리 도입 여부 결정 — 자체 lerp 품질이 부족할 때만
+- [ ] 木/山/日/月/人 morph path 5자 — Make Me a Hanzi(GPL) 실데이터 추출 (M1 P1과 동기화)
+- [ ] viewBox 200×200 ↔ stage SVG 1600×900 비례 시각 일관성(돋보기 멈춤 후 morph 등장 위치) 점검
+
+### 종료 기준 (Definition of Done) — 정적·데스크톱 충족
+- [x] 車/水/火 3자 morph 토큰 보간 호환 (`isInterpolatable` 100% 통과)
+- [x] 객체 탭 → TTS 직후 morph 컨테이너에서 실루엣 → 갑골문 → 해서체 부드럽게 동작
+- [x] 보간 불가 또는 저사양 시 cross-fade 자동 폴백
+- [x] 화면 전환 → `cancelMorph` + `.morph-stage` 클리어
+- [x] `npm run validate` 통과 (morph 확장 포함)
+- [x] `node --check` × morph.js / stage.js 통과
+- [ ] 보급형 안드로이드 30fps+ 영상 검증 (P1)
+
+## ✅ M5 진입 전 점검 (Gate Checklist)
+
+M5(어휘 카드 + TTS) 작업 시작 전 아래 항목을 일괄 확인한다.
+
+### 데이터 정합성
+- [ ] `src/data/hanja.js` 의 각 한자 `vocab[]` 가 어휘 카드 4 ~ 5개 노출에 충분한지 확인 (현재 5개 × 8자)
+- [ ] `vocab.js` 항목과 한자 카드 텍스트가 동일하게 표기되는지 검사 (`'주차장'` 표기 ↔ stage `word.text`)
+- [ ] 親숙도 순서 필드 추가 필요성 검토 — M5 #6 "카드 등장 순서 = 친숙도 순"
+  - 후보: `vocab.js` 항목에 `familiarity: 1|2|3` 추가 (1=가장 친숙) → card-deck 정렬 키
+
+### 모듈·UI 의존성
+- [ ] `tts.js` `speak(text)` 가 어휘 호출(한자 음·뜻이 아닌 일반 어휘)에서도 안정적인지 — iOS Safari rate 0.95 검증
+- [ ] morph 종료 (`state.detection.morphPhase === 'done'`) 직후 카드 펼침 트리거 지점 설계
+- [ ] `stage-dock` 세로 모드(30dvh) 안에 word-block + morph-container + card-deck 가 동시에 들어가는 레이아웃 (수평 스크롤 / 단계별 표시 / 접힘 중 결정)
+- [ ] 카드 부채꼴(가로) ↔ 수평 슬라이드(세로) 분기 — `@media (orientation: portrait)` 변형
+- [ ] 카드 TTS 중복 호출 방지 — 탭 중 cancel 정책 결정
+
+### 자산·접근성
+- [ ] 한국어 음성 미설치 환경 폴백(자막 + 효과음) 도입 시점 — M5 #4 vs M6
+- [ ] `audio.js`(Web Audio 효과음) 사전 디코딩 우선순위 — M5 #5
+- [ ] 카드 키보드 접근성: `role="button"` + `tabindex="0"` + Enter/Space 처리
+- [ ] 카드 색맹 대응 (테두리 + 형태 패턴 병기)
+
+### 회귀 가드
+- [ ] `npm run validate` 통과 유지
+- [ ] M3 실기기 회귀 — 클릭/탭, 자석, TTS unlock, spring-back 모두 정상
+- [ ] M4 morph — `unloadStage` 시 잔여 `.morph-stage` / 백드롭 잔상 없음
+
+> 위 4개 군 모두 [x] 가 되어야 M5 착수.
 
 ## 🃏 M5 — 어휘 카드 + TTS
 

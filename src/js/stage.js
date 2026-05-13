@@ -6,6 +6,7 @@ import { PULSE_DURATION } from './config.js';
 import { showWord, clearWord } from './word-block.js';
 import { speakHanja, cancel as cancelTts } from './tts.js';
 import { getSnappedHitZone } from './magnifier.js';
+import { runMorph, loadHanjaPaths, cancelMorph } from './morph.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 let pulseTimer  = null;
@@ -100,7 +101,22 @@ function onHit({ objectId, wordId, label }) {
     setTimeout(() => speakHanja({ reading: hanja.reading, meaning: hanja.meaning }), 260);
   }
 
-  // M4: morph 애니메이션, M5: 어휘 카드 — 이후 마일스톤
+  // M4: 상형문자 변형 애니메이션 (실루엣 → 갑골문 → 해서체)
+  triggerMorph(hanja).catch(e => console.warn('[stage] morph 실패:', e));
+
+  // M5: 어휘 카드 — 이후 마일스톤
+}
+
+async function triggerMorph(hanja) {
+  if (!hanja) return;
+  const container = document.getElementById('morph-container');
+  if (!container) return;
+  const data = await loadHanjaPaths(hanja);
+  if (!data) return;
+  container.setAttribute('aria-hidden', 'false');
+  state.detection.morphPhase = 'silhouette';
+  await runMorph(container, data);
+  state.detection.morphPhase = 'done';
 }
 
 function springBackFlash(svg, e) {
@@ -136,15 +152,23 @@ function stopPulse() {
 
 export function unloadStage() {
   cancelTts();
+  cancelMorph();
   if (pulseTimer) { clearTimeout(pulseTimer); pulseTimer = null; }
   if (svgEl && hitListener) svgEl.removeEventListener('click', hitListener);
   const canvas = document.getElementById('stage-canvas');
   if (canvas) canvas.innerHTML = '';
   clearWord();
-  state.stage.currentStageId    = null;
+  const morphEl = document.getElementById('morph-container');
+  if (morphEl) {
+    morphEl.querySelectorAll('.morph-stage').forEach(n => n.remove());
+    morphEl.querySelector('.morph-backdrop')?.classList.remove('animating');
+    morphEl.setAttribute('aria-hidden', 'true');
+  }
+  state.stage.currentStageId     = null;
   state.stage.illustrationLoaded = false;
-  state.stage.hitZones          = [];
-  state.stage.pulseUntilTs      = 0;
+  state.stage.hitZones           = [];
+  state.stage.pulseUntilTs       = 0;
+  state.detection.morphPhase     = 'idle';
   hitListener  = null;
   svgEl        = null;
   currentStage = null;

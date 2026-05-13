@@ -46,19 +46,22 @@ for (const id of HANJA_IDS) {
     warn(`${id}: vocab ${h.vocab?.length ?? 0}개 (권장 4~5)`);
 }
 
-// ── 2. 車 morph path (P0 필수) ──────────────────────────────────
-try {
-  const car = JSON.parse(readFileSync(join(root, 'src/assets/hanja/車.json'), 'utf8'));
-  if (!Array.isArray(car.morphPaths) || car.morphPaths.length !== 3)
-    err('車.json: morphPaths 3개 필요');
-  else {
-    const cmdCounts = car.morphPaths.map(p => (p.match(/[MLHVCSQTAZ]/gi) || []).length);
+// ── 2. morph path 검증 (P0: 車 / M4 데모: 水·火) ────────────────
+const MORPH_REQUIRED = ['車', '水', '火'];
+for (const hid of MORPH_REQUIRED) {
+  try {
+    const data = JSON.parse(readFileSync(join(root, `src/assets/hanja/${hid}.json`), 'utf8'));
+    if (!Array.isArray(data.morphPaths) || data.morphPaths.length !== 3) {
+      err(`${hid}.json: morphPaths 3개 필요`);
+      continue;
+    }
+    const cmdCounts = data.morphPaths.map(p => (p.match(/[MLHVCSQTAZ]/gi) || []).length);
     const allSame   = cmdCounts.every(c => c === cmdCounts[0]);
-    if (!allSame) warn(`車.json: morphPaths 명령 수 불일치 ${cmdCounts} — 보간 시 정규화 필요`);
-    else ok(`車 morph paths: 3단계, 명령 수 ${cmdCounts[0]}개 일치`);
+    if (!allSame) warn(`${hid}.json: morphPaths 명령 수 불일치 ${cmdCounts} — 보간 시 cross-fade 폴백`);
+    else ok(`${hid} morph paths: 3단계, 명령 수 ${cmdCounts[0]}개 일치`);
+  } catch (e) {
+    err(`${hid}.json 로드 실패: ${e.message}`);
   }
-} catch (e) {
-  err(`車.json 로드 실패: ${e.message}`);
 }
 
 // ── 3. vocab.js ─────────────────────────────────────────────────

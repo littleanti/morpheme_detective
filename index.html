@@ -63,7 +63,11 @@
     <div class="stage-dock" id="stage-dock">
       <button id="btn-play-back" class="btn small ghost" aria-label="홈으로">← 홈</button>
       <p class="dock-hint">반짝이는 곳을 탭하거나 클릭하세요!</p>
-      <!-- M3: word-block / M5: card-deck -->
+      <!-- M3: word-block — stage.js 가 동적 삽입 -->
+      <div id="morph-container" class="morph-container" aria-hidden="true">
+        <div class="morph-backdrop"></div>
+      </div>
+      <!-- M5: card-deck -->
     </div>
   </section>
 

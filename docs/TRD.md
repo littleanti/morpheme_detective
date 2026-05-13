@@ -1,8 +1,8 @@
 # 🔧 TRD — 형태소 탐정 게임
 
 > Technical Requirements Document
-> Last updated: 2026-05-12
-> Status: **M3 완료** — M2 위에 hangul.js / tts.js / word-block.js / magnifier.js 추가 + pointer.js 강화 + stage.js·main.js 통합. 객체 탭 → 음절 분리 + 핵심 한자 하이라이트 + TTS + 돋보기 자석 + spring-back 거절 동작. `npm run validate` 통과, 신규 7개 JS 모듈 `node --check` 통과.
+> Last updated: 2026-05-14
+> Status: **M4 완료** — M3 위에 `morph.js` 추가(토큰 정규화 + 좌표 lerp + cross-fade 폴백 + 저사양 감지) + `水.json`/`火.json` 3-step path placeholder + `stage.js` triggerMorph 통합 + `index.html` morph-container 도크 삽입. `npm run validate` morph 정합성 검사 확장(車/水/火 명령 수 11개 일치). 신규 8개 JS 모듈 `node --check` 통과.
 > Target: 모바일 태블릿 1순위, 폰 2순위, PC 보조
 
 ## 1. 기술 스택

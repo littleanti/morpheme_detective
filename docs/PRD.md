@@ -1,8 +1,8 @@
 # 📋 PRD — 형태소 탐정 게임
 
 > Product Requirements Document
-> Last updated: 2026-05-12
-> Status: **M3 돋보기·단어 분리·하이라이트·TTS 완료** — 객체 탭 → 음절 분리 + 핵심 한자 하이라이트 + Web Speech "차, 수레 차" + 돋보기 자석 + spring-back 거절 동작 (실기기 검증만 P1 / M4 상형문자 변형 착수 가능)
+> Last updated: 2026-05-14
+> Status: **M4 상형문자 변형 완료** — 객체 탭 → 음절 분리 + 한자 하이라이트 + TTS + 돋보기 자석(실기기 통과 2026-05-14) + 車/水/火 path morph(실루엣 → 갑골문 → 해서체) + 저사양 cross-fade 폴백. 다음: M5 어휘 카드 + TTS (진입 점검 PLAN.md 참조).
 
 ## 1. 제품 개요
 
