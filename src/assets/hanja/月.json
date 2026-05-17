@@ -1,0 +1,14 @@
+{
+  "id": "月",
+  "reading": "월",
+  "meaning": "달",
+  "source": "placeholder — Make Me a Hanzi(GPL) 에서 추출 필요: graphics/月.json",
+  "viewBox": "0 0 200 200",
+  "morphPaths": [
+    "M 100,10 L 145,25 L 175,70 L 180,100 L 175,130 L 145,175 L 100,190 L 65,155 L 85,100 L 65,45 Z",
+    "M 100,15 L 140,30 L 170,75 L 175,100 L 170,125 L 140,170 L 100,185 L 60,150 L 80,100 L 60,50 Z",
+    "M 40,20 L 160,20 L 160,180 L 40,180 L 40,85 L 160,85 L 40,85 L 40,130 L 160,130 L 40,130 Z"
+  ],
+  "strokeCount": 4,
+  "notes": "3-step morph: 초승달 실루엣 → 갑골문(甲骨文) → 해서체(楷書). placeholder."
+}

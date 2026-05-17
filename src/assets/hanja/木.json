@@ -1,0 +1,14 @@
+{
+  "id": "木",
+  "reading": "목",
+  "meaning": "나무",
+  "source": "placeholder — Make Me a Hanzi(GPL) 에서 추출 필요: graphics/木.json",
+  "viewBox": "0 0 200 200",
+  "morphPaths": [
+    "M 100,10 L 155,65 L 130,65 L 145,130 L 120,130 L 120,185 L 80,185 L 80,130 L 55,130 L 70,65 Z",
+    "M 100,15 L 150,70 L 120,70 L 140,125 L 115,125 L 115,180 L 85,180 L 85,125 L 60,125 L 80,70 Z",
+    "M 20,45 L 180,45 L 180,70 L 115,70 L 115,185 L 85,185 L 85,70 L 20,70 L 60,130 L 140,130 Z"
+  ],
+  "strokeCount": 4,
+  "notes": "3-step morph: 나무 실루엣 → 갑골문(甲骨文) → 해서체(楷書). placeholder."
+}

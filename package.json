@@ -4,6 +4,10 @@
   "scripts": {
     "dev": "npx serve -p 3004",
     "serve": "npx serve -p 3004",
-    "validate": "node scripts/validate-data.js"
+    "validate": "node scripts/validate-data.js",
+    "gen-icons": "node scripts/gen-icons.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

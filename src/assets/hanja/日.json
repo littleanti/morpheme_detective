@@ -1,0 +1,14 @@
+{
+  "id": "日",
+  "reading": "일",
+  "meaning": "해",
+  "source": "placeholder — Make Me a Hanzi(GPL) 에서 추출 필요: graphics/日.json",
+  "viewBox": "0 0 200 200",
+  "morphPaths": [
+    "M 100,10 L 160,35 L 190,100 L 160,165 L 100,190 L 40,165 L 10,100 L 40,35 L 100,100 L 100,95 Z",
+    "M 25,15 L 175,15 L 185,100 L 175,185 L 25,185 L 15,100 L 25,15 L 25,100 L 175,100 L 175,15 Z",
+    "M 30,20 L 170,20 L 170,100 L 170,180 L 30,180 L 30,100 L 30,20 L 100,20 L 100,180 L 100,100 Z"
+  ],
+  "strokeCount": 4,
+  "notes": "3-step morph: 원형 태양 실루엣 → 갑골문(甲骨文) → 해서체(楷書). placeholder."
+}

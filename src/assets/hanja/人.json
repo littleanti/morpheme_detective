@@ -1,0 +1,14 @@
+{
+  "id": "人",
+  "reading": "인",
+  "meaning": "사람",
+  "source": "placeholder — Make Me a Hanzi(GPL) 에서 추출 필요: graphics/人.json",
+  "viewBox": "0 0 200 200",
+  "morphPaths": [
+    "M 100,10 L 150,60 L 140,90 L 180,185 L 155,185 L 120,100 L 80,100 L 45,185 L 20,185 L 60,90 Z",
+    "M 100,15 L 145,65 L 135,90 L 175,180 L 150,180 L 115,95 L 85,95 L 50,180 L 25,180 L 55,65 Z",
+    "M 100,10 L 160,90 L 190,160 L 190,185 L 165,185 L 100,80 L 35,185 L 10,185 L 10,160 L 40,90 Z"
+  ],
+  "strokeCount": 2,
+  "notes": "3-step morph: 사람 실루엣 → 갑골문(甲骨文) → 해서체(楷書). placeholder."
+}

@@ -46,8 +46,8 @@ for (const id of HANJA_IDS) {
     warn(`${id}: vocab ${h.vocab?.length ?? 0}개 (권장 4~5)`);
 }
 
-// ── 2. morph path 검증 (P0: 車 / M4 데모: 水·火) ────────────────
-const MORPH_REQUIRED = ['車', '水', '火'];
+// ── 2. morph path 검증 (P0: 車 / M4 데모: 水·火 / 새로운: 木·山·日·月·人) ────────────────
+const MORPH_REQUIRED = ['車', '水', '火', '木', '山', '日', '月', '人'];
 for (const hid of MORPH_REQUIRED) {
   try {
     const data = JSON.parse(readFileSync(join(root, `src/assets/hanja/${hid}.json`), 'utf8'));
