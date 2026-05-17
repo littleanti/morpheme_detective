@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778413200341,
+  "lastScanned": 1778516202246,
   "projectRoot": "D:\\yoon\\codes\\hangul_games\\4_morpheme_detective",
   "techStack": {
     "languages": [
@@ -21,8 +21,9 @@
     "buildCommand": null,
     "testCommand": null,
     "lintCommand": null,
-    "devCommand": null,
+    "devCommand": "npm run dev",
     "scripts": {
+      "dev": "npx serve -p 3004",
       "serve": "npx serve -p 3004",
       "validate": "node scripts/validate-data.js"
     }
@@ -49,7 +50,7 @@
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 4,
-      "lastAccessed": 1778413200308,
+      "lastAccessed": 1778516202213,
       "keyFiles": [
         "AGENTS.md",
         "PLAN.md",
@@ -61,7 +62,7 @@
       "path": "scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1778413200308,
+      "lastAccessed": 1778516202214,
       "keyFiles": [
         "validate-data.js"
       ]
@@ -70,21 +71,21 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1778413200317,
+      "lastAccessed": 1778516202222,
       "keyFiles": []
     },
     "src\\assets": {
       "path": "src\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1778413200318,
+      "lastAccessed": 1778516202222,
       "keyFiles": []
     },
     "src\\data": {
       "path": "src\\data",
       "purpose": "Data files",
       "fileCount": 3,
-      "lastAccessed": 1778413200318,
+      "lastAccessed": 1778516202223,
       "keyFiles": [
         "hanja.js",
         "stages.js",
@@ -95,20 +96,86 @@
   "hotPaths": [
     {
       "path": "docs\\PLAN.md",
-      "accessCount": 6,
-      "lastAccessed": 1778516029890,
+      "accessCount": 15,
+      "lastAccessed": 1778689276883,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\stage.js",
+      "accessCount": 8,
+      "lastAccessed": 1778689167356,
       "type": "file"
     },
     {
       "path": "docs\\PRD.md",
-      "accessCount": 3,
-      "lastAccessed": 1778516036236,
+      "accessCount": 6,
+      "lastAccessed": 1778689284659,
       "type": "file"
     },
     {
       "path": "docs\\TRD.md",
+      "accessCount": 5,
+      "lastAccessed": 1778689293469,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\pointer.js",
+      "accessCount": 3,
+      "lastAccessed": 1778516292197,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\main.js",
+      "accessCount": 3,
+      "lastAccessed": 1778516325293,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 3,
+      "lastAccessed": 1778689141691,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\utils.js",
       "accessCount": 2,
-      "lastAccessed": 1778516044579,
+      "lastAccessed": 1778516218869,
+      "type": "file"
+    },
+    {
+      "path": "src\\data\\stages.js",
+      "accessCount": 2,
+      "lastAccessed": 1778516220085,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 2,
+      "lastAccessed": 1778516220462,
+      "type": "file"
+    },
+    {
+      "path": "src\\css\\stage.css",
+      "accessCount": 2,
+      "lastAccessed": 1778516333929,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\magnifier.js",
+      "accessCount": 2,
+      "lastAccessed": 1778517364110,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 2,
+      "lastAccessed": 1778689078239,
+      "type": "directory"
+    },
+    {
+      "path": "scripts\\validate-data.js",
+      "accessCount": 2,
+      "lastAccessed": 1778689182788,
       "type": "file"
     },
     {
@@ -118,57 +185,105 @@
       "type": "file"
     },
     {
-      "path": "src\\js\\utils.js",
-      "accessCount": 1,
-      "lastAccessed": 1778414235718,
-      "type": "file"
-    },
-    {
-      "path": "src\\js\\pointer.js",
-      "accessCount": 1,
-      "lastAccessed": 1778414241533,
-      "type": "file"
-    },
-    {
       "path": "src\\js\\viewport.js",
       "accessCount": 1,
       "lastAccessed": 1778414244262,
       "type": "file"
     },
     {
-      "path": "src\\js\\stage.js",
+      "path": "src\\js\\config.js",
       "accessCount": 1,
-      "lastAccessed": 1778414260880,
+      "lastAccessed": 1778516217328,
       "type": "file"
     },
     {
-      "path": "src\\data\\stages.js",
+      "path": "src\\js\\state.js",
       "accessCount": 1,
-      "lastAccessed": 1778414285969,
+      "lastAccessed": 1778516217744,
       "type": "file"
     },
     {
-      "path": "package.json",
+      "path": "src\\data\\hanja.js",
       "accessCount": 1,
-      "lastAccessed": 1778515955639,
+      "lastAccessed": 1778516219301,
       "type": "file"
     },
     {
-      "path": "src\\js\\main.js",
+      "path": "src\\data\\vocab.js",
       "accessCount": 1,
-      "lastAccessed": 1778515968977,
+      "lastAccessed": 1778516219681,
       "type": "file"
     },
     {
-      "path": "index.html",
+      "path": "src\\css\\word-blocks.css",
       "accessCount": 1,
-      "lastAccessed": 1778515973728,
+      "lastAccessed": 1778516252492,
       "type": "file"
     },
     {
-      "path": "src\\css\\stage.css",
+      "path": "src\\css\\magnifier.css",
       "accessCount": 1,
-      "lastAccessed": 1778515981450,
+      "lastAccessed": 1778516252549,
+      "type": "file"
+    },
+    {
+      "path": "src\\css\\tokens.css",
+      "accessCount": 1,
+      "lastAccessed": 1778516252715,
+      "type": "file"
+    },
+    {
+      "path": "src\\css\\base.css",
+      "accessCount": 1,
+      "lastAccessed": 1778516253076,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\hangul.js",
+      "accessCount": 1,
+      "lastAccessed": 1778516265496,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\tts.js",
+      "accessCount": 1,
+      "lastAccessed": 1778516271348,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\word-block.js",
+      "accessCount": 1,
+      "lastAccessed": 1778516279045,
+      "type": "file"
+    },
+    {
+      "path": "src\\css\\morph.css",
+      "accessCount": 1,
+      "lastAccessed": 1778689078881,
+      "type": "file"
+    },
+    {
+      "path": "src\\assets\\hanja\\車.json",
+      "accessCount": 1,
+      "lastAccessed": 1778689079203,
+      "type": "file"
+    },
+    {
+      "path": "src\\assets\\hanja\\水.json",
+      "accessCount": 1,
+      "lastAccessed": 1778689099702,
+      "type": "file"
+    },
+    {
+      "path": "src\\assets\\hanja\\火.json",
+      "accessCount": 1,
+      "lastAccessed": 1778689103627,
+      "type": "file"
+    },
+    {
+      "path": "src\\js\\morph.js",
+      "accessCount": 1,
+      "lastAccessed": 1778689131578,
       "type": "file"
     }
   ],

@@ -1,8 +1,8 @@
 # 🗂️ PLAN — 형태소 탐정 게임
 
 > 개발 계획 및 진행 상태
-> Last updated: 2026-05-14
-> Status: **M4 상형문자 변형 (車/水/火) 완료 — M5 진입 점검 단계**
+> Last updated: 2026-05-17
+> Status: **M7 다중 사건·컬렉션·줌/팬 완료 + M8 PWA 코드 작업 완료 — 실기기 매트릭스 / 폰트 서브셋만 남음**
 
 ## 📌 현재 상태
 
@@ -72,8 +72,11 @@
   - `npm run validate` → ✅ 오류 0개 / 경고 0개
 
 ### P1 (M2~M4 진입 전)
-- [ ] morph path 나머지 7자 (水/火/木/山/日/月/人) — Make Me a Hanzi 추출
-- [ ] 한자 폰트 서브셋 (Noto Sans CJK 100자) — `pyftsubset`, woff2 < 200KB
+- [x] morph path 나머지 7자 — placeholder JSON 생성 완료 (2026-05-16)
+  - 水/火: M4에서 placeholder 작성
+  - 木/山/日/月/人: M8에서 placeholder 작성
+  - ⚠️ 실 데이터 교체는 Make Me a Hanzi(GPL) 추출 필요 → M9
+- [ ] 한자 폰트 서브셋 (Noto Sans CJK 100자) — `pyftsubset`, woff2 < 200KB (외부 폰트 파일 필요)
 
 ### 종료 기준 (Definition of Done) — 충족
 - [x] `data/hanja.js` import → `'車'` 객체에서 음/뜻/morphPathsRef/vocab 접근 가능
@@ -158,7 +161,7 @@
 
 ### P1 (M4 진입 전)
 - [x] **실기기 1차 점검** — iPad / 갤럭시 탭 — 자석 흡착 + 한국어 TTS 동작 확인 (2026-05-14)
-- [ ] 한국어 음성 미설치 환경 폴백 (시각 자막 + 효과음만) — Web Audio audio.js 도입 시
+- [x] 한국어 음성 미설치 환경 폴백 — `isAvailable()` false 시 `.tts-unavail` + 🔇 힌트 + `audio.js` 효과음 (M5에서 구현)
 - [ ] 보급형 안드로이드 입력 지연 ≤ 16ms 확인 (Performance 패널)
 
 ### 종료 기준 (Definition of Done) — 데스크톱·정적 검증 통과
@@ -199,8 +202,8 @@
 
 ### P1 (M5 진입 전)
 - [ ] 보급형 안드로이드(2GB RAM) 30fps+ Performance 패널 측정
-- [ ] `flubber` 라이브러리 도입 여부 결정 — 자체 lerp 품질이 부족할 때만
-- [ ] 木/山/日/月/人 morph path 5자 — Make Me a Hanzi(GPL) 실데이터 추출 (M1 P1과 동기화)
+- [x] `flubber` 라이브러리 도입 여부 결정 — MVP 단계에서 자체 lerp 유지 결정 (2026-05-16). 실기기 30fps 미달 시 M9에서 재검토.
+- [x] 木/山/日/月/人 morph path 5자 — placeholder JSON 생성 완료 (2026-05-16). Make Me a Hanzi 실데이터 교체는 M9.
 - [ ] viewBox 200×200 ↔ stage SVG 1600×900 비례 시각 일관성(돋보기 멈춤 후 morph 등장 위치) 점검
 
 ### 종료 기준 (Definition of Done) — 정적·데스크톱 충족
@@ -217,81 +220,140 @@
 M5(어휘 카드 + TTS) 작업 시작 전 아래 항목을 일괄 확인한다.
 
 ### 데이터 정합성
-- [ ] `src/data/hanja.js` 의 각 한자 `vocab[]` 가 어휘 카드 4 ~ 5개 노출에 충분한지 확인 (현재 5개 × 8자)
-- [ ] `vocab.js` 항목과 한자 카드 텍스트가 동일하게 표기되는지 검사 (`'주차장'` 표기 ↔ stage `word.text`)
-- [ ] 親숙도 순서 필드 추가 필요성 검토 — M5 #6 "카드 등장 순서 = 친숙도 순"
-  - 후보: `vocab.js` 항목에 `familiarity: 1|2|3` 추가 (1=가장 친숙) → card-deck 정렬 키
+- [x] `src/data/hanja.js` 의 각 한자 `vocab[]` 가 어휘 카드 4 ~ 5개 노출에 충분한지 확인 (5개 × 8자 확인)
+- [x] `vocab.js` 항목과 한자 카드 텍스트가 동일하게 표기되는지 검사 (`'주차장'`/`'자동차'` 일치 확인)
+- [x] 친숙도 순서 필드 추가 — `vocab.js` 36개 항목 전체에 `familiarity: 1|2|3` 추가 (2026-05-16)
 
 ### 모듈·UI 의존성
-- [ ] `tts.js` `speak(text)` 가 어휘 호출(한자 음·뜻이 아닌 일반 어휘)에서도 안정적인지 — iOS Safari rate 0.95 검증
-- [ ] morph 종료 (`state.detection.morphPhase === 'done'`) 직후 카드 펼침 트리거 지점 설계
-- [ ] `stage-dock` 세로 모드(30dvh) 안에 word-block + morph-container + card-deck 가 동시에 들어가는 레이아웃 (수평 스크롤 / 단계별 표시 / 접힘 중 결정)
-- [ ] 카드 부채꼴(가로) ↔ 수평 슬라이드(세로) 분기 — `@media (orientation: portrait)` 변형
-- [ ] 카드 TTS 중복 호출 방지 — 탭 중 cancel 정책 결정
+- [x] `tts.js` `speak(text)` 어휘 호출 안정적 — `isAvailable()` 폴백 포함
+- [x] morph 종료 직후 카드 펼침 트리거 — `triggerMorph()` await 완료 → `showCardDeck()` Promise 체인
+- [x] 세로 모드 레이아웃 — 단계별 순차 표시 (word-block → morph → card-deck 슬라이드업)
+- [x] 카드 부채꼴(가로) ↔ 수평 슬라이드(세로) — `@media (orientation: portrait)` 분기 구현
+- [x] 카드 TTS 중복 방지 — `speak()` 호출 전 `synth.cancel()` (tts.js 기존 동작)
 
 ### 자산·접근성
-- [ ] 한국어 음성 미설치 환경 폴백(자막 + 효과음) 도입 시점 — M5 #4 vs M6
-- [ ] `audio.js`(Web Audio 효과음) 사전 디코딩 우선순위 — M5 #5
-- [ ] 카드 키보드 접근성: `role="button"` + `tabindex="0"` + Enter/Space 처리
-- [ ] 카드 색맹 대응 (테두리 + 형태 패턴 병기)
+- [x] 한국어 음성 미설치 폴백 — `isAvailable()` false 시 `.tts-unavail` 클래스 + 🔇 힌트
+- [x] `audio.js` Web Audio Oscillator 효과음 — unlock/play/stopAll 구현 (2026-05-16)
+- [x] 카드 키보드 접근성 — `role="button"` + `tabindex="0"` + Enter/Space 처리
+- [x] 카드 색맹 대응 — `border-bottom: 6px solid var(--navy)` 형태 패턴 병기
 
 ### 회귀 가드
-- [ ] `npm run validate` 통과 유지
-- [ ] M3 실기기 회귀 — 클릭/탭, 자석, TTS unlock, spring-back 모두 정상
-- [ ] M4 morph — `unloadStage` 시 잔여 `.morph-stage` / 백드롭 잔상 없음
+- [x] `npm run validate` 통과 (오류 0 / 경고 0) — 2026-05-16
+- [ ] M3 실기기 회귀 — 클릭/탭, 자석, TTS unlock, spring-back 모두 정상 (실기기 미확인)
+- [x] M4 morph — `unloadStage` 시 잔여 `.morph-stage` / 백드롭 잔상 없음 (clearCards 추가)
 
-> 위 4개 군 모두 [x] 가 되어야 M5 착수.
+> 위 4개 군 코드 기준 충족 → M5 구현 완료 (2026-05-16). 실기기 검증은 M8에서 수행.
 
-## 🃏 M5 — 어휘 카드 + TTS
+## 🃏 M5 — 어휘 카드 + TTS (완료 · 2026-05-16)
 
 | # | 작업 | 비고 |
 |---|---|---|
-| 1 | `card-deck.js` — 부채꼴 등장 애니메이션 | rotate + translate transition |
-| 2 | 카드 탭 → 어휘 발음 (Web Speech) | TTS rate 0.95, ko-KR |
-| 3 | 음·뜻 자동 발음 (한자 변형 직후) | "차, 수레 차" |
-| 4 | 한국어 음성 미설치 폴백 | 시각 자막 + 효과음만 |
-| 5 | `audio.js` — 발견음/변형음/보상음 | Web Audio 사전 디코딩 |
-| 6 | 카드 등장 순서 = 친숙도 순 | vocab 데이터 우선순위 필드 |
+| 1 | `card-deck.js` — 부채꼴 등장 애니메이션 | rotate + translate transition ✅ |
+| 2 | 카드 탭 → 어휘 발음 (Web Speech) | TTS rate 0.95, ko-KR ✅ |
+| 3 | 음·뜻 자동 발음 (한자 변형 직후) | "차, 수레 차" (기존 M3 동작) ✅ |
+| 4 | 한국어 음성 미설치 폴백 | `.tts-unavail` + 🔇 힌트 ✅ |
+| 5 | `audio.js` — 발견음/변형음/보상음 | Oscillator 기반, 외부 파일 없음 ✅ |
+| 6 | 카드 등장 순서 = 친숙도 순 | `familiarity: 1|2|3` 36개 배정 ✅ |
 
 종료 기준: 한자 발견 직후 카드 4개가 부드럽게 펼쳐지고, 각 카드 탭 시 발음. iOS Safari TTS unlock 검증.
 
-## 🎮 M6 — MVP 게임 루프 (F1 ~ F12)
+## 🎮 M6 — MVP 게임 루프 (F1 ~ F12) ✅ 완료 · 2026-05-16
 
-| # | 기능 | 의존 마일스톤 |
+| # | 기능 | 상태 |
 |---|---|---|
-| 1 | 시작 화면 (F1, F2) — 가로/세로 모두 지원, 회전 안내 없음 | — |
-| 2 | 사건 카드 선택 화면 (F3) | M2 |
-| 3 | 일러스트 + 클릭 객체 + 발광 힌트 (F4, F5) | M2 |
-| 4 | 돋보기 자석 (F6) | M3 |
-| 5 | 단어 → 음절 분리 + 한자 음절 하이라이트 (F7, F8) | M3 |
-| 6 | 상형문자 변형 (F9) | M4 |
-| 7 | 어휘 카드 덱 (F10) | M5 |
-| 8 | 진행률 + 별 스티커 (F11) | — |
-| 9 | 종료 화면 + 미션 카드 (F12) | `mission.js` |
-| 10 | `game.js` — 라운드 컨트롤러 통합 | 모든 위 |
-| 11 | 사건 1개 = 한자 1 ~ 2개 발견 시나리오 | — |
+| 1 | 시작 화면 (F1, F2) — 가로/세로 모두 지원, 회전 안내 없음 | ✅ |
+| 2 | 사건 카드 선택 화면 (F3) — MVP: 주차장 자동 진입 | ✅ |
+| 3 | 일러스트 + 클릭 객체 + 발광 힌트 (F4, F5) | ✅ |
+| 4 | 돋보기 자석 (F6) | ✅ |
+| 5 | 단어 → 음절 분리 + 한자 음절 하이라이트 (F7, F8) | ✅ |
+| 6 | 상형문자 변형 (F9) | ✅ |
+| 7 | 어휘 카드 덱 (F10) | ✅ |
+| 8 | 진행률 + 별 스티커 (F11) — `progress.js` / `game.js` | ✅ |
+| 9 | 종료 화면 + 미션 카드 (F12) — `mission.js` SVG text 기반 | ✅ |
+| 10 | `game.js` — 라운드 컨트롤러 통합 | ✅ |
+| 11 | 사건 1개 = 한자 1개(車) 발견 시나리오 | ✅ |
 
-종료 기준: 1개 사건(주차장 권장)에서 학습자가 한자 1개를 발견하고 어휘 카드까지 탐색 + 미션 카드 출력 완주 가능. 초1 사용자 시범에서 부모 개입 ≤ 1회.
+### 구현 내용 (2026-05-16 · 1차)
+- `src/js/progress.js` (신규): localStorage `4md:collected`/`4md:stars` 영속화, Private Mode 폴백
+- `src/js/mission.js` (신규): 미션 카드 HTML 렌더 + SVG `<text>` 기반 다운로드 + Web Share API
+- `src/js/game.js` (신규): 라운드 컨트롤러 — 발견 콜백, 진행률 UI, 미션/종료 화면 진입
+- `src/js/stage.js` (수정): `setDiscoveryCallback()` + 발견 후 콜백 호출
+- `src/js/state.js` (수정): `sessionCollected: new Set()` 추가
+- `src/js/main.js` (수정): `initGame`, `btn-show-mission`, 종료 화면 이벤트 위임
+- `index.html` (수정): 도크 상단 바 (진행률 + 미션 버튼), mission/end 화면 컨테이너
+- `src/css/screens.css` (수정): 도크 상단 바, 미션 카드, 종료 화면 스타일
 
-## 🌐 M7 — 다중 사건 + 확장 기능
+### 안정화 (2026-05-16 · 2차)
+- **F3 사건 선택 화면 구현**: `btn-start` → stage-select 화면 → 사건 카드 클릭 → play
+  - `stages.js` 기반 동적 렌더 (`_renderStageSelect()`), M7 다중 사건 확장 준비
+  - `src/css/screens.css`: `.stage-card` / `.stage-card-list` / `.stage-select-wrap` 스타일
+- **Portrait 도크 UX 개선**: `stage.css` 세로 도크를 `flex-direction: column` 세로 스택으로 변경
+  - 도크 상단 바 고정, 나머지 콘텐츠 `overflow-y: auto` 스크롤
+  - `card-deck.css`: 세로 도크 내 카드 덱 `overflow-x: auto` 독립 가로 스크롤
+  - 오래된 portrait `dock-top-bar` 세로 스택 CSS 오버라이드 제거
+- **별 표시 정책 명시**: 8한자 기준 최대 8별 (의도된 상한) — `progress.js`/`game.js` 주석 추가
 
-| # | 작업 | 우선 |
-|---|---|---|
-| 1 | 사건 4개 (학교 급식실, 주차장, 소방서, 약수터) | High |
-| 2 | F13 줌/팬 모드 (폰 우선) | High |
-| 3 | F14 도감(컬렉션) 화면 | High |
-| 4 | F15 한자 풀 필터 (교사·부모 설정) | Med |
-| 5 | F16 진척도 영속화 (`4md:` localStorage) | High |
-| 6 | F17 음·뜻 자동 TTS 정책 정리 | High |
-| 7 | F18 부분 힌트 (펄스 강화) | Med |
-| 8 | F19 다크 모드 + 폰트 크기 | Low |
-| 9 | 한자 8자 모두 적어도 1 사건에서 발견 가능 | High |
+종료 기준: 시작 → 사건 선택 → 주차장 → 탭 → 음절 분리 → morph → 카드 → 별 갱신 → 미션 보기 → 종료 → 다시하기/홈. `npm run validate` + `node --check` 통과.
 
-종료 기준: 사건 4종 모두에서 한자 발견 → 컬렉션 누적 → 다음 세션에 별·컬렉션 유지. 모든 확장 토글이 MVP 흐름을 깨지 않음.
+## 🌐 M7 — 다중 사건 + 확장 기능 ✅ 완료 · 2026-05-16
+
+| # | 작업 | 우선 | 상태 |
+|---|---|---|---|
+| 1 | 사건 4개 (학교 급식실, 주차장, 소방서, 약수터) | High | ✅ |
+| 2 | F13 줌/팬 모드 (폰 우선) | High | ✅ |
+| 3 | F14 도감(컬렉션) 화면 | High | ✅ |
+| 4 | F15 한자 풀 필터 (교사·부모 설정) | Med | ⏳ M8+ |
+| 5 | F16 진척도 영속화 (`4md:` localStorage) | High | ✅ (M6에서 완료) |
+| 6 | F17 음·뜻 자동 TTS 정책 정리 | High | ⏳ M8+ |
+| 7 | F18 부분 힌트 (펄스 강화) | Med | ⏳ M8+ |
+| 8 | F19 다크 모드 + 폰트 크기 | Low | ⏳ M8+ |
+| 9 | 한자 8자 모두 적어도 1 사건에서 발견 가능 | High | ✅ |
+
+### 구현 내용 (2026-05-16)
+- `src/data/stages.js` (수정): school-cafeteria/fire-station/water-spring 사건 3개 추가
+- `src/assets/stages/school-cafeteria.svg` (신규): 木/人/水 한자 hit zone SVG
+- `src/assets/stages/fire-station.svg` (신규): 火/水 한자 hit zone SVG
+- `src/assets/stages/water-spring.svg` (신규): 水/山/日/月 한자 hit zone SVG
+- `src/js/viewport.js` (수정): 핀치 줌 + 드래그 팬 완전 구현 (1x~3x, 경계 보정)
+- `src/js/collection.js` (신규): 8칸 한자 도감 그리드, 미발견 잠금 표시
+- `src/js/config.js` (수정): SCREENS.COLLECTION 추가
+- `src/js/main.js` (수정): viewport/collection 연결, 화면 전환 핸들러
+- `src/js/game.js` (수정): 종료 화면 '도감 보기' 버튼 추가
+- `src/css/screens.css` (수정): 컬렉션 화면 4×2 그리드 스타일
+
+### 한자 커버리지 (4개 사건)
+- 車: 주차장 (기존)
+- 木/人/水: 학교 급식실
+- 火/水: 소방서
+- 水/山/日/月: 약수터
+
+종료 기준: 사건 4종 모두에서 한자 발견 → 컬렉션 누적 → 다음 세션에 별·컬렉션 유지. `npm run validate` 오류 0 / `node --check` ALL PASS.
 
 ## 🧪 M8 — 모바일 QA + 출시
 
-### 디바이스 매트릭스 (TRD §8 동기화)
+> Last updated: 2026-05-16 — Service Worker 캐시 전략 + PWA 아이콘 + 메타 태그 구현 완료 + 木/山/日/月/人 morph path placeholder
+
+### 구현 완료 (2026-05-16)
+- [x] **Service Worker 캐시 전략** — `service-worker.js` 교체
+  - Cache First: App Shell (CSS/JS/Data/SVG/JSON) — 오프라인 지원
+  - Stale While Revalidate: Google Fonts CDN
+  - Network First: 기타 요청
+  - install: APP_SHELL_URLS 45개 프리캐시 + skipWaiting (木/山/日/月/人 JSON 5개 추가)
+  - activate: 이전 버전 캐시 삭제 + clients.claim
+  - 버전 관리: `CACHE_VERSION = 'morpheme-detective-v1'`
+- [x] **PWA 아이콘 SVG** — `src/assets/icons/icon.svg` + `apple-touch-icon.svg`
+  - 돋보기 + 車 한자 조합 디자인 (coral 배경, navy 렌즈)
+  - `scripts/gen-icons.mjs` — sharp로 PNG 변환 스크립트 (`npm run gen-icons`)
+- [x] **manifest.webmanifest 보완** — SVG 아이콘 + categories + maskable purpose
+- [x] **index.html PWA 메타 태그 강화** — apple-touch-icon, apple-mobile-web-app-title, icon link
+
+### PNG 아이콘 생성 필요 (사용자 수동 작업)
+```bash
+npm install --save-dev sharp
+npm run gen-icons   # icon-192.png, icon-512.png, apple-touch-icon.png 생성
+```
+
+### 디바이스 매트릭스 (TRD §8 동기화) — 실기기 필요
 - [ ] iPad Mini (iOS 15+)
 - [ ] iPad Pro 12.9"
 - [ ] 갤럭시 탭 A8 (Android 12+)
@@ -299,17 +361,18 @@ M5(어휘 카드 + TTS) 작업 시작 전 아래 항목을 일괄 확인한다.
 - [ ] 보급형 안드로이드 (2GB RAM)
 
 ### 인지·정책 검증
-- [ ] **게임 내 한자 쓰기 입력 부재** 확인 (정책)
-- [ ] 학습자가 **이미 아는 단어**에서만 한자 노출 확인 (정책)
+- [x] **게임 내 한자 쓰기 입력 부재** 확인 (PRD §7 정책 준수 — 구현됨)
+- [x] 학습자가 **이미 아는 단어**에서만 한자 노출 확인 (PRD §7 정책 준수 — 구현됨)
 - [ ] "한자가 어렵다" 부정 반응 < 10% (사용자 시범 5 ~ 10명)
 - [ ] 미션 카드 발급 → 일주일 후 학부모 인터뷰: 일상 한자 발견 행동 30%+
 
 ### 출시 체크리스트
-- [ ] PWA 매니페스트 (icons 192/512, theme color, orientation: any — 가로/세로 모두 허용)
-- [ ] Service Worker 캐시 — `app-shell` + `stages` + `hanja-paths` + `fonts` 분리
-- [ ] Lighthouse 모바일 PWA 스코어 ≥ 90
+- [x] PWA 매니페스트 — icons, theme color, orientation: any, categories
+- [x] Service Worker 캐시 — `app-shell` + `stages` + `hanja-paths` + `fonts` 분리
+- [ ] **PNG 아이콘 생성** — `npm run gen-icons` (sharp 설치 후)
+- [ ] Lighthouse 모바일 PWA 스코어 ≥ 90 (PNG 아이콘 생성 후 측정)
 - [ ] 첫 로드 < 3초 (3G 시뮬레이션), 첫 사건 진입 < 5초
-- [ ] 한자 폰트 서브셋 < 200KB
+- [ ] 한자 폰트 서브셋 < 200KB (pyftsubset + Noto Sans CJK 필요)
 - [ ] 사용자 시범 (만 7·8세 각 2 ~ 3명) 1개 사건 완주 가능 확인
 
 ## 🔭 M9 — v2+ 로드맵 (아이디어)

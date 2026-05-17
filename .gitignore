@@ -6,6 +6,10 @@ node_modules/
 .omc/autopilot/
 .omc/plans/
 !.omc/plans/autopilot-impl.md
+.omc/codex/
+.omc/sessions/
+.omc/prd.json
+.omc/progress.txt
 
 # OS / Editor
 .DS_Store
