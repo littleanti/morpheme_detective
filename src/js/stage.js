@@ -1,18 +1,23 @@
-// 일러스트 로드 + hit zone 등록 + 객체 탭 → 단어 분리·TTS — M2~M3
-import { STAGES } from '../data/stages.js';
-import { HANJA }  from '../data/hanja.js';
-import { state }  from './state.js';
-import { PULSE_DURATION } from './config.js';
-import { showWord, clearWord } from './word-block.js';
+// 일러스트 로드 + hit zone 등록 + 객체 탭 → 단어 분리·TTS·morph·카드 덱 — M2~M5
+import { STAGES }               from '../data/stages.js';
+import { HANJA }                from '../data/hanja.js';
+import { state }                from './state.js';
+import { PULSE_DURATION }       from './config.js';
+import { showWord, clearWord }  from './word-block.js';
 import { speakHanja, cancel as cancelTts } from './tts.js';
-import { getSnappedHitZone } from './magnifier.js';
+import { getSnappedHitZone }    from './magnifier.js';
 import { runMorph, loadHanjaPaths, cancelMorph } from './morph.js';
+import { showCardDeck, clearCards } from './card-deck.js';
+import { play as playAudio }    from './audio.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-let pulseTimer  = null;
-let hitListener = null;
-let svgEl       = null;
-let currentStage = null;
+let pulseTimer       = null;
+let hitListener      = null;
+let svgEl            = null;
+let currentStage     = null;
+let discoveryCallback = null;
+
+export function setDiscoveryCallback(fn) { discoveryCallback = fn; }
 
 export async function loadStage(stageId) {
   const stage = STAGES[stageId];
@@ -63,10 +68,8 @@ function attachHitZones(svg, objects) {
 
   hitListener = e => {
     let target = e.target.closest('.hit-zone');
-    // 마우스/터치 UX: 커서가 살짝 빗나갔어도 돋보기가 hit zone에 스냅돼 있으면 그곳으로 라우팅
     if (!target) target = getSnappedHitZone();
     if (!target) {
-      // 빈 영역 탭은 무반응 + spring-back 시각 피드백 (PRD F4·M3 #6)
       springBackFlash(svg, e);
       return;
     }
@@ -79,14 +82,13 @@ function attachHitZones(svg, objects) {
   svg.addEventListener('click', hitListener);
 }
 
-function onHit({ objectId, wordId, label }) {
+async function onHit({ objectId, wordId, label }) {
   stopPulse();
   console.log(`[stage] hit objectId="${objectId}" wordId="${wordId}" label="${label}"`);
 
   const word = currentStage?.words?.[wordId];
   if (!word) return;
 
-  // M3: 단어 → 음절 분리 + 핵심 한자 음절 하이라이트
   showWord({
     wordId,
     text:              word.text,
@@ -95,16 +97,30 @@ function onHit({ objectId, wordId, label }) {
     targetHanjaId:     word.targetHanjaId,
   });
 
-  // M3: TTS "차, 수레 차" (하이라이트 트랜지션 시작 직후)
   const hanja = HANJA[word.targetHanjaId];
+
   if (hanja) {
     setTimeout(() => speakHanja({ reading: hanja.reading, meaning: hanja.meaning }), 260);
   }
 
-  // M4: 상형문자 변형 애니메이션 (실루엣 → 갑골문 → 해서체)
-  triggerMorph(hanja).catch(e => console.warn('[stage] morph 실패:', e));
+  try {
+    playAudio('transform'); // 변형음 — morph 시작과 동시
+    await triggerMorph(hanja);
+    state.detection.error = null;
 
-  // M5: 어휘 카드 — 이후 마일스톤
+    if (hanja) {
+      playAudio('discovery'); // 발견음 — morph 완료 후
+      showCardDeck(hanja.id);
+    }
+  } catch (e) {
+    state.detection.error = 'morph-failed';
+    console.warn('[stage] morph 실패, 카드 폴백 강행:', e);
+    // morph 실패해도 카드는 반드시 표시
+    if (hanja) showCardDeck(hanja.id);
+  }
+
+  // 발견 콜백 — morph 성공/실패 무관하게 항상 호출
+  if (hanja) discoveryCallback?.(hanja.id);
 }
 
 async function triggerMorph(hanja) {
@@ -120,7 +136,6 @@ async function triggerMorph(hanja) {
 }
 
 function springBackFlash(svg, e) {
-  // 빈 영역 탭 — 짧은 시각 피드백(부드러운 거절)
   const pt = svg.createSVGPoint?.();
   if (!pt) return;
   pt.x = e.clientX; pt.y = e.clientY;
@@ -158,6 +173,7 @@ export function unloadStage() {
   const canvas = document.getElementById('stage-canvas');
   if (canvas) canvas.innerHTML = '';
   clearWord();
+  clearCards();
   const morphEl = document.getElementById('morph-container');
   if (morphEl) {
     morphEl.querySelectorAll('.morph-stage').forEach(n => n.remove());
@@ -169,6 +185,7 @@ export function unloadStage() {
   state.stage.hitZones           = [];
   state.stage.pulseUntilTs       = 0;
   state.detection.morphPhase     = 'idle';
+  state.detection.error          = null;
   hitListener  = null;
   svgEl        = null;
   currentStage = null;

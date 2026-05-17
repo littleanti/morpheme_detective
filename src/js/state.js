@@ -23,11 +23,13 @@ export const state = {
     targetSyllableIdx: -1,
     morphPhase:        'idle',  // 'idle'|'silhouette'|'oracle'|'kaisho'|'done'
     cardsRevealed:     [],
+    error:             null,   // 'morph-failed' | 'card-failed' | null
   },
   progress: {
     collected:          new Set(),
     stars:              0,
     sessionStartedAt:   0,
     sessionDiscoveries: 0,
+    sessionCollected:   new Set(),
   },
 };
