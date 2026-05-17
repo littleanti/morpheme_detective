@@ -6,6 +6,7 @@ export const SCREENS = {
   SETTINGS:     'settings-screen',
   MISSION:      'mission-screen',
   END:          'end-screen',
+  COLLECTION:   'collection-screen',
 };
 
 export const DEV_PORT        = 3004;

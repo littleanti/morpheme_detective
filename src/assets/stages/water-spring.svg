@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="약수터 사건 일러스트">
+  <defs>
+    <linearGradient id="ws-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A8D8EA"/>
+      <stop offset="0.6" stop-color="#E8F4F8"/>
+      <stop offset="1" stop-color="#D4E8C2"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="700" fill="url(#ws-sky)"/>
+  <rect x="0" y="650" width="1600" height="250" fill="#6A9F3C"/>
+  <g id="spring-peak">
+    <polygon points="350,200 80,600 620,600" fill="#7A9E6E"/>
+    <polygon points="350,200 280,350 420,350" fill="white" opacity="0.7"/>
+    <polygon points="180,380 60,600 360,600" fill="#5A8A5A"/>
+    <polygon points="520,320 360,600 680,600" fill="#6A9A6A"/>
+    <text x="350" y="540" text-anchor="middle" font-size="60" fill="white" font-family="serif" opacity="0.9">山</text>
+  </g>
+  <g id="spring-sunrise">
+    <circle cx="1350" cy="230" r="120" fill="#FFD166" opacity="0.3"/>
+    <circle cx="1350" cy="230" r="90" fill="#FFD166" opacity="0.6"/>
+    <circle cx="1350" cy="230" r="65" fill="#FFD700"/>
+    <line x1="1350" y1="100" x2="1350" y2="80" stroke="#FFD700" stroke-width="6"/>
+    <line x1="1450" y1="130" x2="1465" y2="115" stroke="#FFD700" stroke-width="6"/>
+    <line x1="1480" y1="230" x2="1500" y2="230" stroke="#FFD700" stroke-width="6"/>
+    <line x1="1450" y1="330" x2="1465" y2="345" stroke="#FFD700" stroke-width="6"/>
+    <line x1="1250" y1="130" x2="1235" y2="115" stroke="#FFD700" stroke-width="6"/>
+    <line x1="1220" y1="230" x2="1200" y2="230" stroke="#FFD700" stroke-width="6"/>
+    <text x="1350" y="255" text-anchor="middle" font-size="60" fill="white" font-family="serif" opacity="0.9">日</text>
+  </g>
+  <g id="spring-tap">
+    <rect x="650" y="480" width="300" height="200" rx="8" fill="#888"/>
+    <rect x="700" y="440" width="200" height="50" rx="6" fill="#777"/>
+    <rect x="775" y="400" width="50" height="50" rx="6" fill="#999"/>
+    <rect x="750" y="390" width="100" height="20" rx="6" fill="#AAA"/>
+    <path d="M800 450 Q796 480 799 510 Q802 540 797 570 Q793 600 797 630" stroke="#4488FF" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M810 450 Q814 480 811 510 Q808 540 813 570 Q817 600 813 630" stroke="#4488FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <rect x="760" y="630" width="80" height="100" rx="6" fill="#CCE0FF"/>
+    <text x="800" y="570" text-anchor="middle" font-size="50" fill="#4488FF" font-family="serif">水</text>
+    <text x="800" y="715" text-anchor="middle" font-size="28" fill="white" font-family="sans-serif">약수터</text>
+  </g>
+  <g id="spring-calendar">
+    <rect x="1060" y="460" width="280" height="280" rx="12" fill="white" stroke="#CCC" stroke-width="3"/>
+    <rect x="1060" y="460" width="280" height="60" rx="12" fill="#4488CC"/>
+    <rect x="1060" y="500" width="280" height="20" fill="#4488CC"/>
+    <text x="1200" y="502" text-anchor="middle" font-size="32" fill="white" font-family="sans-serif" font-weight="bold">월</text>
+    <text x="1082" y="570" font-size="22" fill="#666" font-family="sans-serif">일 월 화 수</text>
+    <text x="1082" y="600" font-size="22" fill="#666" font-family="sans-serif"> 1  2  3  4</text>
+    <text x="1082" y="630" font-size="22" fill="#666" font-family="sans-serif"> 8  9 10 11</text>
+    <text x="1082" y="660" font-size="22" fill="#666" font-family="sans-serif">15 16 17 18</text>
+    <text x="1200" y="720" text-anchor="middle" font-size="50" fill="#4488CC" font-family="serif">月</text>
+  </g>
+</svg>

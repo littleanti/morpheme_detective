@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="학교 급식실 사건 일러스트">
+  <defs>
+    <linearGradient id="cf-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF8E7"/>
+      <stop offset="1" stop-color="#FFE4B5"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#cf-wall)"/>
+  <rect x="0" y="700" width="1600" height="200" fill="#C8A882"/>
+  <rect x="1450" y="50" width="120" height="160" rx="8" fill="#87CEEB" stroke="#666" stroke-width="3"/>
+  <g id="cafeteria-tree">
+    <rect x="80" y="500" width="240" height="20" fill="#8B5E3C" rx="4"/>
+    <rect x="120" y="520" width="20" height="200" fill="#8B5E3C"/>
+    <rect x="240" y="520" width="20" height="200" fill="#8B5E3C"/>
+    <ellipse cx="200" cy="490" rx="80" ry="20" fill="#E8D5B0"/>
+    <circle cx="170" cy="488" r="15" fill="#FF9966"/>
+    <circle cx="210" cy="485" r="10" fill="#66BB66"/>
+    <circle cx="230" cy="490" r="12" fill="#FFCC66"/>
+    <text x="200" y="590" text-anchor="middle" font-size="60" fill="#6B4423" font-family="serif">木</text>
+  </g>
+  <g id="cafeteria-student">
+    <circle cx="750" cy="370" r="70" fill="#FFCC99"/>
+    <rect x="680" y="440" width="140" height="180" rx="10" fill="#4488CC"/>
+    <rect x="660" y="440" width="30" height="150" rx="8" fill="#FFCC99"/>
+    <rect x="810" y="440" width="30" height="150" rx="8" fill="#FFCC99"/>
+    <rect x="700" y="620" width="40" height="80" rx="6" fill="#333"/>
+    <rect x="760" y="620" width="40" height="80" rx="6" fill="#333"/>
+    <text x="750" y="520" text-anchor="middle" font-size="50" fill="white" font-family="serif">人</text>
+  </g>
+  <g id="cafeteria-sink">
+    <rect x="1130" y="400" width="240" height="150" rx="8" fill="#AABBCC"/>
+    <rect x="1210" y="360" width="20" height="50" fill="#888"/>
+    <rect x="1180" y="350" width="80" height="20" rx="6" fill="#777"/>
+    <path d="M1220 410 Q1215 440 1218 470 Q1221 500 1216 530" stroke="#4488FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M1235 410 Q1240 440 1237 470 Q1234 500 1239 530" stroke="#4488FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <text x="1250" y="510" text-anchor="middle" font-size="50" fill="#4488FF" font-family="serif">水</text>
+    <path d="M1130 550 Q1250 570 1370 550 L1380 650 Q1250 680 1120 650 Z" fill="#CCDDEE"/>
+  </g>
+  <rect x="600" y="30" width="400" height="80" rx="12" fill="#FF6B6B"/>
+  <text x="800" y="82" text-anchor="middle" font-size="44" fill="white" font-family="sans-serif" font-weight="bold">학교 급식실</text>
+</svg>

@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="src/css/magnifier.css">
   <link rel="stylesheet" href="src/css/word-blocks.css">
   <link rel="stylesheet" href="src/css/morph.css">
+  <link rel="stylesheet" href="src/css/card-deck.css">
 </head>
 <body>
 
@@ -45,12 +46,12 @@
     </div>
   </section>
 
-  <!-- ── 사건 선택 화면 (M6에서 구현) ────────────────────────── -->
+  <!-- ── 사건 선택 화면 F3 — main.js가 stages.js 기반으로 동적 렌더 ── -->
   <section id="stage-select-screen" class="screen" aria-label="사건 선택">
-    <div class="card-screen">
-      <h2 class="stage-select-title">오늘의 사건을 선택하세요</h2>
-      <p style="color:var(--color-text-dim);font-size:0.9rem">M6에서 구현 예정</p>
-      <br>
+    <div class="stage-select-wrap">
+      <h2 class="stage-select-title">🕵️ 오늘의 사건을 선택하세요</h2>
+      <div id="stage-card-list" class="stage-card-list" role="list"
+           aria-label="사건 목록"></div>
       <button id="btn-stage-select-back" class="btn small ghost">← 돌아가기</button>
     </div>
   </section>
@@ -61,13 +62,24 @@
       <!-- M2: stage.js 가 주차장 SVG + hit zone overlay 삽입 -->
     </div>
     <div class="stage-dock" id="stage-dock">
-      <button id="btn-play-back" class="btn small ghost" aria-label="홈으로">← 홈</button>
-      <p class="dock-hint">반짝이는 곳을 탭하거나 클릭하세요!</p>
-      <!-- M3: word-block — stage.js 가 동적 삽입 -->
+      <!-- M6: 상단 바 — 홈 버튼 · 진행률 · 미션 보기 -->
+      <div class="dock-top-bar">
+        <button id="btn-play-back" class="btn small ghost" aria-label="홈으로">← 홈</button>
+        <div class="progress-bar" aria-live="polite">
+          <span id="progress-stars" class="progress-stars"></span>
+          <span id="progress-count" class="progress-count"></span>
+        </div>
+        <button id="btn-show-mission" class="btn small" hidden aria-label="미션 보기">미션 보기</button>
+      </div>
+      <p class="dock-hint" id="dock-hint">반짝이는 곳을 탭하거나 클릭하세요!</p>
+      <!-- M3: word-block — DOM 순서 고정 (word-block.js가 ensureContainer로 재사용) -->
+      <div id="word-block-container" class="word-block-container" aria-live="polite"></div>
+      <!-- M4: morph -->
       <div id="morph-container" class="morph-container" aria-hidden="true">
         <div class="morph-backdrop"></div>
       </div>
-      <!-- M5: card-deck -->
+      <!-- M5: card-deck — card-deck.js가 동적으로 카드 삽입 -->
+      <div id="card-deck-container" aria-label="어휘 카드" aria-live="polite"></div>
     </div>
   </section>
 
@@ -81,20 +93,19 @@
     </div>
   </section>
 
-  <!-- ── 미션 완료 화면 (M6에서 구현) ────────────────────────── -->
+  <!-- ── 미션 완료 화면 — mission.js가 card-screen 내부를 동적 렌더 ── -->
   <section id="mission-screen" class="screen" aria-label="미션 완료">
-    <div class="card-screen" style="text-align:center">
-      <h2 class="mission-title">🌟 미션 완료!</h2>
-      <p style="color:var(--color-text-dim)">M6에서 구현 예정</p>
-    </div>
+    <div class="card-screen" style="overflow-y:auto"></div>
   </section>
 
-  <!-- ── 종료 화면 (M6에서 구현) ──────────────────────────────── -->
+  <!-- ── 종료 화면 — game.js가 card-screen 내부를 동적 렌더 ──────── -->
   <section id="end-screen" class="screen" aria-label="종료">
-    <div class="card-screen" style="text-align:center">
-      <h2 class="end-title">오늘의 탐정 활동</h2>
-      <p style="color:var(--color-text-dim)">M6에서 구현 예정</p>
-    </div>
+    <div class="card-screen" style="overflow-y:auto"></div>
+  </section>
+
+  <!-- ── 도감(컬렉션) 화면 — F14 (M7) ───────────────────────────── -->
+  <section id="collection-screen" class="screen" aria-label="한자 도감">
+    <div class="card-screen" style="overflow-y:auto"></div>
   </section>
 
   <script type="module" src="src/js/main.js"></script>

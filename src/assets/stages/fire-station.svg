@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="소방서 사건 일러스트">
+  <defs>
+    <linearGradient id="fs-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#87CEEB"/>
+      <stop offset="1" stop-color="#FFD080"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="600" fill="url(#fs-sky)"/>
+  <rect x="0" y="600" width="1600" height="300" fill="#888"/>
+  <rect x="900" y="150" width="600" height="450" fill="#CC3333"/>
+  <rect x="920" y="170" width="150" height="100" rx="4" fill="#87CEEB" stroke="#fff" stroke-width="2"/>
+  <rect x="1100" y="170" width="150" height="100" rx="4" fill="#87CEEB" stroke="#fff" stroke-width="2"/>
+  <rect x="950" y="400" width="240" height="200" fill="#8B2222"/>
+  <text x="1200" y="280" text-anchor="middle" font-size="36" fill="white" font-family="sans-serif" font-weight="bold">소방서</text>
+  <g id="station-flame">
+    <path d="M400 750 Q300 600 350 480 Q380 400 400 320 Q420 400 440 350 Q480 480 450 600 Q430 680 400 750Z" fill="#FF4400"/>
+    <path d="M400 750 Q340 640 370 540 Q390 470 400 420 Q410 470 415 510 Q430 600 410 680 Q405 720 400 750Z" fill="#FF8800"/>
+    <path d="M400 750 Q370 680 385 610 Q395 570 400 540 Q405 570 408 610 Q416 670 400 750Z" fill="#FFCC00"/>
+    <text x="400" y="680" text-anchor="middle" font-size="60" fill="white" font-family="serif" opacity="0.9">火</text>
+  </g>
+  <g id="station-extinguisher">
+    <rect x="820" y="420" width="100" height="280" rx="12" fill="#CC0000"/>
+    <rect x="835" y="380" width="70" height="50" rx="6" fill="#AA0000"/>
+    <rect x="855" y="360" width="10" height="30" fill="#888"/>
+    <rect x="840" y="350" width="40" height="15" rx="4" fill="#666"/>
+    <path d="M920 400 Q960 380 1010 410" stroke="#555" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <rect x="820" y="540" width="100" height="20" fill="#FF6600"/>
+    <text x="870" y="530" text-anchor="middle" font-size="50" fill="white" font-family="serif">火</text>
+  </g>
+  <g id="station-hose">
+    <path d="M1200 500 Q1250 480 1300 500 Q1350 520 1380 490 Q1420 460 1450 480" stroke="#CC6600" stroke-width="20" fill="none" stroke-linecap="round"/>
+    <path d="M1200 540 Q1250 520 1300 540 Q1350 560 1380 530 Q1420 500 1450 520" stroke="#CC6600" stroke-width="20" fill="none" stroke-linecap="round"/>
+    <path d="M1450 480 Q1510 440 1560 460 Q1520 480 1480 500 Q1510 520 1550 530 Q1510 545 1450 510" fill="#4488FF" opacity="0.7"/>
+    <text x="1350" y="660" text-anchor="middle" font-size="60" fill="#4488FF" font-family="serif">水</text>
+    <circle cx="1200" cy="640" r="80" fill="none" stroke="#CC6600" stroke-width="15"/>
+    <circle cx="1200" cy="640" r="50" fill="none" stroke="#CC6600" stroke-width="10"/>
+  </g>
+</svg>
