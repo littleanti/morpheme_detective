@@ -81,7 +81,7 @@
 ### 종료 기준 (Definition of Done) — 충족
 - [x] `data/hanja.js` import → `'車'` 객체에서 음/뜻/morphPathsRef/vocab 접근 가능
 - [x] `npm run validate` 정합성 검증 통과 (오류 0)
-- [x] `npx serve -p 3004` HTTP 200 + 시작 화면 13개 핵심 요소 렌더링
+- [x] `npx serve -p 4324` HTTP 200 + 시작 화면 13개 핵심 요소 렌더링
 - [x] code-reviewer CRITICAL 이슈 0건 (인라인 onclick → event listener 패턴 수정 완료)
 
 ## 🎨 M2 — 일러스트 + Hit Zone (완료 · 2026-05-12)

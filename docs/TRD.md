@@ -17,7 +17,7 @@
 | 입력 | Pointer Events API | 마우스/터치/펜 통합 |
 | 오디오/음성 | Web Speech API(TTS) + Web Audio API(효과음) | 한자 음·뜻 자동 재생, 자동재생 정책 우회 |
 | 폰트 | Google Fonts (Jua, Gowun Dodum) + Noto Sans CJK **서브셋** | FOIT 회피, 한자 글리프 임베드 최소화 |
-| 개발 서버 | `npx serve -p 3004` | 부모 AGENTS.md 포트 컨벤션 |
+| 개발 서버 | `npx serve -p 4324` | 부모 AGENTS.md 포트 컨벤션 |
 | 저장소 | `localStorage` (P1), `IndexedDB` (P2) | 컬렉션 누적은 IndexedDB 후보 |
 | 배포 | 정적 호스팅 + PWA Manifest + Service Worker | 홈 화면 설치, 오프라인 |
 
@@ -400,7 +400,7 @@ CSS `@media (orientation: portrait)` 로 세로 레이아웃 자동 전환:
 
 | 옵션 | 명령 | 비고 |
 |---|---|---|
-| 로컬 | `npx serve -p 3004` | 부모 AGENTS.md 포트 |
+| 로컬 | `npx serve -p 4324` | 부모 AGENTS.md 포트 |
 | GitHub Pages | `gh-pages` 브랜치 푸시 | HTTPS 자동 |
 | Netlify | 드래그 앤 드롭 | PWA 헤더 자동 |
 | Cloudflare Pages | Git 연동 | 한국 latency 양호 |

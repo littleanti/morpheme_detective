@@ -9,7 +9,7 @@ export const SCREENS = {
   COLLECTION:   'collection-screen',
 };
 
-export const DEV_PORT        = 3004;
+export const DEV_PORT        = 4324;
 export const HIT_MIN_DP      = 80;                                  // PRD F4
 export const MAGNET_DP       = 40;                                  // TRD §3.3
 export const MAGNET_PX       = MAGNET_DP * (devicePixelRatio || 1);

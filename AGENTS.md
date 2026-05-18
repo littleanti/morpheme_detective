@@ -68,7 +68,7 @@
 
 ### Working In This Directory
 - 미구현 설계 단계
-- 권장 스택: Vanilla JS + CSS + SVG 애니메이션 (한자 변형 핵심), 포트 **3004**
+- 권장 스택: Vanilla JS + CSS + SVG 애니메이션 (한자 변형 핵심), 포트 **4324**
 - 한자 폰트는 시스템 기본 또는 무료 라이선스 (예: `Noto Sans CJK`) — 서브셋 권장
 
 ### Implementation Priorities
