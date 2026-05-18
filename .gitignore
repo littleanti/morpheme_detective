@@ -2,14 +2,7 @@
 node_modules/
 
 # OMC state
-.omc/state/
-.omc/autopilot/
-.omc/plans/
-!.omc/plans/autopilot-impl.md
-.omc/codex/
-.omc/sessions/
-.omc/prd.json
-.omc/progress.txt
+.omc/
 
 # OS / Editor
 .DS_Store
