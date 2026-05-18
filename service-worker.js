@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'morpheme-detective-v1';
+const CACHE_VERSION = 'morpheme-detective-v3';
 
 const APP_SHELL_URLS = [
   '/',
@@ -6,6 +6,7 @@ const APP_SHELL_URLS = [
   'manifest.webmanifest',
   'src/css/tokens.css',
   'src/css/base.css',
+  'src/css/components.css',
   'src/css/screens.css',
   'src/css/stage.css',
   'src/css/magnifier.css',
@@ -18,6 +19,8 @@ const APP_SHELL_URLS = [
   'src/js/hangul.js',
   'src/js/tts.js',
   'src/js/audio.js',
+  'src/js/storage.js',
+  'src/js/settings.js',
   'src/js/pointer.js',
   'src/js/viewport.js',
   'src/js/magnifier.js',

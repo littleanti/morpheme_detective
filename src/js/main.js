@@ -14,6 +14,8 @@ import { initGame, showMission,
          showEnd, restartGame }         from './game.js';
 import { attachViewport, detachViewport } from './viewport.js';
 import { renderCollectionScreen }         from './collection.js';
+import { loadSettings }                   from './storage.js';
+import { initSettings, renderSettings }   from './settings.js';
 
 let activeScreen   = null;
 let selectedStageId = null;
@@ -70,6 +72,8 @@ function _renderStageSelect() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadSettings();
+  initSettings();
   initGame(showScreen);
   showScreen(SCREENS.START);
 
@@ -82,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-settings')?.addEventListener('click', () => {
+    renderSettings();
     showScreen(SCREENS.SETTINGS);
   });
 
@@ -90,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btn-settings-back')?.addEventListener('click', () => {
+    showScreen(SCREENS.START);
+  });
+
+  document.getElementById('btn-settings-close')?.addEventListener('click', () => {
     showScreen(SCREENS.START);
   });
 

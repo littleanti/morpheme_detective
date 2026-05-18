@@ -1,12 +1,19 @@
 // 전역 상태 싱글톤 — TRD §2.3
+export const DEFAULT_SETTINGS = {
+  ttsEnabled:   true,
+  audioEnabled: true,
+  pulseEnabled: true,
+  fontScale:    1.0,        // 0.9 | 1.0 | 1.15
+  darkMode:     false,
+  inputMode:    'tap',      // 'tap' | 'magnify'
+  hanjaFilter:  null,       // Set<HanjaId> | null (null = 전체)
+};
+
 export const state = {
   settings: {
     audioReady:  false,
     speechReady: false,
-    hanjaFilter: null,      // Set<HanjaId> | null (null = 전체)
-    fontScale:   1.0,
-    darkMode:    false,
-    inputMode:   'tap',     // 'tap' | 'magnify'
+    ...DEFAULT_SETTINGS,
   },
   stage: {
     currentStageId:    null,

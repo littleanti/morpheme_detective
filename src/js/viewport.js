@@ -14,11 +14,19 @@ let _panStart = { x: 0, y: 0 };
 export function applyTransform({ scale = 1, x = 0, y = 0 } = {}) {
   state.stage.zoom = clamp(scale, MIN_SCALE, MAX_SCALE);
   state.stage.pan  = { x, y };
-  if (_canvas) {
-    _canvas.style.transformOrigin = '0 0';
-    _canvas.style.transform = `scale(${state.stage.zoom}) translate(${state.stage.pan.x}px, ${state.stage.pan.y}px)`;
-    _canvas.style.cursor = state.stage.zoom > 1 ? 'grab' : '';
+  if (!_canvas) return;
+  // zoom=1 + pan 없음 → transform 자체를 비운다.
+  //  - identity transform 도 stacking context 를 만들고 자식 hit testing 경로에 영향 줄 수 있음
+  //  - getScreenCTM 계산도 단순해져 좌표 변환 안정성 향상
+  if (state.stage.zoom === 1 && x === 0 && y === 0) {
+    _canvas.style.transform = '';
+    _canvas.style.transformOrigin = '';
+    _canvas.style.cursor = '';
+    return;
   }
+  _canvas.style.transformOrigin = '0 0';
+  _canvas.style.transform = `scale(${state.stage.zoom}) translate(${state.stage.pan.x}px, ${state.stage.pan.y}px)`;
+  _canvas.style.cursor = state.stage.zoom > 1 ? 'grab' : '';
 }
 
 export function resetViewport() {

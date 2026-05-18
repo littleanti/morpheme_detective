@@ -129,6 +129,41 @@ export async function crossFadeSequence(container, morphPaths, durationMs = MORP
   return true;
 }
 
+// ── 한자 글리프 stage (최종 단계 — 실제 한자 문자 표시) ────────────
+// placeholder path 만으로는 한자 모양이 안 나오므로, 마지막에 system CJK 글리프로
+// 페이드인하여 학습자가 실제 한자를 인지할 수 있게 한다.
+function appendGlyphStage(container, char, viewBox) {
+  if (!char) return null;
+  const stage = document.createElement('div');
+  stage.className = 'morph-stage hanja-glyph-stage';
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('class', 'morph-svg');
+  svg.setAttribute('viewBox', viewBox || '0 0 200 200');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  const t = document.createElementNS(SVG_NS, 'text');
+  t.setAttribute('class', 'hanja-glyph');
+  t.setAttribute('x', '100');
+  t.setAttribute('y', '100');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'central');
+  t.textContent = char;
+  svg.appendChild(t);
+  stage.appendChild(svg);
+  container.appendChild(stage);
+  return stage;
+}
+
+async function revealGlyphStage(container, glyphStage) {
+  if (!glyphStage) return;
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  container.querySelectorAll('.morph-stage').forEach(s => {
+    if (s !== glyphStage) s.classList.remove('active');
+  });
+  glyphStage.classList.add('active');
+  // 페이드인 트랜지션 대기
+  await new Promise(r => setTimeout(r, 500));
+}
+
 // ── 진입점: 컨테이너 + 한자 JSON → 자동 분기 ──────────────────────
 export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION) {
   if (!container || !hanjaData?.morphPaths?.length) return false;
@@ -139,18 +174,48 @@ export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION
   void backdrop?.offsetWidth; // reflow → 애니메이션 재시작
   backdrop?.classList.add('animating');
 
-  const fromTokens = tokenize(hanjaData.morphPaths[0]);
-  const allSameShape = hanjaData.morphPaths.every(d => {
+  // 글리프 fallback 단계를 위해 path 보간/cross-fade 는 마지막 한 칸을 양보
+  const intermediatePaths = hanjaData.morphPaths.length >= 2
+    ? hanjaData.morphPaths.slice(0, -1)
+    : hanjaData.morphPaths.slice();
+  const glyphChar = hanjaData.id || hanjaData.glyph || null;
+
+  const fromTokens = tokenize(intermediatePaths[0]);
+  const allSameShape = intermediatePaths.length >= 2 && intermediatePaths.every(d => {
     const t = tokenize(d);
     return isInterpolatable(fromTokens, t);
   });
+  const pathDuration = Math.max(400, durationMs - 500);
 
+  let pathOk = true;
   if (allSameShape && !isLowEndDevice()) {
     // 1차: 좌표 lerp
-    container.querySelector('.morph-stage:not(:first-child)')?.remove();
-    let stage = container.querySelector('.morph-stage');
-    if (!stage) {
-      stage = document.createElement('div');
+    container.querySelectorAll('.morph-stage').forEach(s => s.remove());
+    const stage = document.createElement('div');
+    stage.className = 'morph-stage active';
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', 'morph-svg');
+    svg.setAttribute('viewBox', hanjaData.viewBox || '0 0 200 200');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    const p = document.createElementNS(SVG_NS, 'path');
+    p.setAttribute('class', 'morph-path');
+    svg.appendChild(p);
+    stage.appendChild(svg);
+    container.appendChild(stage);
+
+    activeCleanup = () => { /* path lerp 자체는 rAF 취소로 충분 */ };
+    if (intermediatePaths.length >= 2) {
+      pathOk = await morphSequence(p, intermediatePaths, pathDuration);
+    } else {
+      p.setAttribute('d', intermediatePaths[0]);
+    }
+  } else {
+    console.info('[morph] cross-fade fallback (mismatch or low-end)');
+    if (intermediatePaths.length >= 2) {
+      pathOk = await crossFadeSequence(container, intermediatePaths, pathDuration);
+    } else {
+      container.querySelectorAll('.morph-stage').forEach(s => s.remove());
+      const stage = document.createElement('div');
       stage.className = 'morph-stage active';
       const svg = document.createElementNS(SVG_NS, 'svg');
       svg.setAttribute('class', 'morph-svg');
@@ -158,19 +223,18 @@ export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       const p = document.createElementNS(SVG_NS, 'path');
       p.setAttribute('class', 'morph-path');
+      p.setAttribute('d', intermediatePaths[0]);
       svg.appendChild(p);
       stage.appendChild(svg);
       container.appendChild(stage);
     }
-    stage.classList.add('active');
-    const pathEl = stage.querySelector('path');
-    activeCleanup = () => { /* path lerp 자체는 rAF 취소로 충분 */ };
-    return morphSequence(pathEl, hanjaData.morphPaths, durationMs);
   }
 
-  // 폴백: cross-fade
-  console.info('[morph] cross-fade fallback (mismatch or low-end)');
-  return crossFadeSequence(container, hanjaData.morphPaths, durationMs);
+  // 최종: 실제 한자 글리프 페이드인 (placeholder path 한계 보완)
+  const glyphStage = appendGlyphStage(container, glyphChar, hanjaData.viewBox);
+  await revealGlyphStage(container, glyphStage);
+
+  return pathOk;
 }
 
 export function cancelMorph() {

@@ -66,12 +66,6 @@
   position: relative;
 }
 
-.start-settings-btn {
-  position: absolute;
-  top:   max(16px, env(safe-area-inset-top));
-  right: max(16px, env(safe-area-inset-right));
-}
-
 .start-content {
   display: flex;
   flex-direction: column;
@@ -195,20 +189,55 @@
   .stage-card { flex: 1; min-width: 200px; }
 }
 
-/* ── 설정 화면 (M7에서 구현) ──────────────────────────────────── */
+/* ── 설정 화면 ────────────────────────────────────────────────── */
 #settings-screen {
   align-items: center;
   justify-content: flex-start;
   overflow-y: auto;
 }
 
+.settings-wrap {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 18px 32px;
+  padding-top:    max(20px, env(safe-area-inset-top));
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+}
+
 /* §10: 설정 화면 제목 — Jua, 1.8rem, coral */
 .settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+
+.settings-header h2 {
   font-family: 'Jua', sans-serif;
   font-size: 1.8rem;
   color: var(--coral);
-  margin-bottom: 20px;
+  margin: 0;
 }
+
+.close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--navy);
+  background: var(--color-surface);
+  color: var(--navy);
+  font-size: 1rem;
+  font-family: 'Jua', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s, background 0.15s;
+}
+.close-btn:hover  { background: var(--color-surface2); }
+.close-btn:active { transform: translateY(1px); }
 
 .settings-section {
   background: white;
@@ -217,6 +246,14 @@
   padding: 16px;
   box-shadow: 0 4px 0 var(--navy);
   margin-bottom: 12px;
+}
+
+.settings-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 /* ── 미션 완료 화면 (M6에서 구현) ────────────────────────────── */

@@ -33,6 +33,7 @@ export function speakHanja({ reading, meaning }) {
 
 export function speak(text, { lang = 'ko-KR', rate = 0.95 } = {}) {
   if (!synth || !text) return;
+  if (state.settings.ttsEnabled === false) return;
   try {
     synth.cancel();
     const u = new SpeechSynthesisUtterance(text);

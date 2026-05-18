@@ -67,3 +67,27 @@ body::before {
   overflow: hidden;
   clip: rect(0 0 0 0);
 }
+
+/* ── 글자 크기 (설정 → body[data-font]) ────────────────────────── */
+body[data-font='small']  { font-size: 14px; }
+body[data-font='normal'] { font-size: 16px; }
+body[data-font='large']  { font-size: 18.5px; }
+
+/* ── 다크 모드 (설정 → body[data-theme]) ──────────────────────── */
+body[data-theme='dark'] {
+  --cream:          #1F2231;
+  --color-bg:       #1F2231;
+  --color-text:     #F2E9D6;
+  --color-text-dim: #A6A8B9;
+  --color-surface:  #2B2E40;
+  --color-surface2: #353855;
+  --color-border:   #3E4258;
+  --shadow:         rgba(0, 0, 0, 0.45);
+  color: var(--color-text);
+}
+body[data-theme='dark']::before {
+  background: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 119, 87, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 86% 78%, rgba(107, 202, 184, 0.14) 0%, transparent 45%);
+}

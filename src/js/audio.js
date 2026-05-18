@@ -1,4 +1,5 @@
 // Web Audio API 효과음 — TRD §4.3 (Oscillator 기반, 외부 파일 없음)
+import { state } from './state.js';
 
 let ctx = null;
 
@@ -79,6 +80,7 @@ function playReward(c) {
 }
 
 export function play(name) {
+  if (state.settings.audioEnabled === false) return;
   try {
     const c = getCtx();
     if (c.state === 'suspended') c.resume();

@@ -22,6 +22,7 @@
   <!-- CSS 로드 순서 유지 -->
   <link rel="stylesheet" href="src/css/tokens.css">
   <link rel="stylesheet" href="src/css/base.css">
+  <link rel="stylesheet" href="src/css/components.css">
   <link rel="stylesheet" href="src/css/screens.css">
   <link rel="stylesheet" href="src/css/stage.css">
   <link rel="stylesheet" href="src/css/magnifier.css">
@@ -33,9 +34,6 @@
 
   <!-- ── 시작 화면 F1·F2 (§10 규격) ──────────────────────────── -->
   <section id="start-screen" class="screen active" aria-label="시작 화면">
-    <button id="btn-settings" class="btn small ghost start-settings-btn"
-            aria-label="설정 열기">⚙️ 설정</button>
-
     <div class="start-content">
       <h1 class="start-title">🔍 형태소 탐정</h1>
       <p class="start-subtitle">
@@ -48,6 +46,8 @@
           🔍 탐정 시작
         </button>
       </div>
+      <!-- 설정 버튼 — 1_chosung_quiz 와 동일 위치/모양 (콘텐츠 하단) -->
+      <button id="btn-settings" class="btn-settings" aria-label="설정 열기">⚙️ 설정</button>
     </div>
   </section>
 
@@ -88,13 +88,66 @@
     </div>
   </section>
 
-  <!-- ── 설정 화면 (M7에서 구현) ──────────────────────────────── -->
+  <!-- ── 설정 화면 — 1_chosung_quiz 와 동일 디자인 패턴 ─────────── -->
   <section id="settings-screen" class="screen" aria-label="설정">
-    <div class="card-screen">
-      <h2 class="settings-header">⚙️ 설정</h2>
-      <p style="color:var(--color-text-dim);font-size:0.9rem">M7에서 구현 예정</p>
-      <br>
-      <button id="btn-settings-back" class="btn small ghost">← 돌아가기</button>
+    <div class="settings-wrap">
+      <div class="settings-header">
+        <h2>⚙️ 설정</h2>
+        <button id="btn-settings-close" class="close-btn" aria-label="닫기">✕</button>
+      </div>
+
+      <div class="settings-section">
+        <div class="toggle-row">
+          <span class="toggle-label">🔊 발음 듣기 (TTS)</span>
+          <div id="toggle-tts" class="toggle" role="switch" tabindex="0"
+               aria-label="발음 듣기 켜기·끄기"></div>
+        </div>
+        <div id="tts-hint" class="section-hint">한자 발견 시 음과 뜻을 읽어줘요</div>
+      </div>
+
+      <div class="settings-section">
+        <div class="toggle-row">
+          <span class="toggle-label">🎵 효과음</span>
+          <div id="toggle-audio" class="toggle" role="switch" tabindex="0"
+               aria-label="효과음 켜기·끄기"></div>
+        </div>
+        <div class="section-hint">발견·변형·보상 사운드를 재생해요</div>
+      </div>
+
+      <div class="settings-section">
+        <div class="toggle-row">
+          <span class="toggle-label">✨ 객체 발광 힌트</span>
+          <div id="toggle-pulse" class="toggle" role="switch" tabindex="0"
+               aria-label="발광 힌트 켜기·끄기"></div>
+        </div>
+        <div class="section-hint">처음 5초간 클릭 가능한 곳이 부드럽게 빛나요</div>
+      </div>
+
+      <div class="settings-section">
+        <div class="section-label">🔠 글자 크기</div>
+        <div id="font-chips" class="chip-row"></div>
+      </div>
+
+      <div class="settings-section">
+        <div class="toggle-row">
+          <span class="toggle-label">🌙 다크 모드</span>
+          <div id="toggle-dark" class="toggle" role="switch" tabindex="0"
+               aria-label="다크 모드 켜기·끄기"></div>
+        </div>
+        <div class="section-hint">어두운 배경으로 눈의 피로를 줄여요</div>
+      </div>
+
+      <div class="settings-section">
+        <div class="section-label">🗂 진행 데이터</div>
+        <button id="btn-reset-progress" class="btn small ghost"
+                style="width:100%">🗑 도감·별 초기화</button>
+        <div class="section-hint">다른 아이와 공유할 때 도감과 별을 비울 수 있어요</div>
+      </div>
+
+      <div class="settings-footer">
+        <button id="btn-reset-settings" class="btn ghost small">기본값</button>
+        <button id="btn-settings-back" class="btn big">🏠 홈으로</button>
+      </div>
     </div>
   </section>
 

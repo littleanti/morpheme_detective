@@ -23,6 +23,16 @@
   fill: var(--navy);
 }
 
+/* 최종 단계 — 실제 한자 글리프 (placeholder path 한계 보완) */
+.hanja-glyph {
+  fill: var(--navy);
+  font-family: 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic',
+               'Apple SD Gothic Neo', 'Nanum Gothic', sans-serif;
+  font-size: 170px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
 /* cross-fade 폴백 (TRD §3.2 1차) */
 .morph-stage {
   position: absolute;
