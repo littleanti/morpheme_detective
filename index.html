@@ -32,14 +32,13 @@
 </head>
 <body>
 
-  <!-- ── 시작 화면 F1·F2 (§10 규격) ──────────────────────────── -->
-  <section id="start-screen" class="screen active" aria-label="시작 화면">
+  <!-- ── 시작 화면 F1·F2 (§10 규격 — 1_chosung_quiz 패턴 통일) ── -->
+  <section id="start-screen" class="screen active start-screen" aria-label="시작 화면">
     <div class="start-content">
-      <h1 class="start-title">🔍 형태소 탐정</h1>
-      <p class="start-subtitle">
-        익숙한 단어 속 숨은 한자를 찾아라!<br>
-        <small style="font-size:0.85em;opacity:0.7">초등 1·2학년 한자 형태소 인식 게임</small>
-      </p>
+      <div class="start-emoji" aria-hidden="true">🔍</div>
+      <h1 class="start-title">형태소 탐정</h1>
+      <p class="start-subtitle">익숙한 단어 속 숨은 한자를 찾아라 🧩</p>
+      <p class="start-tagline">초등 1·2학년 한자 형태소 인식 게임</p>
       <div class="start-cta">
         <!-- F1: ≥64dp 큰 버튼 -->
         <button id="btn-start" class="btn big" aria-label="탐정 시작">
@@ -71,8 +70,7 @@
       <div class="dock-top-bar">
         <button id="btn-play-back" class="btn small ghost" aria-label="홈으로">← 홈</button>
         <div class="progress-bar" aria-live="polite">
-          <span id="progress-stars" class="progress-stars"></span>
-          <span id="progress-count" class="progress-count"></span>
+          <span id="progress-trophy" class="progress-trophy" aria-label="트로피 0개">🏆 <span id="progress-count">0</span></span>
         </div>
         <button id="btn-show-mission" class="btn small" hidden aria-label="미션 보기">미션 보기</button>
       </div>

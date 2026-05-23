@@ -11,7 +11,8 @@ import { attachMagnifier,
 import { releaseAll }                   from './pointer.js';
 import { clearCards }                   from './card-deck.js';
 import { initGame, showMission,
-         showEnd, restartGame }         from './game.js';
+         showEnd, restartGame,
+         startNewSession }              from './game.js';
 import { attachViewport, detachViewport } from './viewport.js';
 import { renderCollectionScreen }         from './collection.js';
 import { loadSettings }                   from './storage.js';
@@ -38,6 +39,7 @@ export function showScreen(id) {
 
 async function _loadAndPlay(stageId) {
   selectedStageId = stageId ?? selectedStageId ?? 'parking-lot';
+  startNewSession();
   try {
     await loadStage(selectedStageId);
     showScreen(SCREENS.PLAY);
@@ -48,7 +50,7 @@ async function _loadAndPlay(stageId) {
   }
 }
 
-// F3: stages.js 기반 동적 렌더
+// F3: stages.js 기반 동적 렌더 — 카드 마크업만 갱신. click listener 는 _bindStageSelectOnce 가 단 한 번 등록.
 function _renderStageSelect() {
   const list = document.getElementById('stage-card-list');
   if (!list) return;
@@ -63,12 +65,19 @@ function _renderStageSelect() {
       </button>
     `;
   }).join('');
+}
 
+let _stageSelectBound = false;
+function _bindStageSelectOnce() {
+  if (_stageSelectBound) return;
+  const list = document.getElementById('stage-card-list');
+  if (!list) return;
   list.addEventListener('click', async e => {
     const card = e.target.closest('.stage-card');
     if (!card) return;
     await _loadAndPlay(card.dataset.stageId);
   });
+  _stageSelectBound = true;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     unlockTts();
     unlockAudio();
     _renderStageSelect();
+    _bindStageSelectOnce();
     showScreen(SCREENS.STAGE_SELECT);
   });
 

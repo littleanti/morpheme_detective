@@ -54,6 +54,7 @@ body::before {
   padding-bottom: max(24px, env(safe-area-inset-bottom));
   padding-left:   max(20px, env(safe-area-inset-left));
   padding-right:  max(20px, env(safe-area-inset-right));
+  overflow-x: hidden;
 }
 
 @keyframes fadeIn {
@@ -90,4 +91,37 @@ body[data-theme='dark']::before {
   background-image:
     radial-gradient(circle at 12% 18%, rgba(255, 119, 87, 0.18) 0%, transparent 45%),
     radial-gradient(circle at 86% 78%, rgba(107, 202, 184, 0.14) 0%, transparent 45%);
+}
+
+/* ── 다크 모드 가독성 보강 ─────────────────────────────────────
+   원본은 var(--navy)를 텍스트로 사용 — 어두운 배경에 묻히므로
+   var(--color-text) 로 강제 오버라이드. yellow/coral 등 배경 위에
+   놓인 위젯(어휘 pill, mission-vocab-item 등)은 별도 override 없이
+   navy 텍스트를 유지한다. */
+body[data-theme='dark'] .mission-hanja,
+body[data-theme='dark'] .mission-challenge-text,
+body[data-theme='dark'] .end-stat,
+body[data-theme='dark'] .collection-card-hanja,
+body[data-theme='dark'] .dock-hint,
+body[data-theme='dark'] .progress-trophy,
+body[data-theme='dark'] .start-tagline {
+  color: var(--color-text);
+}
+
+/* ghost / 닫기 버튼 — navy stroke·text 가 묻히지 않게 보강 */
+body[data-theme='dark'] .btn.ghost {
+  color: var(--color-text);
+  border-color: var(--color-text);
+  box-shadow: 0 3px 0 var(--color-text);
+}
+body[data-theme='dark'] .close-btn {
+  background: var(--color-surface);
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* 도감 미발견 카드의 ? 및 자물쇠 — opacity 0.35 위에서 더 또렷이 */
+body[data-theme='dark'] .collection-card.locked .collection-card-hanja,
+body[data-theme='dark'] .collection-card-lock {
+  color: var(--color-text);
 }

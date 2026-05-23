@@ -38,21 +38,11 @@ function _onHanjaDiscovered(hanjaId) {
 function _updateProgressUI() {
   const data = getSessionData();
 
-  const starsEl = document.getElementById('progress-stars');
-  if (starsEl) {
-    // 별 1개 = 신규 한자 1자 발견. MVP 8한자 기준 최대 8별 (의도된 상한)
-    starsEl.textContent = data.totalStars > 0
-      ? '⭐'.repeat(Math.min(data.totalStars, 8))
-      : '';
-    starsEl.setAttribute('aria-label', `별 ${data.totalStars}개`);
-  }
-
   const countEl = document.getElementById('progress-count');
-  if (countEl) {
-    countEl.textContent = data.sessionDiscoveries
-      ? `발견 ${data.sessionDiscoveries}`
-      : '';
-  }
+  if (countEl) countEl.textContent = String(data.sessionDiscoveries);
+
+  const trophyEl = document.getElementById('progress-trophy');
+  if (trophyEl) trophyEl.setAttribute('aria-label', `트로피 ${data.sessionDiscoveries}개`);
 }
 
 export function showMission() {
@@ -66,8 +56,8 @@ export function showEnd() {
   _showScreen?.(SCREENS.END);
 }
 
-// loadAndPlayFn: main.js가 제공하는 stage 재로드 + showScreen(PLAY) 콜백
-export function restartGame(loadAndPlayFn) {
+// 새 스테이지 진입·재시작 공통: 세션·dock UI를 초기 상태로 되돌림
+export function startNewSession() {
   resetSession();
   _updateProgressUI();
 
@@ -76,7 +66,11 @@ export function restartGame(loadAndPlayFn) {
 
   const btnMission = document.getElementById('btn-show-mission');
   if (btnMission) btnMission.hidden = true;
+}
 
+// loadAndPlayFn: main.js가 제공하는 stage 재로드 + showScreen(PLAY) 콜백
+export function restartGame(loadAndPlayFn) {
+  startNewSession();
   loadAndPlayFn();
 }
 
@@ -101,6 +95,7 @@ function _renderEndScreen() {
     : '한자를 발견하지 못했어요. 다시 도전해보세요!';
 
   container.innerHTML = `
+    <div class="celebration-emojis" aria-hidden="true">🎉✨🎊</div>
     <h2 class="end-title">오늘의 탐정 활동</h2>
     <div class="end-summary">
       <div class="end-stars" aria-label="누적 별 ${data.totalStars}개">${starsStr}</div>

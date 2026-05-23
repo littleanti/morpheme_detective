@@ -59,7 +59,7 @@
   box-shadow: none;
 }
 
-/* ── 시작 화면 F1 · F2 ─────────────────────────────────────────── */
+/* ── 시작 화면 F1 · F2 (1_chosung_quiz 패턴 통일) ───────────────── */
 #start-screen {
   align-items: center;
   justify-content: center;
@@ -70,13 +70,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   text-align: center;
-  max-width: 400px;
-  padding: 0 24px;
+  max-width: 440px;
+  padding: 24px;
 }
 
-/* §10: 시작 화면 제목 — Jua, 3rem, coral, rotate(-2deg) */
+/* 떠다니는 큰 이모지 — 1_chosung_quiz .start-emoji 패턴 */
+.start-emoji {
+  font-size: 5rem;
+  line-height: 1;
+  display: inline-block;
+  animation: startFloat 3s ease-in-out infinite;
+}
+@keyframes startFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* §10: 시작 화면 제목 — Jua, 3rem, coral, rotate(-2deg), yellow text-shadow */
 .start-title {
   font-family: 'Jua', sans-serif;
   font-size: 3rem;
@@ -87,12 +99,21 @@
   line-height: 1.2;
 }
 
-/* §10: 설명 — Gowun Dodum */
+/* §10: 설명 — 1_chosung_quiz .subtitle 패턴 (Jua, clamp, dim) */
 .start-subtitle {
-  font-family: 'Gowun Dodum', sans-serif;
-  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  font-family: 'Jua', sans-serif;
+  font-size: clamp(0.95rem, 3vw, 1.2rem);
   color: var(--color-text-dim);
-  line-height: 1.6;
+  line-height: 1.5;
+}
+
+/* 부제 보조 — Gowun Dodum 작게 */
+.start-tagline {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+  opacity: 0.75;
+  margin-top: -12px;
 }
 
 .start-cta {
@@ -101,13 +122,32 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
+}
+
+/* 1_chosung_quiz 와 동일한 ghost 형 설정 버튼 */
+.btn-settings {
+  font-family: 'Jua', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 24px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-settings:active {
+  background: var(--color-surface2);
+  color: var(--color-text);
 }
 
 /* 가로 모드: 세로 공간 절약 */
 @media (orientation: landscape) {
-  .start-title   { font-size: 2.2rem; }
-  .start-content { gap: 12px; }
+  .start-title   { font-size: 2.4rem; }
+  .start-emoji   { font-size: 4rem; }
+  .start-content { gap: 16px; }
   .start-cta     { flex-direction: row; justify-content: center; }
 }
 
@@ -270,10 +310,23 @@
   margin-bottom: 16px;
 }
 
-/* ── 종료 화면 ────────────────────────────────────────────────── */
+/* ── 종료 화면 — 1_chosung_quiz .end-screen 패턴 ─────────────── */
 #end-screen {
   align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+/* 1단계 .celebration-emojis 와 동일 wiggle 애니메이션 */
+.celebration-emojis {
+  font-size: 2.5rem;
+  letter-spacing: 0.3rem;
+  margin: 0.4rem 0 0.6rem;
+  animation: endWiggle 1.5s ease-in-out infinite;
+}
+@keyframes endWiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
 }
 
 .end-title {
@@ -301,17 +354,21 @@
   min-width: 0;
 }
 
-.progress-stars {
-  font-size: 1.1rem;
-  letter-spacing: 1px;
+.progress-trophy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Jua', sans-serif;
+  font-size: 1rem;
   line-height: 1;
+  white-space: nowrap;
+  color: var(--navy);
 }
 
-.progress-count {
-  font-family: 'Gowun Dodum', sans-serif;
-  font-size: 0.8rem;
-  color: var(--color-text-dim);
-  white-space: nowrap;
+.progress-trophy #progress-count {
+  font-family: 'Jua', sans-serif;
+  font-size: 1.05rem;
+  color: var(--coral);
 }
 
 /* ── M6: 미션 카드 ──────────────────────────────────────────── */
@@ -448,7 +505,11 @@
 }
 
 @media (orientation: landscape) {
-  .end-actions { flex-direction: row; justify-content: center; }
+  .end-actions {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 /* ── F14: 도감(컬렉션) 화면 ─────────────────────────────────── */
