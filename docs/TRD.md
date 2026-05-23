@@ -1,8 +1,8 @@
 # 🔧 TRD — 형태소 탐정 게임
 
 > Technical Requirements Document
-> Last updated: 2026-05-14
-> Status: **M4 완료** — M3 위에 `morph.js` 추가(토큰 정규화 + 좌표 lerp + cross-fade 폴백 + 저사양 감지) + `水.json`/`火.json` 3-step path placeholder + `stage.js` triggerMorph 통합 + `index.html` morph-container 도크 삽입. `npm run validate` morph 정합성 검사 확장(車/水/火 명령 수 11개 일치). 신규 8개 JS 모듈 `node --check` 통과.
+> Last updated: 2026-05-22
+> Status: **M7 + M8 코드 작업 완료** — 사건 4종 / 한자 8자(placeholder path + system CJK 글리프 fallback) / morph 좌표 lerp+cross-fade+저사양 감지 / 도감 / 줌·팬(휠·핀치·드래그, 1x~3x) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) / `4md:` localStorage / PWA SW v3 / 좌표 기반 hit-zone 4단계 라우팅(`closest` → polygon point-in → magnifier snap → nearest fallback). 남은 작업: 실기기 매트릭스, Noto Sans CJK 서브셋, F15·F18.
 > Target: 모바일 태블릿 1순위, 폰 2순위, PC 보조
 
 ## 1. 기술 스택
@@ -70,11 +70,12 @@
         ├── viewport.js         # 줌/팬 컨트롤 (P1, 폰 모드)
         ├── morph.js            # SVG path 보간 (실루엣 → 갑골문 → 해서체)
         ├── word-block.js       # 단어 → 음절 분리·하이라이트 컴포넌트
-        ├── card-deck.js        # 한자 공유 어휘 카드 컴포넌트
-        ├── mission.js          # 종료 미션 카드 생성 (스크린샷/Web Share)
-        ├── settings.js         # 한자 풀 필터, 다크모드, 폰트 크기
-        ├── progress.js         # 컬렉션·별·진척도
-        └── game.js             # 라운드 컨트롤러 (사건 → 발견 → 보상 → 미션)
+        ├── card-deck.js        # 한자 공유 어휘 카드 컴포넌트 (5장 격자/세로 슬라이드)
+        ├── mission.js          # 종료 미션 카드 생성 (Web Share API + SVG 다운로드 폴백)
+        ├── collection.js       # F14 도감 화면 (8칸 4×2 그리드, 미발견 잠금)
+        ├── settings.js         # F19 설정 페이지 (TTS·효과음·발광·글자 크기·다크 모드·초기화)
+        ├── progress.js         # 컬렉션·별·진척도 (`4md:` localStorage)
+        └── game.js             # 라운드 컨트롤러 (사건 → 발견 → 보상 → 미션 → 종료)
 ```
 
 ### 2.2 모듈 의존성
@@ -190,35 +191,41 @@ HANJA['車'] = {
 };
 ```
 
-**보간 방식**:
-- 1차: 단순 cross-fade (`opacity`로 path 3개 전환) — 항상 동작
-- 2차: **path command-level 보간** — 두 path를 동일 명령 수로 정규화 후 좌표 보간 (Bezier 직접 lerp)
-- 3차: `flubber` 같은 라이브러리 — 평가 후 P1 도입 결정
+**보간 방식 (구현)**:
+- 1차: **path command-level 보간** — `tokenize → isInterpolatable → lerpTokens` 좌표 lerp + `easeInOutCubic` (`morph.js`)
+- 2차: `crossFadeSequence` — 명령 미스매치 / 저사양 디바이스 시 `<div class="morph-stage active">` opacity 시퀀싱
+- 3차: **한자 글리프 stage 페이드인** — `<text>` 로 시스템 CJK 글리프(`hanja.id`)를 마지막 단계에 노출. placeholder path 한계 보완
+
+**runMorph 분기 로직** (`src/js/morph.js`):
+1. `morphPaths` 의 마지막 한 칸은 글리프 fallback 자리로 양보 → `intermediatePaths = morphPaths.slice(0, -1)`
+2. `intermediatePaths` 전체가 보간 호환 + `isLowEndDevice() === false` → 좌표 lerp
+3. 그렇지 않으면 `crossFadeSequence` (cross-fade)
+4. 마지막에 `appendGlyphStage` + `revealGlyphStage` → 실제 한자 문자 페이드인
 
 **성능 정책**:
-- 단계별 PNG 시퀀스보다 SVG 우선 (해상도 자유, 파일 작음)
-- 저사양 디바이스 감지 시 (`navigator.deviceMemory < 2` 또는 `navigator.hardwareConcurrency < 4`) 단순 페이드 폴백
-- `transform` / `opacity` 만으로 GPU 가속 (transform-origin 주의)
+- `isLowEndDevice()`: `navigator.deviceMemory < 2 || navigator.hardwareConcurrency < 4`
+- `transform` / `opacity` 만으로 GPU 가속 (transform-origin은 viewBox 중앙)
+- path 보간 비용 ≤ 5ms / frame 목표, 미달 시 cross-fade 폴백
 
-```js
-function morph(svgEl, fromPath, toPath, durationMs) {
-  // requestAnimationFrame 기반 좌표 lerp
-  // 토큰 길이 정규화는 morph.js 내부에서 수행
-}
-```
-
-### 3.3 돋보기 + 자석 인터랙션
+### 3.3 돋보기 + 자석 인터랙션 + 클릭 라우팅
 ```js
 // pointermove → 돋보기 좌표 = pointer 좌표
 // 가까운 hit zone 거리 계산:
-//   dist <= MAGNET_PX(40dp) ⇒ 돋보기가 가장 가까운 hit zone 중심으로 끌림
-//   hit zone 'pulse-strong' 클래스 추가
-// pointerup (또는 tap) → 활성 hit zone에 매칭된 단어 발견 트리거
-const MAGNET_PX = 40 * window.devicePixelRatio;
+//   dist <= MAGNET_PX(40dp * dpr) ⇒ 돋보기가 가장 가까운 hit zone 중심으로 끌림
+//   .magnifier 에 .snapped 클래스 + 중심 스냅
+const MAGNET_PX  = 40 * window.devicePixelRatio;
 const HIT_MIN_DP = 80;                          // 부모 AGENTS.md 정책
 ```
 
-폰 모드(`inputMode: 'tap'`)에서는 자석 거리 ↑ + 줌(2x) + 팬으로 보완.
+**클릭 라우팅 4단계** (`stage.js`) — `e.target` 의존성 0:
+1. `e.target.closest('.hit-zone')` — 가장 정확
+2. `findHitZoneByPoint`: 클릭 좌표를 `getScreenCTM().inverse()` 로 SVG 좌표 변환 → 각 polygon 내부 ray-casting point-in-polygon 검사 (SVG 자식이 클릭을 가로채는 경우, transform 적용, letterbox 영역 등 모두 대응)
+3. `magnifier.getSnappedHitZone()` — 마우스 hover 로 이미 자석 흡착한 zone
+4. 거리 기반 `nearestHitZoneFromPoint(MAGNET_PX * 3)` — 최후 폴백
+
+리스너는 inner `<svg>` 가 아니라 **`#stage-canvas` (div)** 에 등록 → letterbox 여백 / `viewport.js` transform / SVG 내부 자식 등 어떤 환경에서도 도달 보장.
+
+폰 모드(`inputMode: 'tap'`)에서는 자석 거리 ↑ + 줌(1x ~ 3x) + 팬으로 보완.
 
 ### 3.4 발광 힌트 (객체 식별)
 ```js
@@ -315,9 +322,11 @@ CSS `@media (orientation: portrait)` 로 세로 레이아웃 자동 전환:
 - transform-origin은 `viewBox` 중앙으로 고정 (회전·스케일 안정)
 
 ### 5.4 어휘 카드 덱
-- 가로: 일러스트 우측 또는 하단에 카드 4 ~ 5개 부채꼴 트랜지션 (`transform: rotate() translate()`)
-- 세로: 하단 30dvh 컨트롤 도크 내 수평 슬라이드로 등장 (§5.6 참조)
-- 탭 시 카드 살짝 들썩 + TTS
+- 가로: `#card-deck-container` 가 `flex-wrap` **격자 레이아웃** — 카드 5장 모두 한눈에 보이도록 부채꼴 → 격자로 전환(2026-05-22). 각 카드 80×72px 고정
+- 세로: 하단 30dvh 컨트롤 도크 내 `flex-wrap: nowrap; overflow-x: auto` 수평 슬라이드 (§5.6 참조)
+- 등장: `revealed` 클래스 + 카드별 60ms 시차 staggered transition
+- 탭 시 카드 살짝 들썩(`.tapped`) + TTS, 키보드 접근(`role="button"` + Enter/Space)
+- 색맹 대응: `border-bottom: 6px solid var(--navy)` 로 형태 패턴 병기
 
 ### 5.5 미션 카드
 - 정적 SVG 템플릿 (제목, 발견 한자 큰 글자, 어휘 4개, 격려 문구)

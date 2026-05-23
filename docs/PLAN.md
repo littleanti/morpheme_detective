@@ -1,8 +1,8 @@
 # 🗂️ PLAN — 형태소 탐정 게임
 
 > 개발 계획 및 진행 상태
-> Last updated: 2026-05-17
-> Status: **M7 다중 사건·컬렉션·줌/팬 완료 + M8 PWA 코드 작업 완료 — 실기기 매트릭스 / 폰트 서브셋만 남음**
+> Last updated: 2026-05-22
+> Status: **M7 다중 사건·컬렉션·줌/팬 완료 + M8 PWA SW v3 + 설정 페이지(F19) + 카드 격자 + 한자 글리프 fallback + 클릭 라우팅 견고화 — 실기기 매트릭스 / 폰트 서브셋 / F15·F18 남음**
 
 ## 📌 현재 상태
 
@@ -302,11 +302,11 @@ M5(어휘 카드 + TTS) 작업 시작 전 아래 항목을 일괄 확인한다.
 | 1 | 사건 4개 (학교 급식실, 주차장, 소방서, 약수터) | High | ✅ |
 | 2 | F13 줌/팬 모드 (폰 우선) | High | ✅ |
 | 3 | F14 도감(컬렉션) 화면 | High | ✅ |
-| 4 | F15 한자 풀 필터 (교사·부모 설정) | Med | ⏳ M8+ |
+| 4 | F15 한자 풀 필터 (교사·부모 설정) | Med | ⏳ M9 |
 | 5 | F16 진척도 영속화 (`4md:` localStorage) | High | ✅ (M6에서 완료) |
-| 6 | F17 음·뜻 자동 TTS 정책 정리 | High | ⏳ M8+ |
-| 7 | F18 부분 힌트 (펄스 강화) | Med | ⏳ M8+ |
-| 8 | F19 다크 모드 + 폰트 크기 | Low | ⏳ M8+ |
+| 6 | F17 음·뜻 자동 TTS 정책 정리 | High | ✅ (M8 설정 토글에서 흡수) |
+| 7 | F18 부분 힌트 (펄스 강화) | Med | ⏳ M9 |
+| 8 | F19 다크 모드 + 폰트 크기 | Low | ✅ (M8에서 완료) |
 | 9 | 한자 8자 모두 적어도 1 사건에서 발견 가능 | High | ✅ |
 
 ### 구현 내용 (2026-05-16)
@@ -331,16 +331,35 @@ M5(어휘 카드 + TTS) 작업 시작 전 아래 항목을 일괄 확인한다.
 
 ## 🧪 M8 — 모바일 QA + 출시
 
-> Last updated: 2026-05-16 — Service Worker 캐시 전략 + PWA 아이콘 + 메타 태그 구현 완료 + 木/山/日/月/人 morph path placeholder
+> Last updated: 2026-05-22 — SW v3, 설정 페이지 풀 구현, 카드 5장 격자, 한자 글리프 fallback, 클릭 라우팅 4단계, 가로 모드 카드 가시성, dev port 4324
 
-### 구현 완료 (2026-05-16)
-- [x] **Service Worker 캐시 전략** — `service-worker.js` 교체
+### 구현 완료 (2026-05-22 · 3차 — 안정화)
+- [x] **설정 페이지 풀 구현** — `src/js/settings.js` + `index.html#settings-screen`
+  - TTS 토글(미설치 디바이스는 `disabled` + ⚠️ 힌트), 효과음 토글, 발광 힌트 토글
+  - 글자 크기 chip (0.9/1.0/1.15) → `body[data-font]` 전역 적용
+  - 다크 모드 토글 → `body[data-theme='dark']` CSS 변수 오버라이드 (`base.css`)
+  - 진행 데이터(도감·별) 초기화 with `window.confirm` 안전 가드
+  - 기본값 복원 / 홈으로 / 닫기 버튼
+- [x] **카드 5장 격자 레이아웃** — `card-deck.css`
+  - 가로 모드: 부채꼴 → `flex-wrap` 격자로 전환, 5장 모두 한눈에 표시
+  - 세로 모드: `nowrap` + `overflow-x: auto` 수평 스크롤 유지
+  - 친숙도 정렬 + staggered 등장 트랜지션 보존
+- [x] **한자 글리프 fallback** — `morph.js#appendGlyphStage/revealGlyphStage`
+  - placeholder path 의 시각적 한계 보완 — 마지막 단계에 system CJK `<text>` 글리프 페이드인
+  - `intermediatePaths = morphPaths.slice(0, -1)` 로 마지막 한 칸을 양보
+- [x] **클릭 라우팅 견고화** — `stage.js` 4단계
+  - `e.target.closest('.hit-zone')` → `findHitZoneByPoint` (좌표 → SVG ctm.inverse + ray-casting) → `magnifier.getSnappedHitZone()` → `nearestHitZoneFromPoint(MAGNET_PX * 3)`
+  - 리스너는 inner `<svg>` 가 아닌 `#stage-canvas` div 에 등록 → letterbox / transform / 자식 가로채기 무관
+- [x] **dev port 4324** — `package.json` (`npx serve -p 4324`)
+- [x] **service-worker v3** — `CACHE_VERSION = 'morpheme-detective-v3'`, 도감/설정 모듈 포함 47개 프리캐시
+
+### 구현 완료 (2026-05-16 · 1·2차)
+- [x] **Service Worker 캐시 전략** — `service-worker.js`
   - Cache First: App Shell (CSS/JS/Data/SVG/JSON) — 오프라인 지원
   - Stale While Revalidate: Google Fonts CDN
   - Network First: 기타 요청
-  - install: APP_SHELL_URLS 45개 프리캐시 + skipWaiting (木/山/日/月/人 JSON 5개 추가)
+  - install: APP_SHELL_URLS 프리캐시 + skipWaiting
   - activate: 이전 버전 캐시 삭제 + clients.claim
-  - 버전 관리: `CACHE_VERSION = 'morpheme-detective-v1'`
 - [x] **PWA 아이콘 SVG** — `src/assets/icons/icon.svg` + `apple-touch-icon.svg`
   - 돋보기 + 車 한자 조합 디자인 (coral 배경, navy 렌즈)
   - `scripts/gen-icons.mjs` — sharp로 PNG 변환 스크립트 (`npm run gen-icons`)
