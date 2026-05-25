@@ -125,6 +125,15 @@
   margin-top: 4px;
 }
 
+/* 시작 화면 보조 액션 영역(도감 + 설정) — 두 ghost 버튼 가로 배치 */
+.start-secondary {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
 /* 1_chosung_quiz 와 동일한 ghost 형 설정 버튼 */
 .btn-settings {
   font-family: 'Jua', sans-serif;

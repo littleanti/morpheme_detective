@@ -20,6 +20,7 @@ import { initSettings, renderSettings }   from './settings.js';
 
 let activeScreen   = null;
 let selectedStageId = null;
+let _collectionReturnTo = null; // 도감 진입 직전 화면 → 돌아가기에서 사용
 
 export function showScreen(id) {
   cancelTts();
@@ -100,6 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen(SCREENS.SETTINGS);
   });
 
+  // 홈 → 도감 바로가기 (돌아가면 홈)
+  document.getElementById('btn-home-collection')?.addEventListener('click', () => {
+    _collectionReturnTo = SCREENS.START;
+    renderCollectionScreen();
+    showScreen(SCREENS.COLLECTION);
+  });
+
   document.getElementById('btn-stage-select-back')?.addEventListener('click', () => {
     showScreen(SCREENS.START);
   });
@@ -128,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         _loadAndPlay(selectedStageId);
       });
     } else if (target.id === 'btn-end-collection') {
+      _collectionReturnTo = SCREENS.END;
       renderCollectionScreen();
       showScreen(SCREENS.COLLECTION);
     } else if (target.id === 'btn-end-home') {
@@ -137,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('collection-screen')?.addEventListener('click', e => {
-    if (e.target.id === 'btn-collection-back') showScreen(SCREENS.END);
+    if (e.target.id === 'btn-collection-back') {
+      showScreen(_collectionReturnTo ?? SCREENS.START);
+    }
   });
 });
