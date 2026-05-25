@@ -1,106 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🛒 시장 사건 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="시장 사건 일러스트">
   <defs>
-    <linearGradient id="bg-market" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#FFD700"/>
-      <stop offset="1"   stop-color="#FFA07A"/>
+    <linearGradient id="mk-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#FFA07A"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-market)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🛒 시장 사건</text>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#mk-sky)"/>
+  <rect x="0" y="780" width="1600" height="120" fill="#8B5A2B"/>
+  <!-- 시장 천막 -->
+  <g opacity="0.5" fill="#E63946">
+    <polygon points="0,200 1600,200 1600,260 0,260"/>
+  </g>
+  <g stroke="#fff" stroke-width="2" opacity="0.7">
+    <line x1="100" y1="200" x2="100" y2="260"/>
+    <line x1="300" y1="200" x2="300" y2="260"/>
+    <line x1="500" y1="200" x2="500" y2="260"/>
+    <line x1="800" y1="200" x2="800" y2="260"/>
+    <line x1="1100" y1="200" x2="1100" y2="260"/>
+    <line x1="1400" y1="200" x2="1400" y2="260"/>
+  </g>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🏪</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">시장</text>
+  <!-- 셀 0 — 시장 간판 (市) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="120" rx="10" fill="#E63946" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Jua', sans-serif" font-size="44" fill="#fff">전통시장</text>
+    <text x="120" y="148" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#FFD166">Market</text>
+    <rect x="113" y="170" width="14" height="40" fill="#7a5b3a"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">시장</text>
+  </g>
+
+  <!-- 셀 1 — 물건들 (物) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="20" y="180" width="200" height="30" fill="#8B5A2B"/>
+    <circle cx="55" cy="155" r="22" fill="#E63946"/>
+    <text x="55" y="160" text-anchor="middle" font-size="20">🍎</text>
+    <rect x="95" y="130" width="44" height="44" rx="4" fill="#FFD166"/>
+    <circle cx="170" cy="150" r="25" fill="#4a7c2e"/>
+    <rect x="80" y="80" width="80" height="40" rx="6" fill="#6BCAB8"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">사물</text>
+  </g>
+
+  <!-- 셀 2 — 돈 (金) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="80" width="160" height="110" rx="8" fill="#A8E6CF" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="135" r="35" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="148" text-anchor="middle" font-family="'Jua', sans-serif" font-size="34" fill="#2D3047">₩</text>
+    <rect x="50" y="92" width="36" height="22" rx="2" fill="#FFD166"/>
+    <rect x="156" y="156" width="36" height="22" rx="2" fill="#FFD166"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">현금</text>
+  </g>
+
+  <!-- 셀 3 — 매일 영업 (每) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="160" rx="8" fill="#FFE4B5" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="90"  text-anchor="middle" font-family="'Jua', sans-serif" font-size="22" fill="#E63946">영업 안내</text>
+    <line x1="50" y1="100" x2="190" y2="100" stroke="#2D3047" stroke-width="1.5"/>
+    <text x="120" y="135" text-anchor="middle" font-family="'Jua', sans-serif" font-size="36" fill="#2D3047">매일</text>
+    <text x="120" y="175" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#7a7a7a">07:00 - 22:00</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">매일</text>
+  </g>
+
+  <!-- 셀 4 — 광고판 (世) -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="120" rx="6" fill="#1B5FA3" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="105" r="44" fill="#A8DADC"/>
+    <path d="M 80,105 Q 120,75 160,105" stroke="#1B5FA3" stroke-width="2" fill="none"/>
+    <path d="M 80,105 Q 120,135 160,105" stroke="#1B5FA3" stroke-width="2" fill="none"/>
+    <line x1="120" y1="61" x2="120" y2="149" stroke="#1B5FA3" stroke-width="2"/>
+    <text x="120" y="200" text-anchor="middle" font-family="'Jua', sans-serif" font-size="16" fill="#fff">세상은 넓다</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">세상</text>
+  </g>
+
+  <!-- 셀 5 — 공간 안내판 (間) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="60" width="160" height="140" rx="6" fill="#6BCAB8" stroke="#2D3047" stroke-width="3"/>
+    <!-- 방 layout (4분할) -->
+    <line x1="120" y1="60" x2="120" y2="200" stroke="#fff" stroke-width="3"/>
+    <line x1="40" y1="130" x2="200" y2="130" stroke="#fff" stroke-width="3"/>
+    <text x="80"  y="105" text-anchor="middle" font-family="'Jua', sans-serif" font-size="14" fill="#fff">A관</text>
+    <text x="160" y="105" text-anchor="middle" font-family="'Jua', sans-serif" font-size="14" fill="#fff">B관</text>
+    <text x="80"  y="170" text-anchor="middle" font-family="'Jua', sans-serif" font-size="14" fill="#fff">C관</text>
+    <text x="160" y="170" text-anchor="middle" font-family="'Jua', sans-serif" font-size="14" fill="#fff">D관</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">공간</text>
+  </g>
+
+  <!-- 셀 6 — 시계 (時) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="115" r="75" fill="#fff" stroke="#2D3047" stroke-width="6"/>
+    <g stroke="#2D3047" stroke-width="3">
+      <line x1="120" y1="50"  x2="120" y2="60"/>
+      <line x1="120" y1="180" x2="120" y2="170"/>
+      <line x1="55"  y1="115" x2="65"  y2="115"/>
+      <line x1="185" y1="115" x2="175" y2="115"/>
     </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📦</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">사물</text>
+    <line x1="120" y1="115" x2="120" y2="75"  stroke="#2D3047" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="115" x2="155" y2="115" stroke="#E63946" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="120" cy="115" r="5" fill="#2D3047"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">시계</text>
+  </g>
+
+  <!-- 셀 7 — 오전 안내 (午) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="160" rx="8" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="110" text-anchor="middle" font-family="'Jua', sans-serif" font-size="44" fill="#E63946">오전</text>
+    <text x="120" y="155" text-anchor="middle" font-family="'Jua', sans-serif" font-size="30" fill="#2D3047">10:30</text>
+    <text x="120" y="195" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="12" fill="#7a7a7a">현재 시각</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">오전</text>
+  </g>
+
+  <!-- 셀 8 — 사전 책 (前) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="60" width="160" height="130" rx="6" fill="#A6311F"/>
+    <rect x="50" y="70" width="140" height="110" fill="#fff"/>
+    <line x1="120" y1="70" x2="120" y2="180" stroke="#7a7a7a" stroke-width="1"/>
+    <g stroke="#2D3047" stroke-width="1" opacity="0.7">
+      <line x1="58"  y1="90"  x2="110" y2="90"/>
+      <line x1="58"  y1="110" x2="110" y2="110"/>
+      <line x1="58"  y1="130" x2="110" y2="130"/>
+      <line x1="130" y1="90"  x2="182" y2="90"/>
+      <line x1="130" y1="110" x2="182" y2="110"/>
+      <line x1="130" y1="130" x2="182" y2="130"/>
     </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">💵</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">현금</text>
-    </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📅</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">매일</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌍</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">세상</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🏬</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">공간</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⏰</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">시계</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌅</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">오전</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📚</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">사전</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🏠</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">실내</text>
-    </g>
+    <text x="120" y="170" text-anchor="middle" font-family="'Jua', sans-serif" font-size="18" fill="#E63946">국어사전</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">사전</text>
+  </g>
+
+  <!-- 셀 9 — 실내 표지 (內) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="50" width="160" height="160" rx="8" fill="#A8DADC" stroke="#2D3047" stroke-width="3"/>
+    <!-- 집 윤곽 -->
+    <polygon points="120,80 70,120 70,180 170,180 170,120" fill="#fff" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="60,125 120,75 180,125" fill="#E63946"/>
+    <rect x="100" y="140" width="40" height="40" fill="#7a5b3a"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">실내</text>
+  </g>
 </svg>

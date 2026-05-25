@@ -3,9 +3,13 @@
 //
 // 각 SVG 는 stages.js 의 grid polygon 위치(5×2, viewBox 1600×900)에 정확히
 // 들어맞는 placeholder 카드를 그린다 — 이모지 + 어휘 라벨 + 반투명 사각형.
-// SVG 파일을 손으로 다듬을 경우 SKIP_EXISTING=1 으로 우회.
 //
-// 사용: node scripts/gen-stage-svg.mjs
+// 기본 동작: 이미 존재하는 SVG 는 덮어쓰지 않음 (손그림 보호).
+// 강제로 placeholder 로 되돌리려면 FORCE=1 환경변수 설정.
+//
+// 사용:
+//   node scripts/gen-stage-svg.mjs          # 신규 stage 만 생성
+//   FORCE=1 node scripts/gen-stage-svg.mjs  # 모든 stage placeholder 덮어쓰기
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -116,7 +120,8 @@ ${cells}
 }
 
 async function main() {
-  const skipExisting = process.env.SKIP_EXISTING === '1';
+  // 기본은 skip-existing (손그림 보호). FORCE=1 이어야 덮어쓰기.
+  const skipExisting = process.env.FORCE !== '1';
   const stagesUrl = pathToFileURL(path.join(ROOT, 'src', 'data', 'stages.js'));
   const { STAGES } = await import(stagesUrl);
 
@@ -138,7 +143,7 @@ async function main() {
     await fs.writeFile(outPath, makeSvg(stage, visuals), 'utf8');
     written++;
   }
-  console.log(`[gen-stage-svg] written=${written} skipped=${skipped}`);
+  console.log(`[gen-stage-svg] written=${written} skipped=${skipped} (FORCE=${process.env.FORCE === '1' ? 'on' : 'off'})`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });

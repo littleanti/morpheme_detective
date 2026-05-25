@@ -1,106 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🏞 자연공원 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="자연공원 일러스트">
   <defs>
-    <linearGradient id="bg-nature-park" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#87CEEB"/>
-      <stop offset="1"   stop-color="#90EE90"/>
+    <linearGradient id="np-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#87CEEB"/>
+      <stop offset="1" stop-color="#A8E6CF"/>
+    </linearGradient>
+    <linearGradient id="np-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7BC74D"/>
+      <stop offset="1" stop-color="#4a7c2e"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-nature-park)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🏞 자연공원</text>
+  <rect x="0" y="0" width="1600" height="480" fill="url(#np-sky)"/>
+  <rect x="0" y="480" width="1600" height="420" fill="url(#np-ground)"/>
+  <circle cx="200" cy="120" r="48" fill="#FFD166" opacity="0.85"/>
+  <g opacity="0.6">
+    <polygon points="0,470 250,260 500,470" fill="#6c8a5c"/>
+    <polygon points="1100,470 1350,240 1600,470" fill="#6c8a5c"/>
+  </g>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⛰️</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">등산</text>
+  <!-- 셀 0 — 산봉우리 (山) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="120,40 200,200 40,200" fill="#6c8a5c" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="120,40 145,80 95,80" fill="#fff"/>
+    <polygon points="170,100 210,200 130,200" fill="#8FBC8F" stroke="#2D3047" stroke-width="2"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">등산</text>
+  </g>
+
+  <!-- 셀 1 — 강 (江) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="20" y="80" width="200" height="120" fill="#A8DADC"/>
+    <path d="M 20,110 Q 60,100 120,110 T 220,110 M 20,140 Q 80,130 140,140 T 220,140 M 20,170 Q 70,160 130,170 T 220,170"
+          stroke="#1B5FA3" stroke-width="3" fill="none" opacity="0.7"/>
+    <rect x="20" y="200" width="200" height="6" fill="#4a7c2e"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">강물</text>
+  </g>
+
+  <!-- 셀 2 — 바다 (海) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="20" y="60" width="200" height="100" fill="#A8DADC"/>
+    <path d="M 20,90 Q 60,80 100,90 T 220,90 M 20,120 Q 70,110 140,120 T 220,120" stroke="#1B5FA3" stroke-width="3" fill="none"/>
+    <path d="M 20,160 L 220,160 Q 215,180 195,180 L 45,180 Q 25,180 20,160 Z" fill="#F4E4BC"/>
+    <ellipse cx="80" cy="100" rx="14" ry="6" fill="#fff"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">해변</text>
+  </g>
+
+  <!-- 셀 3 — 한자 비석 (漢) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="60" y="40" width="120" height="170" rx="8" fill="#A8A8A8" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Jua', sans-serif" font-size="56" fill="#2D3047">漢</text>
+    <text x="120" y="170" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="16" fill="#2D3047">한자</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">한자</text>
+  </g>
+
+  <!-- 셀 4 — 만세 동상 (萬) -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="60" y="180" width="120" height="30" fill="#7a7a7a"/>
+    <circle cx="120" cy="100" r="22" fill="#FFE0BD"/>
+    <rect x="105" y="120" width="30" height="55" fill="#1B5FA3"/>
+    <path d="M 105,130 L 80,80" stroke="#FFE0BD" stroke-width="10" stroke-linecap="round"/>
+    <path d="M 135,130 L 160,80" stroke="#FFE0BD" stroke-width="10" stroke-linecap="round"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">만세</text>
+  </g>
+
+  <!-- 셀 5 — 집중 안내문 (中) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="50" width="160" height="160" rx="8" fill="#FFE4B5" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="115" r="50" fill="none" stroke="#E63946" stroke-width="6"/>
+    <circle cx="120" cy="115" r="20" fill="#E63946"/>
+    <line x1="55" y1="115" x2="80" y2="115" stroke="#E63946" stroke-width="3"/>
+    <line x1="160" y1="115" x2="185" y2="115" stroke="#E63946" stroke-width="3"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">집중</text>
+  </g>
+
+  <!-- 셀 6 — 작은 새 (小) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="120" cy="130" rx="38" ry="28" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="155" cy="115" r="20" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="162" cy="110" r="3" fill="#2D3047"/>
+    <polygon points="172,115 185,120 172,125" fill="#E63946"/>
+    <path d="M 100,130 L 80,150 L 105,155 Z" fill="#E5A933"/>
+    <line x1="115" y1="160" x2="115" y2="175" stroke="#2D3047" stroke-width="2"/>
+    <line x1="130" y1="160" x2="130" y2="175" stroke="#2D3047" stroke-width="2"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">소형</text>
+  </g>
+
+  <!-- 셀 7 — 큰 나무 (大) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="105" y="140" width="30" height="80" fill="#7a5b3a"/>
+    <circle cx="120" cy="105" r="62" fill="#4a7c2e"/>
+    <circle cx="80"  cy="120" r="30" fill="#4a7c2e"/>
+    <circle cx="160" cy="120" r="30" fill="#4a7c2e"/>
+    <circle cx="120" cy="60"  r="22" fill="#6c8a5c"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">대형</text>
+  </g>
+
+  <!-- 셀 8 — 흙더미 (土) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="120" cy="180" rx="100" ry="30" fill="#8B5A2B"/>
+    <ellipse cx="120" cy="160" rx="80" ry="25" fill="#A0743F"/>
+    <ellipse cx="120" cy="140" rx="50" ry="18" fill="#8B5A2B"/>
+    <!-- 새싹 -->
+    <path d="M 115,135 Q 110,115 100,110 Q 115,108 118,125 Q 122,108 138,110 Q 128,115 122,135 Z" fill="#4a7c2e"/>
+    <line x1="120" y1="135" x2="120" y2="145" stroke="#4a7c2e" stroke-width="3"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">토양</text>
+  </g>
+
+  <!-- 셀 9 — 농장 (農) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <!-- 헛간 -->
+    <rect x="40" y="120" width="160" height="90" fill="#E63946" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="40,120 120,70 200,120" fill="#A6311F" stroke="#2D3047" stroke-width="3"/>
+    <rect x="100" y="155" width="40" height="55" fill="#7a5b3a"/>
+    <!-- 들판 -->
+    <g stroke="#4a7c2e" stroke-width="3">
+      <line x1="50" y1="220" x2="60" y2="200"/>
+      <line x1="80" y1="220" x2="90" y2="200"/>
+      <line x1="160" y1="220" x2="170" y2="200"/>
+      <line x1="190" y1="220" x2="200" y2="200"/>
     </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌊</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">강물</text>
-    </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🏖️</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">해변</text>
-    </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🪨</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">한자</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🙌</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">만세</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🎯</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">집중</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🐦</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">소형</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌲</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">대형</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🪴</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">토양</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🚜</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">농장</text>
-    </g>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">농장</text>
+  </g>
 </svg>

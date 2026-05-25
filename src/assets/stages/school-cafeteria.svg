@@ -1,106 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🍽 학교 급식실 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="학교 급식실 일러스트">
   <defs>
-    <linearGradient id="bg-school-cafeteria" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#FFFACD"/>
-      <stop offset="1"   stop-color="#DEB887"/>
+    <linearGradient id="ca-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFACD"/>
+      <stop offset="1" stop-color="#F4E4BC"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-school-cafeteria)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🍽 학교 급식실</text>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#ca-wall)"/>
+  <rect x="0" y="780" width="1600" height="120" fill="#DEB887"/>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🍱</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">식사</text>
-    </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌳</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">식목일</text>
-    </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⭐</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">인기</text>
-    </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🚰</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">생수</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👏</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">박수</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">✅</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">안심</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">💭</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">대답</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📋</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">사실</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">➡️</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">우측</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⬅️</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">좌측</text>
-    </g>
+  <!-- 셀 0 — 식판 (食) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="80" width="180" height="120" rx="14" fill="#A8DADC" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40"  y="95"  width="60"  height="40" rx="4" fill="#fff"/>
+    <circle cx="70"  cy="115" r="14" fill="#E63946"/>
+    <rect x="40"  y="145" width="60"  height="45" rx="4" fill="#fff"/>
+    <circle cx="70"  cy="167" r="14" fill="#FFD166"/>
+    <rect x="110" y="95"  width="90"  height="95" rx="6" fill="#fff"/>
+    <circle cx="155" cy="142" r="22" fill="#FFE4B5"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">식사</text>
+  </g>
+
+  <!-- 셀 1 — 나무 탁자 (木) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="120" width="180" height="20" fill="#8B5A2B"/>
+    <rect x="40" y="140" width="14"  height="70" fill="#8B5A2B"/>
+    <rect x="186" y="140" width="14" height="70" fill="#8B5A2B"/>
+    <circle cx="120" cy="80" r="32" fill="#4a7c59"/>
+    <rect x="115" y="95" width="10" height="30" fill="#7a5b3a"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">식목일</text>
+  </g>
+
+  <!-- 셀 2 — 학생 (人) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="95" r="32" fill="#FFE0BD"/>
+    <path d="M 88,85 Q 120,52 152,85" fill="#2D3047"/>
+    <circle cx="108" cy="95" r="3" fill="#2D3047"/>
+    <circle cx="132" cy="95" r="3" fill="#2D3047"/>
+    <path d="M 105,115 Q 120,123 135,115" stroke="#E63946" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="75" y="130" width="90" height="80" rx="6" fill="#E63946"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">인기</text>
+  </g>
+
+  <!-- 셀 3 — 생수병 (水) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="100" y="50"  width="40" height="20" fill="#2D3047"/>
+    <rect x="80"  y="70"  width="80" height="140" rx="14" fill="#A8DADC" stroke="#2D3047" stroke-width="3"/>
+    <rect x="90"  y="115" width="60" height="36" fill="#fff"/>
+    <text x="120" y="140" text-anchor="middle" font-family="'Jua', sans-serif" font-size="18" fill="#1B5FA3">생수</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">생수</text>
+  </g>
+
+  <!-- 셀 4 — 손 그림 (手) -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <path d="M 70,150 L 70,90 Q 70,75 85,75 L 85,140 L 95,140 L 95,65 Q 95,50 110,50 L 110,140 L 120,140 L 120,55 Q 120,40 135,40 L 135,140 L 145,140 L 145,70 Q 145,55 160,55 L 160,150 Q 165,200 120,210 Q 70,200 70,150 Z"
+          fill="#FFE0BD" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">박수</text>
+  </g>
+
+  <!-- 셀 5 — 안심 표지 (安) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="115" r="78" fill="#6BCAB8" stroke="#2D3047" stroke-width="4"/>
+    <path d="M 80,115 L 110,150 L 165,80" stroke="#fff" stroke-width="14" stroke-linecap="round" fill="none"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">안심</text>
+  </g>
+
+  <!-- 셀 6 — 대답 칠판 (答) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" fill="#2c5f3f" stroke="#7a5b3a" stroke-width="6"/>
+    <text x="120" y="100" text-anchor="middle" font-family="'Jua', sans-serif" font-size="32" fill="#fff">Q. 1+1?</text>
+    <text x="120" y="155" text-anchor="middle" font-family="'Jua', sans-serif" font-size="36" fill="#FFD166">A. 2</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">대답</text>
+  </g>
+
+  <!-- 셀 7 — 안내문 (事) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="40" width="160" height="170" rx="6" fill="#FFE4B5" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="80"  text-anchor="middle" font-family="'Jua', sans-serif" font-size="20" fill="#E63946">알림</text>
+    <line x1="55" y1="92" x2="185" y2="92" stroke="#2D3047" stroke-width="1.5"/>
+    <text x="120" y="120" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">오늘은 모두</text>
+    <text x="120" y="143" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">즐거운 식사!</text>
+    <text x="120" y="180" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#7a7a7a">— 영양사 —</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">사실</text>
+  </g>
+
+  <!-- 셀 8 — 우측 표지 (右) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="20" y="80" width="200" height="110" rx="10" fill="#6BCAB8" stroke="#2D3047" stroke-width="3"/>
+    <path d="M 70,135 L 170,135" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+    <polygon points="160,110 200,135 160,160" fill="#fff"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">우측</text>
+  </g>
+
+  <!-- 셀 9 — 좌측 표지 (左) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="20" y="80" width="200" height="110" rx="10" fill="#FF8C8C" stroke="#2D3047" stroke-width="3"/>
+    <path d="M 170,135 L 70,135" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+    <polygon points="80,110 40,135 80,160" fill="#fff"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">좌측</text>
+  </g>
 </svg>

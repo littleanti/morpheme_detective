@@ -1,106 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🚒 소방서 사건 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="소방서 사건 일러스트">
   <defs>
-    <linearGradient id="bg-fire-station" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#FF8C8C"/>
-      <stop offset="1"   stop-color="#FFD1D1"/>
+    <linearGradient id="fs-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8C8C"/>
+      <stop offset="1" stop-color="#FFD1D1"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-fire-station)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🚒 소방서 사건</text>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#fs-sky)"/>
+  <rect x="0" y="780" width="1600" height="120" fill="#6E6E6E"/>
+  <g opacity="0.4" fill="#B83232">
+    <rect x="100"  y="450" width="280" height="330"/>
+    <rect x="1220" y="430" width="280" height="350"/>
+    <polygon points="100,450 240,380 380,450"/>
+    <polygon points="1220,430 1360,360 1500,430"/>
+  </g>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🔥</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">화재</text>
+  <!-- 셀 0 — 불꽃 (火) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <path d="M 120,200 Q 70,180 70,140 Q 70,100 95,90 Q 95,120 110,115 Q 105,80 130,55 Q 130,90 145,90 Q 155,75 165,90 Q 175,120 175,150 Q 175,195 120,200 Z"
+          fill="#FF6B35" stroke="#E63946" stroke-width="3"/>
+    <path d="M 120,180 Q 90,170 90,140 Q 95,115 110,120 Q 110,135 125,128 Q 125,108 140,100 Q 140,130 152,128 Q 165,135 160,160 Q 155,185 120,180 Z" fill="#FFD166"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">화재</text>
+  </g>
+
+  <!-- 셀 1 — 소방관 (軍) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <path d="M 80,90 Q 80,55 120,55 Q 160,55 160,90 L 160,100 L 80,100 Z" fill="#E63946" stroke="#2D3047" stroke-width="3"/>
+    <rect x="78" y="95" width="84" height="10" fill="#FFD166"/>
+    <circle cx="120" cy="120" r="28" fill="#FFE0BD"/>
+    <circle cx="110" cy="120" r="3" fill="#2D3047"/>
+    <circle cx="130" cy="120" r="3" fill="#2D3047"/>
+    <path d="M 110,135 Q 120,140 130,135" stroke="#2D3047" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <rect x="78" y="150" width="84" height="60" rx="6" fill="#E63946"/>
+    <rect x="100" y="160" width="40" height="36" fill="#FFD166"/>
+    <text x="120" y="186" text-anchor="middle" font-family="'Jua', sans-serif" font-size="14" fill="#2D3047">119</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">군인</text>
+  </g>
+
+  <!-- 셀 2 — 시민 안내 (民) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="40" width="160" height="170" rx="6" fill="#A8DADC" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="80"  text-anchor="middle" font-family="'Jua', sans-serif" font-size="24" fill="#1B5FA3">시민 여러분</text>
+    <line x1="55" y1="92" x2="185" y2="92" stroke="#1B5FA3" stroke-width="1.5"/>
+    <text x="120" y="125" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">불나면 119</text>
+    <text x="120" y="150" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">전화하세요</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">시민</text>
+  </g>
+
+  <!-- 셀 3 — 정직 표어 (直) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="150" rx="8" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Jua', sans-serif" font-size="46" fill="#E63946">정직</text>
+    <text x="120" y="155" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">바른 마음으로</text>
+    <text x="120" y="180" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">살아갑니다</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">정직</text>
+  </g>
+
+  <!-- 셀 4 — 정의 (正) 저울 -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="115" y="80"  width="10" height="100" fill="#7a5b3a"/>
+    <rect x="80"  y="70"  width="80" height="10"  fill="#FFD166"/>
+    <polygon points="55,85 100,85 80,115" fill="#A8DADC" stroke="#2D3047" stroke-width="2"/>
+    <polygon points="140,85 185,85 165,115" fill="#A8DADC" stroke="#2D3047" stroke-width="2"/>
+    <rect x="95"  y="180" width="50" height="14" fill="#7a5b3a"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">정의</text>
+  </g>
+
+  <!-- 셀 5 — 경보등 (不) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="110" y="160" width="20" height="50" fill="#2D3047"/>
+    <ellipse cx="120" cy="130" rx="50" ry="55" fill="#E63946" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="120" cy="120" rx="35" ry="40" fill="#FFD166" opacity="0.8"/>
+    <g stroke="#FFD166" stroke-width="4" opacity="0.7" stroke-linecap="round">
+      <line x1="40"  y1="70"  x2="65"  y2="95"/>
+      <line x1="200" y1="70"  x2="175" y2="95"/>
+      <line x1="40"  y1="180" x2="65"  y2="165"/>
+      <line x1="200" y1="180" x2="175" y2="165"/>
     </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👨‍🚒</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">군인</text>
-    </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👥</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">시민</text>
-    </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🎯</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">정직</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⚖️</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">정의</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🚨</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">불안</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">☮️</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">평안</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🏗️</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">옥상</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⛏️</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">지하</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🕒</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">오후</text>
-    </g>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">불안</text>
+  </g>
+
+  <!-- 셀 6 — 평안 포스터 (平) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" rx="8" fill="#6BCAB8" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Jua', sans-serif" font-size="48" fill="#fff">평안</text>
+    <text x="120" y="155" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="16" fill="#fff">늘 안전한</text>
+    <text x="120" y="180" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="16" fill="#fff">우리 동네</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">평안</text>
+  </g>
+
+  <!-- 셀 7 — 옥상 (上) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="120" width="160" height="90" fill="#A8A8A8" stroke="#2D3047" stroke-width="3"/>
+    <rect x="50" y="140" width="30" height="25" fill="#FFD166"/>
+    <rect x="105" y="140" width="30" height="25" fill="#FFD166"/>
+    <rect x="160" y="140" width="30" height="25" fill="#FFD166"/>
+    <rect x="35" y="100" width="170" height="20" fill="#2D3047"/>
+    <polygon points="35,100 60,80 180,80 205,100" fill="#E63946"/>
+    <path d="M 120,60 L 120,40" stroke="#E63946" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="108,50 132,50 120,30" fill="#E63946"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">옥상</text>
+  </g>
+
+  <!-- 셀 8 — 지하실 (下) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="40" width="160" height="100" rx="6" fill="#3a4a6e" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="90"  text-anchor="middle" font-family="'Jua', sans-serif" font-size="30" fill="#fff">B1</text>
+    <text x="120" y="120" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#fff">지하실</text>
+    <path d="M 120,150 L 120,180" stroke="#2D3047" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="108,180 132,180 120,200" fill="#2D3047"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">지하</text>
+  </g>
+
+  <!-- 셀 9 — 시간표 (後) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" rx="8" fill="#FFE4B5" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="75" text-anchor="middle" font-family="'Jua', sans-serif" font-size="18" fill="#2D3047">근무 시간</text>
+    <line x1="40" y1="85" x2="200" y2="85" stroke="#2D3047" stroke-width="1.5"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">오전 09:00</text>
+    <circle cx="120" cy="140" r="14" fill="none" stroke="#E63946" stroke-width="3"/>
+    <line x1="120" y1="140" x2="120" y2="130" stroke="#E63946" stroke-width="2"/>
+    <line x1="120" y1="140" x2="128" y2="146" stroke="#E63946" stroke-width="2"/>
+    <text x="120" y="180" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">오후 18:00</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">오후</text>
+  </g>
 </svg>

@@ -1,106 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🌅 하늘과 시간 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="하늘과 시간 일러스트">
   <defs>
-    <linearGradient id="bg-sky-time" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="st-sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0"   stop-color="#FF7F50"/>
+      <stop offset="0.5" stop-color="#FFB07A"/>
       <stop offset="1"   stop-color="#FFD700"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-sky-time)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🌅 하늘과 시간</text>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#st-sky)"/>
+  <!-- 산 실루엣 -->
+  <g opacity="0.5" fill="#4a3a4a">
+    <polygon points="0,780 300,640 500,780"/>
+    <polygon points="400,780 700,580 1000,780"/>
+    <polygon points="900,780 1300,620 1600,780"/>
+  </g>
+  <rect x="0" y="780" width="1600" height="120" fill="#2a1a2a"/>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">☀️</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">일출</text>
+  <!-- 셀 0 — 해 (日) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="115" r="50" fill="#FFD166" stroke="#E63946" stroke-width="3"/>
+    <g stroke="#E63946" stroke-width="4" stroke-linecap="round">
+      <line x1="120" y1="40" x2="120" y2="55"/>
+      <line x1="120" y1="175" x2="120" y2="190"/>
+      <line x1="45" y1="115" x2="60" y2="115"/>
+      <line x1="180" y1="115" x2="195" y2="115"/>
+      <line x1="65"  y1="60"  x2="75"  y2="70"/>
+      <line x1="165" y1="60"  x2="175" y2="70"/>
+      <line x1="65"  y1="170" x2="75"  y2="160"/>
+      <line x1="165" y1="170" x2="175" y2="160"/>
     </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌙</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">달력</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">일출</text>
+  </g>
+
+  <!-- 셀 1 — 달 (月) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#1F2231" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="115" r="55" fill="#F4E4BC"/>
+    <circle cx="155" cy="115" r="48" fill="#1F2231"/>
+    <g fill="#fff">
+      <circle cx="50"  cy="50"  r="2"/>
+      <circle cx="200" cy="60"  r="2"/>
+      <circle cx="180" cy="180" r="2"/>
+      <circle cx="60"  cy="180" r="2"/>
     </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📅</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">매년</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#fff">달력</text>
+  </g>
+
+  <!-- 셀 2 — 연도 포스터 (年) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="50" width="180" height="160" rx="6" fill="#FFE4B5" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="100" text-anchor="middle" font-family="'Jua', sans-serif" font-size="20" fill="#E63946">2026</text>
+    <text x="120" y="145" text-anchor="middle" font-family="'Jua', sans-serif" font-size="40" fill="#2D3047">매년</text>
+    <text x="120" y="185" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#7a7a7a">Happy New Year</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">매년</text>
+  </g>
+
+  <!-- 셀 3 — 구름 (氣) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#A8DADC" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="120" cy="110" rx="70" ry="30" fill="#fff"/>
+    <ellipse cx="90"  cy="100" rx="40" ry="22" fill="#fff"/>
+    <ellipse cx="150" cy="100" rx="42" ry="24" fill="#fff"/>
+    <ellipse cx="120" cy="125" rx="60" ry="20" fill="#fff"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">공기</text>
+  </g>
+
+  <!-- 셀 4 — 비행기 (空) -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#A8DADC" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="120" cy="120" rx="80" ry="14" fill="#fff" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="50,120 80,90 70,120" fill="#fff" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="50,120 80,150 70,120" fill="#fff" stroke="#2D3047" stroke-width="3"/>
+    <polygon points="180,120 200,108 210,120 200,132" fill="#fff" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="90"  cy="120" r="4" fill="#1B5FA3"/>
+    <circle cx="120" cy="120" r="4" fill="#1B5FA3"/>
+    <circle cx="150" cy="120" r="4" fill="#1B5FA3"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">공항</text>
+  </g>
+
+  <!-- 셀 5 — 키 큰 사람 (長) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="55" r="22" fill="#FFE0BD"/>
+    <rect x="100" y="75" width="40" height="140" fill="#1B5FA3"/>
+    <rect x="108" y="215" width="10" height="5" fill="#2D3047"/>
+    <rect x="122" y="215" width="10" height="5" fill="#2D3047"/>
+    <!-- 자 -->
+    <rect x="30" y="55" width="14" height="165" fill="#FFD166" stroke="#2D3047" stroke-width="2"/>
+    <g stroke="#2D3047" stroke-width="1.5">
+      <line x1="30" y1="80"  x2="44" y2="80"/>
+      <line x1="30" y1="110" x2="44" y2="110"/>
+      <line x1="30" y1="140" x2="44" y2="140"/>
+      <line x1="30" y1="170" x2="44" y2="170"/>
+      <line x1="30" y1="200" x2="44" y2="200"/>
     </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">☁️</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">공기</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">✈️</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">공항</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🧍</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">장남</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🧑</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">청년</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">⬜</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">백색</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌐</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">서양</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🧭</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">동쪽</text>
-    </g>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">장남</text>
+  </g>
+
+  <!-- 셀 6 — 청년 (靑) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="85" r="30" fill="#FFE0BD"/>
+    <path d="M 90,75 Q 120,45 150,75" fill="#2D3047"/>
+    <circle cx="110" cy="88" r="3" fill="#2D3047"/>
+    <circle cx="130" cy="88" r="3" fill="#2D3047"/>
+    <path d="M 108,108 Q 120,116 132,108" stroke="#2D3047" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- 청바지 + 청 색 옷 -->
+    <rect x="80" y="120" width="80" height="50" rx="4" fill="#1B5FA3"/>
+    <rect x="85" y="170" width="32" height="40" fill="#2c5f8e"/>
+    <rect x="123" y="170" width="32" height="40" fill="#2c5f8e"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">청년</text>
+  </g>
+
+  <!-- 셀 7 — 흰 구름 (白) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#87CEEB" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <ellipse cx="80"  cy="115" rx="34" ry="20" fill="#fff"/>
+    <ellipse cx="120" cy="100" rx="40" ry="24" fill="#fff"/>
+    <ellipse cx="160" cy="115" rx="34" ry="20" fill="#fff"/>
+    <ellipse cx="120" cy="135" rx="60" ry="22" fill="#fff"/>
+    <text x="120" y="200" text-anchor="middle" font-family="'Jua', sans-serif" font-size="20" fill="#fff">白</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">백색</text>
+  </g>
+
+  <!-- 셀 8 — 서쪽 표지 (西) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="80" width="160" height="120" rx="10" fill="#FF7F50" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="135" text-anchor="middle" font-family="'Jua', sans-serif" font-size="42" fill="#fff">W</text>
+    <polygon points="60,160 95,140 95,180" fill="#fff"/>
+    <text x="120" y="190" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#fff">서쪽</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">서양</text>
+  </g>
+
+  <!-- 셀 9 — 동쪽 표지 (東) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="80" width="160" height="120" rx="10" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+    <text x="120" y="135" text-anchor="middle" font-family="'Jua', sans-serif" font-size="42" fill="#2D3047">E</text>
+    <polygon points="180,160 145,140 145,180" fill="#2D3047"/>
+    <text x="120" y="190" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">동쪽</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">동쪽</text>
+  </g>
 </svg>

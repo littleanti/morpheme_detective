@@ -1,106 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
-     preserveAspectRatio="xMidYMid meet"
-     aria-label="🏠 가족 집 일러스트">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" aria-label="가족 집 일러스트">
   <defs>
-    <linearGradient id="bg-family-home" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0"   stop-color="#FFDAB9"/>
-      <stop offset="1"   stop-color="#FFE4E1"/>
+    <linearGradient id="fh-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE4E1"/>
+      <stop offset="1" stop-color="#FFDAB9"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-family-home)"/>
-  <text x="800" y="58" text-anchor="middle"
-        font-family="'Jua', sans-serif" font-size="44"
-        fill="#2D3047" opacity="0.55">🏠 가족 집</text>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#fh-wall)"/>
+  <rect x="0" y="770" width="1600" height="130" fill="#D2B48C"/>
+  <g stroke="#A98253" stroke-width="2" opacity="0.5">
+    <line x1="0" y1="800" x2="1600" y2="800"/>
+    <line x1="0" y1="850" x2="1600" y2="850"/>
+  </g>
 
-    <g>
-      <rect x="90" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👨‍👩‍👧‍👦</text>
-      <text x="210" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">가족</text>
+  <!-- 셀 0 — 가족 사진 (家) -->
+  <g transform="translate(90,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" fill="#FFD166" stroke="#7a5b3a" stroke-width="8"/>
+    <circle cx="70"  cy="120" r="16" fill="#FFE0BD"/>
+    <rect x="56"   y="135" width="28" height="35" fill="#1B5FA3"/>
+    <circle cx="105" cy="120" r="16" fill="#FFE0BD"/>
+    <rect x="91"   y="135" width="28" height="35" fill="#E63946"/>
+    <circle cx="140" cy="135" r="13" fill="#FFE0BD"/>
+    <rect x="128"  y="148" width="24" height="28" fill="#6BCAB8"/>
+    <circle cx="175" cy="135" r="13" fill="#FFE0BD"/>
+    <rect x="163"  y="148" width="24" height="28" fill="#FFD166"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">가족</text>
+  </g>
+
+  <!-- 셀 1 — 아버지 (父) -->
+  <g transform="translate(385,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="90" r="38" fill="#FFE0BD"/>
+    <path d="M 82,80 Q 120,46 158,80" fill="#2D3047"/>
+    <circle cx="106" cy="93" r="4" fill="#2D3047"/>
+    <circle cx="134" cy="93" r="4" fill="#2D3047"/>
+    <path d="M 105,108 Q 120,114 135,108" stroke="#2D3047" stroke-width="4" fill="none"/>
+    <rect x="78" y="128" width="84" height="80" rx="6" fill="#1B5FA3"/>
+    <rect x="105" y="128" width="30" height="20" fill="#fff"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">부친</text>
+  </g>
+
+  <!-- 셀 2 — 어머니 (母) -->
+  <g transform="translate(680,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="90" r="38" fill="#FFE0BD"/>
+    <path d="M 75,90 Q 75,40 120,40 Q 165,40 165,90 Q 168,118 150,140 L 90,140 Q 72,118 75,90" fill="#5a3a2a"/>
+    <circle cx="106" cy="93" r="4" fill="#2D3047"/>
+    <circle cx="134" cy="93" r="4" fill="#2D3047"/>
+    <path d="M 108,115 Q 120,123 132,115" stroke="#E63946" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="78" y="135" width="84" height="80" rx="6" fill="#E63946"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">모국</text>
+  </g>
+
+  <!-- 셀 3 — 남자아이 (男) -->
+  <g transform="translate(975,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="100" r="36" fill="#FFE0BD"/>
+    <path d="M 86,90 Q 120,55 154,90" fill="#2D3047"/>
+    <circle cx="106" cy="100" r="4" fill="#2D3047"/>
+    <circle cx="134" cy="100" r="4" fill="#2D3047"/>
+    <path d="M 108,120 Q 120,128 132,120" stroke="#2D3047" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="80" y="140" width="80" height="70" rx="6" fill="#6BCAB8"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">남자</text>
+  </g>
+
+  <!-- 셀 4 — 여자아이 (女) -->
+  <g transform="translate(1270,90)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="100" r="36" fill="#FFE0BD"/>
+    <path d="M 82,90 Q 82,50 120,50 Q 158,50 158,90 Q 158,140 130,150 L 110,150 Q 82,140 82,90" fill="#5a3a2a"/>
+    <circle cx="100" cy="58" r="6" fill="#E63946"/>
+    <circle cx="106" cy="103" r="4" fill="#2D3047"/>
+    <circle cx="134" cy="103" r="4" fill="#2D3047"/>
+    <path d="M 108,122 Q 120,130 132,122" stroke="#E63946" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <polygon points="78,142 162,142 174,210 66,210" fill="#FFD166"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">여자</text>
+  </g>
+
+  <!-- 셀 5 — 아이 (子) -->
+  <g transform="translate(90,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <circle cx="120" cy="110" r="40" fill="#FFE0BD"/>
+    <path d="M 85,105 Q 120,68 155,105 Q 158,82 120,75 Q 82,82 85,105" fill="#2D3047"/>
+    <circle cx="105" cy="113" r="5" fill="#2D3047"/>
+    <circle cx="135" cy="113" r="5" fill="#2D3047"/>
+    <path d="M 102,130 Q 120,148 138,130" stroke="#E63946" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <rect x="82" y="150" width="76" height="60" rx="6" fill="#FFD166"/>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">자녀</text>
+  </g>
+
+  <!-- 셀 6 — 사촌 사진 (寸) -->
+  <g transform="translate(385,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" fill="#A8DADC" stroke="#7a5b3a" stroke-width="6"/>
+    <circle cx="80"  cy="115" r="18" fill="#FFE0BD"/>
+    <rect x="65"   y="132" width="30" height="50" fill="#FF8C8C"/>
+    <circle cx="160" cy="115" r="18" fill="#FFE0BD"/>
+    <rect x="145"  y="132" width="30" height="50" fill="#6BCAB8"/>
+    <text x="120" y="200" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#2D3047">사촌과 함께</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">사촌</text>
+  </g>
+
+  <!-- 셀 7 — 문패 (姓) -->
+  <g transform="translate(680,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="40" y="60" width="160" height="120" rx="10" fill="#7a5b3a" stroke="#2D3047" stroke-width="4"/>
+    <rect x="55" y="75" width="130" height="90"  rx="6" fill="#F4E4BC"/>
+    <text x="120" y="115" text-anchor="middle" font-family="'Jua', sans-serif" font-size="30" fill="#2D3047">김 가족</text>
+    <text x="120" y="145" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="14" fill="#7a7a7a">Happy Home</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">성명</text>
+  </g>
+
+  <!-- 셀 8 — 별명 메모 (名) -->
+  <g transform="translate(975,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <g transform="rotate(-3 120 130)">
+      <rect x="40" y="50" width="160" height="160" fill="#FFD166" stroke="#2D3047" stroke-width="3"/>
+      <text x="120" y="110" text-anchor="middle" font-family="'Jua', sans-serif" font-size="28" fill="#E63946">별명 :</text>
+      <text x="120" y="155" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">햇님이</text>
     </g>
-    <g>
-      <rect x="385" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👨</text>
-      <text x="505" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">부친</text>
-    </g>
-    <g>
-      <rect x="680" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👩</text>
-      <text x="800" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">모국</text>
-    </g>
-    <g>
-      <rect x="975" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👦</text>
-      <text x="1095" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">남자</text>
-    </g>
-    <g>
-      <rect x="1270" y="90" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="210" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">👧</text>
-      <text x="1390" y="320" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">여자</text>
-    </g>
-    <g>
-      <rect x="90" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="210" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🧒</text>
-      <text x="210" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">자녀</text>
-    </g>
-    <g>
-      <rect x="385" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="505" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🧑‍🤝‍🧑</text>
-      <text x="505" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">사촌</text>
-    </g>
-    <g>
-      <rect x="680" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="800" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">📛</text>
-      <text x="800" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">성명</text>
-    </g>
-    <g>
-      <rect x="975" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1095" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">💬</text>
-      <text x="1095" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">별명</text>
-    </g>
-    <g>
-      <rect x="1270" y="500" width="240" height="260" rx="22"
-            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
-      <text x="1390" y="620" text-anchor="middle"
-            font-size="96" dominant-baseline="middle">🌸</text>
-      <text x="1390" y="730" text-anchor="middle"
-            font-family="'Gowun Dodum', sans-serif" font-size="26"
-            fill="#2D3047">효도</text>
-    </g>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">별명</text>
+  </g>
+
+  <!-- 셀 9 — 효도 액자 (孝) -->
+  <g transform="translate(1270,500)">
+    <rect x="0" y="0" width="240" height="260" rx="18" fill="#fff" opacity="0.95" stroke="#2D3047" stroke-width="3"/>
+    <rect x="30" y="40" width="180" height="170" fill="#FF8C8C" stroke="#7a5b3a" stroke-width="6"/>
+    <text x="120" y="120" text-anchor="middle" font-family="'Jua', sans-serif" font-size="64" fill="#fff">孝</text>
+    <text x="120" y="170" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="18" fill="#fff">효도</text>
+    <text x="120" y="240" text-anchor="middle" font-family="'Gowun Dodum', sans-serif" font-size="22" fill="#2D3047">효도</text>
+  </g>
 </svg>
