@@ -11,6 +11,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  /* stage-dock(flex-column) 안에서 가로 가운데 정렬
+     — 명시 width 때문에 stretch가 안 먹어 좌측에 붙는 문제 보정 */
+  align-self: center;
 }
 
 .morph-svg {
