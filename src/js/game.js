@@ -47,6 +47,13 @@ function _updateProgressUI() {
 
 export function showMission() {
   const data = getSessionData();
+  // Race 안전망: morph 중 미션 버튼이 (디버그/자동화로) 트리거된 경우
+  // sessionDiscoveries 는 갱신되었지만 recordDiscovery 콜백 직전이라
+  // sessionCollected 가 비어있을 수 있다. 짧게 대기 후 재시도.
+  if (data.sessionDiscoveries > 0 && data.sessionCollected.length === 0) {
+    setTimeout(showMission, 150);
+    return;
+  }
   renderMissionScreen(data.sessionCollected, { onEnd: showEnd });
   _showScreen?.(SCREENS.MISSION);
 }

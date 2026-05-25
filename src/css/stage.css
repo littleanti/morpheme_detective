@@ -18,8 +18,10 @@
 }
 
 .stage-dock {
-  width: 300px;
-  min-width: 260px;
+  /* 도크 width 400, padding 16 양쪽 → 카드 컨테이너 inner ~360.
+     카드 64 × 5 + gap 6 × 4 = 344 < 360 한 줄에 들어감. */
+  width: 400px;
+  min-width: 360px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -108,7 +110,8 @@
 
   .stage-canvas {
     flex: none;
-    height: 70dvh;
+    /* 세로 모드 일러스트 65dvh → 도크 35dvh 확보(카드+morph 가시성) */
+    height: 65dvh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -127,7 +130,8 @@
 
   .stage-dock {
     width: 100%;
-    height: 30dvh;
+    height: 35dvh;
+    min-width: 0;             /* 가로 width 360 가 portrait 에서 발동되지 않도록 */
     flex-direction: column;   /* 세로 스택 — 상단 바 고정, 나머지 스크롤 */
     align-items: stretch;
     overflow-y: auto;

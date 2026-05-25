@@ -160,6 +160,11 @@ function attachHitZones(canvas, svg, objects) {
 
 async function onHit({ objectId, wordId, label }) {
   stopPulse();
+  // hit-zone polygon 은 tabindex 가 있어 클릭 후에도 focus-visible 가
+  // 유지되며 stroke 가 잔상처럼 보일 수 있다. 즉시 blur 로 해제.
+  if (document.activeElement?.classList?.contains?.('hit-zone')) {
+    document.activeElement.blur();
+  }
   console.log(`[stage] hit objectId="${objectId}" wordId="${wordId}" label="${label}"`);
 
   const word = currentStage?.words?.[wordId];

@@ -17,7 +17,8 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  gap: 8px;
+  /* gap 6 + 카드 64 × 5 = 344, 도크 inner 360 안에 한 줄로 들어감 */
+  gap: 6px;
   padding: 6px 4px 10px;
   overflow: visible;
   pointer-events: none;
@@ -32,17 +33,19 @@
 }
 
 /* ── 개별 카드 — 공통(가로 기본: 격자 셀) ────────────────────── */
+/* 도크 inner 360 안에서 5장(64 × 5 + gap 6 × 4 = 344) 한 줄에 들어감.
+   세로 모드는 아래 portrait 미디어 쿼리에서 flex 폭을 다시 키운다. */
 .vocab-card {
-  flex: 0 0 80px;
-  width: 80px;
-  min-height: 72px;
+  flex: 0 0 64px;
+  width: 64px;
+  min-height: 64px;
 
   background: var(--yellow);
   border: 3px solid var(--navy);
   border-bottom: 6px solid var(--navy); /* 색맹 대응: 형태 패턴 강조 */
-  border-radius: 16px;
+  border-radius: 14px;
   font-family: 'Gowun Dodum', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
   color: var(--navy);
   display: flex;
@@ -103,7 +106,10 @@
 
   /* portrait: 카드 더 크게 + 아래에서 진입 */
   .vocab-card {
+    flex: 0 0 84px;
+    width: 84px;
     min-height: 80px;
+    font-size: 1.05rem;
     transform: translateY(12px);
   }
 
