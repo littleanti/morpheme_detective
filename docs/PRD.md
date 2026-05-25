@@ -81,7 +81,7 @@
 | F15 | 한자 풀 필터 | 도감에서 전체/8급/7급Ⅱ 토글 (localStorage `4md:collectionFilter`) | ✅ |
 | F16 | 진척도 영속화 | localStorage `4md:` prefix(`settings`/`collected`/`stars`) | ✅ |
 | F17 | 음·뜻 자동 TTS | Web Speech API — 한자 노출 시 "수, 물 수" 자동 음성. 설정 토글 가능 | ✅ |
-| F18 | 부분 힌트 | 일정 시간 미발견 시 핵심 객체 펄스 강화 | ⏳ |
+| F18 | 부분 힌트 | 10초간 새 발견 없으면 미발견 hit zone 에 코랄 강화 펄스 (`.pulse-strong`, 0.9s 주기, drop-shadow). 설정 발광 힌트 OFF 시 비활성 | ✅ |
 | F19 | 다크 모드 + 폰트 크기 조절 | 설정에서 토글, body[data-theme]/body[data-font] 전역 적용 | ✅ |
 
 ### P2 (향후)

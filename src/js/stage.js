@@ -2,7 +2,7 @@
 import { STAGES }               from '../data/stages.js';
 import { HANJA }                from '../data/hanja.js';
 import { state }                from './state.js';
-import { PULSE_DURATION, MAGNET_PX } from './config.js';
+import { PULSE_DURATION, IDLE_HINT_DELAY, MAGNET_PX } from './config.js';
 import { showWord, clearWord }  from './word-block.js';
 import { speakHanja, cancel as cancelTts } from './tts.js';
 import { getSnappedHitZone }    from './magnifier.js';
@@ -68,6 +68,7 @@ function nearestHitZoneFromPoint(svg, clientX, clientY, maxPx) {
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 let pulseTimer       = null;
+let idleHintTimer    = null;
 let hitListener      = null;
 let canvasEl         = null;
 let svgEl            = null;
@@ -102,6 +103,7 @@ export async function loadStage(stageId) {
   state.stage.illustrationLoaded = true;
 
   startPulse();
+  scheduleIdleHint();
   console.log(`[stage] ${stageId} 로드 완료 — hit zone ${stage.clickableObjects.length}개`);
 }
 
@@ -160,6 +162,16 @@ function attachHitZones(canvas, svg, objects) {
 
 async function onHit({ objectId, wordId, label }) {
   stopPulse();
+  clearIdleHint();
+  // 발견된 hit zone 표시 + 강화 펄스 제거 (PRD F18)
+  if (svgEl && objectId) {
+    const sel = `.hit-zone[data-object-id="${CSS.escape ? CSS.escape(objectId) : objectId}"]`;
+    const el  = svgEl.querySelector(sel);
+    if (el) {
+      el.classList.add('discovered');
+      el.classList.remove('pulse-strong');
+    }
+  }
   // hit-zone polygon 은 tabindex 가 있어 클릭 후에도 focus-visible 가
   // 유지되며 stroke 가 잔상처럼 보일 수 있다. 즉시 blur 로 해제.
   if (document.activeElement?.classList?.contains?.('hit-zone')) {
@@ -202,6 +214,9 @@ async function onHit({ objectId, wordId, label }) {
 
   // 발견 콜백 — morph 성공/실패 무관하게 항상 호출
   if (hanja) discoveryCallback?.(hanja.id);
+
+  // 다음 미발견 객체를 위해 idle hint 재예약 (남아있는 hit zone 있을 때만)
+  scheduleIdleHint();
 }
 
 async function triggerMorph(hanja) {
@@ -252,9 +267,32 @@ function stopPulse() {
   state.stage.pulseUntilTs = 0;
 }
 
+// ── PRD F18: 일정 시간 미발견 시 강화 펄스 ──────────────────
+// IDLE_HINT_DELAY 동안 새 발견이 없으면 미발견(.hit-zone:not(.discovered))
+// 모두에 .pulse-strong 부착. onHit / unloadStage / loadStage 가 리셋.
+function scheduleIdleHint() {
+  if (state.settings.pulseEnabled === false) return; // 발광 힌트 설정 OFF 시 비활성
+  if (idleHintTimer) clearTimeout(idleHintTimer);
+  idleHintTimer = setTimeout(() => {
+    if (!svgEl) return;
+    const undiscovered = svgEl.querySelectorAll('.hit-zone:not(.discovered)');
+    if (undiscovered.length === 0) return;
+    undiscovered.forEach(el => el.classList.add('pulse-strong'));
+  }, IDLE_HINT_DELAY);
+}
+
+function clearIdleHint() {
+  if (idleHintTimer) { clearTimeout(idleHintTimer); idleHintTimer = null; }
+  if (svgEl) {
+    svgEl.querySelectorAll('.hit-zone.pulse-strong')
+      .forEach(el => el.classList.remove('pulse-strong'));
+  }
+}
+
 export function unloadStage() {
   cancelTts();
   cancelMorph();
+  clearIdleHint();
   if (pulseTimer) { clearTimeout(pulseTimer); pulseTimer = null; }
   if (canvasEl && hitListener) canvasEl.removeEventListener('click', hitListener);
   const canvas = document.getElementById('stage-canvas');

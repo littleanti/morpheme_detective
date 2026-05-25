@@ -74,6 +74,12 @@
   animation: hitPulse 1.2s ease-in-out infinite;
 }
 
+/* PRD F18: 일정 시간 미발견 시 강화 펄스 (코랄 톤, 더 빠르고 진하게)
+   stage.js 가 .hit-zone:not(.discovered) 에만 부착. */
+.hit-zone.pulse-strong {
+  animation: hitPulseStrong 0.9s ease-in-out infinite;
+}
+
 /* M3 #6: hit zone 외 클릭 시 부드러운 거절(spring-back) */
 .spring-back {
   fill: rgba(255, 119, 87, 0.5);
@@ -99,6 +105,19 @@
   50% {
     fill:   rgba(255, 209, 102, 0.30);
     stroke: rgba(255, 209, 102, 0.95);
+  }
+}
+
+@keyframes hitPulseStrong {
+  0%, 100% {
+    fill:   rgba(255, 119, 87, 0.10);
+    stroke: rgba(255, 119, 87, 0.45);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    fill:   rgba(255, 119, 87, 0.45);
+    stroke: rgba(255, 119, 87, 1);
+    filter: drop-shadow(0 0 12px rgba(255, 119, 87, 0.75));
   }
 }
 

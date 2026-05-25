@@ -15,4 +15,5 @@ export const MAGNET_DP       = 40;                                  // TRD §3.3
 export const MAGNET_PX       = MAGNET_DP * (devicePixelRatio || 1);
 export const MORPH_DURATION  = 2000;                                // ms, TRD §3.2
 export const PULSE_DURATION  = 5000;                                // ms, PRD F5
+export const IDLE_HINT_DELAY = 10000;                               // ms, PRD F18 (미발견 강화 펄스)
 export const STORAGE_PREFIX  = '4md:';
