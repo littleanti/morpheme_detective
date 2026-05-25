@@ -23,13 +23,17 @@
   fill: var(--navy);
 }
 
-/* 최종 단계 — 실제 한자 글리프 (placeholder path 한계 보완) */
+/* 최종 단계 — 실제 한자 글리프 (placeholder path 한계 보완)
+   HTML <div> 로 그려 morph-stage 의 flex centered 정렬을 사용한다
+   (SVG text-anchor 는 폰트 advance width 기준이라 좌측 치우침이 생긴다) */
 .hanja-glyph {
-  fill: var(--navy);
+  color: var(--navy);
   font-family: 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic',
                'Apple SD Gothic Neo', 'Nanum Gothic', sans-serif;
-  font-size: 170px;
+  font-size: 140px;
   font-weight: 800;
+  line-height: 1;
+  text-align: center;
   letter-spacing: 0;
 }
 

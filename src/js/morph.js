@@ -132,23 +132,19 @@ export async function crossFadeSequence(container, morphPaths, durationMs = MORP
 // ── 한자 글리프 stage (최종 단계 — 실제 한자 문자 표시) ────────────
 // placeholder path 만으로는 한자 모양이 안 나오므로, 마지막에 system CJK 글리프로
 // 페이드인하여 학습자가 실제 한자를 인지할 수 있게 한다.
-function appendGlyphStage(container, char, viewBox) {
+//
+// SVG <text> + text-anchor="middle" 은 폰트의 advance width 기준 정렬이라
+// CJK 글리프가 advance 박스 안에서 한쪽으로 치우친 폰트(Apple SD Gothic Neo 등)
+// 에서는 시각적으로 좌측 치우침이 발생한다. 글리프 단계는 SVG 대신 HTML
+// <div> 로 그리고 morph-stage 의 flex centered 로 정렬한다.
+function appendGlyphStage(container, char) {
   if (!char) return null;
   const stage = document.createElement('div');
   stage.className = 'morph-stage hanja-glyph-stage';
-  const svg = document.createElementNS(SVG_NS, 'svg');
-  svg.setAttribute('class', 'morph-svg');
-  svg.setAttribute('viewBox', viewBox || '0 0 200 200');
-  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-  const t = document.createElementNS(SVG_NS, 'text');
-  t.setAttribute('class', 'hanja-glyph');
-  t.setAttribute('x', '100');
-  t.setAttribute('y', '100');
-  t.setAttribute('text-anchor', 'middle');
-  t.setAttribute('dominant-baseline', 'central');
-  t.textContent = char;
-  svg.appendChild(t);
-  stage.appendChild(svg);
+  const glyph = document.createElement('div');
+  glyph.className = 'hanja-glyph';
+  glyph.textContent = char;
+  stage.appendChild(glyph);
   container.appendChild(stage);
   return stage;
 }
@@ -231,7 +227,7 @@ export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION
   }
 
   // 최종: 실제 한자 글리프 페이드인 (placeholder path 한계 보완)
-  const glyphStage = appendGlyphStage(container, glyphChar, hanjaData.viewBox);
+  const glyphStage = appendGlyphStage(container, glyphChar);
   await revealGlyphStage(container, glyphStage);
 
   return pathOk;
