@@ -13,6 +13,7 @@
     "gen-all": "node scripts/gen-hanja-json.mjs && node scripts/gen-vocab.mjs && node scripts/gen-stage-svg.mjs && node scripts/gen-sw.mjs"
   },
   "devDependencies": {
+    "hanzi-writer-data": "^2.0.1",
     "sharp": "^0.34.5"
   }
 }

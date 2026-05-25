@@ -170,10 +170,9 @@ export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION
   void backdrop?.offsetWidth; // reflow → 애니메이션 재시작
   backdrop?.classList.add('animating');
 
-  // 글리프 fallback 단계를 위해 path 보간/cross-fade 는 마지막 한 칸을 양보
-  const intermediatePaths = hanjaData.morphPaths.length >= 2
-    ? hanjaData.morphPaths.slice(0, -1)
-    : hanjaData.morphPaths.slice();
+  // 모든 morph path 를 보간/cross-fade 에 사용. 글리프 fallback 은 그 뒤에
+  // 별도 stage 로 추가된다 (M9: hanzi-writer-data 실 stroke 를 마지막 path 로 사용).
+  const intermediatePaths = hanjaData.morphPaths.slice();
   const glyphChar = hanjaData.id || hanjaData.glyph || null;
 
   const fromTokens = tokenize(intermediatePaths[0]);
