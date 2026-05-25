@@ -1,8 +1,8 @@
 # 🔧 TRD — 형태소 탐정 게임
 
 > Technical Requirements Document
-> Last updated: 2026-05-22
-> Status: **M7 + M8 코드 작업 완료** — 사건 4종 / 한자 8자(placeholder path + system CJK 글리프 fallback) / morph 좌표 lerp+cross-fade+저사양 감지 / 도감 / 줌·팬(휠·핀치·드래그, 1x~3x) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) / `4md:` localStorage / PWA SW v3 / 좌표 기반 hit-zone 4단계 라우팅(`closest` → polygon point-in → magnifier snap → nearest fallback). 남은 작업: 실기기 매트릭스, Noto Sans CJK 서브셋, F15·F18.
+> Last updated: 2026-05-25
+> Status: **M7 + M8 코드 작업 완료** — 사건 4종 / 한자 8자(placeholder path + system CJK 글리프 fallback) / morph 좌표 lerp + cross-fade + 저사양 감지 / 도감(8칸 4×2 그리드) / 줌·팬(휠·핀치·드래그, 1x~3x, 경계 클램프) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) / `4md:` localStorage / PWA SW v3 (App Shell Cache First + Google Fonts SWR) / 좌표 기반 hit-zone 4단계 라우팅(`closest` → polygon point-in → magnifier snap → nearest fallback) / 카드 탭 → 위 음절 블록 단어 갱신 (형태소 인식 강화). 남은 작업: 실기기 매트릭스, Noto Sans CJK 서브셋, F15·F18.
 > Target: 모바일 태블릿 1순위, 폰 2순위, PC 보조
 
 ## 1. 기술 스택
@@ -326,6 +326,7 @@ CSS `@media (orientation: portrait)` 로 세로 레이아웃 자동 전환:
 - 세로: 하단 30dvh 컨트롤 도크 내 `flex-wrap: nowrap; overflow-x: auto` 수평 슬라이드 (§5.6 참조)
 - 등장: `revealed` 클래스 + 카드별 60ms 시차 staggered transition
 - 탭 시 카드 살짝 들썩(`.tapped`) + TTS, 키보드 접근(`role="button"` + Enter/Space)
+- **카드 탭 → 위 음절 블록 단어 갱신** (`_updateWordBlockForCard`): 카드 단어의 음절을 `showWord()` 로 재렌더하고, 현재 한자(`_currentHanjaId`)가 차지하는 `syllableMap` 인덱스를 `targetSyllableIdx` 로 사용 → 같은 한자가 다른 단어 어느 음절에 위치하는지 학습자가 시각적으로 비교. `clearCards()` 호출 시 `_currentHanjaId` 리셋.
 - 색맹 대응: `border-bottom: 6px solid var(--navy)` 로 형태 패턴 병기
 
 ### 5.5 미션 카드
