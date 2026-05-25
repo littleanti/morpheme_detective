@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"
+     preserveAspectRatio="xMidYMid meet"
+     aria-label="🏫 학교 교실 일러스트">
+  <defs>
+    <linearGradient id="bg-classroom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#FFF6E4"/>
+      <stop offset="1"   stop-color="#A8D5BA"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bg-classroom)"/>
+  <text x="800" y="58" text-anchor="middle"
+        font-family="'Jua', sans-serif" font-size="44"
+        fill="#2D3047" opacity="0.55">🏫 학교 교실</text>
+
+    <g>
+      <rect x="90" y="90" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="210" y="210" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">📕</text>
+      <text x="210" y="320" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">교과서</text>
+    </g>
+    <g>
+      <rect x="385" y="90" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="505" y="210" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">🎒</text>
+      <text x="505" y="320" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">등교</text>
+    </g>
+    <g>
+      <rect x="680" y="90" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="800" y="210" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">👦</text>
+      <text x="800" y="320" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">학생</text>
+    </g>
+    <g>
+      <rect x="975" y="90" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="1095" y="210" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">🌱</text>
+      <text x="1095" y="320" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">인생</text>
+    </g>
+    <g>
+      <rect x="1270" y="90" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="1390" y="210" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">🚻</text>
+      <text x="1390" y="320" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">화장실</text>
+    </g>
+    <g>
+      <rect x="90" y="500" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="210" y="620" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">👩‍🏫</text>
+      <text x="210" y="730" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">선생</text>
+    </g>
+    <g>
+      <rect x="385" y="500" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="505" y="620" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">🧑</text>
+      <text x="505" y="730" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">형님</text>
+    </g>
+    <g>
+      <rect x="680" y="500" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="800" y="620" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">👧</text>
+      <text x="800" y="730" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">제자</text>
+    </g>
+    <g>
+      <rect x="975" y="500" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="1095" y="620" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">🇰🇷</text>
+      <text x="1095" y="730" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">국기</text>
+    </g>
+    <g>
+      <rect x="1270" y="500" width="240" height="260" rx="22"
+            fill="#FFFFFF" stroke="#2D3047" stroke-width="3" opacity="0.92"/>
+      <text x="1390" y="620" text-anchor="middle"
+            font-size="96" dominant-baseline="middle">📝</text>
+      <text x="1390" y="730" text-anchor="middle"
+            font-family="'Gowun Dodum', sans-serif" font-size="26"
+            fill="#2D3047">한글</text>
+    </g>
+</svg>

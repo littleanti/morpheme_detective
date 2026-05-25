@@ -125,3 +125,37 @@ body[data-theme='dark'] .collection-card.locked .collection-card-hanja,
 body[data-theme='dark'] .collection-card-lock {
   color: var(--color-text);
 }
+
+/* ── 스크롤바 가시성 (PC 환경) ──────────────────────────────────
+   macOS Safari/Chrome 등은 기본 overlay 스크롤바라 평소엔 투명 →
+   PC(fine pointer) 환경에서만 항상 보이는 코랄 thumb 으로 표시.
+   모바일(coarse pointer)은 OS 기본 거동 유지. */
+@media (pointer: fine) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--coral) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--coral);
+    border-radius: 10px;
+    border: 3px solid var(--cream);
+    min-height: 40px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #E5613D; /* coral 진한 톤 */
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  /* 다크 모드 — thumb 테두리를 본문 배경 색에 맞춰 자연스럽게 */
+  body[data-theme='dark'] *::-webkit-scrollbar-thumb {
+    border-color: var(--color-bg);
+  }
+}

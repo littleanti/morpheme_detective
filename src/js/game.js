@@ -87,7 +87,7 @@ function _renderEndScreen() {
   if (!container) return;
 
   const starsStr = data.totalStars > 0
-    ? '⭐'.repeat(Math.min(data.totalStars, 8))
+    ? '⭐'.repeat(Math.min(data.totalStars, 10)) + (data.totalStars > 10 ? ` +${data.totalStars - 10}` : '')
     : '아직 별이 없어요';
 
   const hanjaItems = data.sessionCollected

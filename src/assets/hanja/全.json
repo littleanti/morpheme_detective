@@ -1,0 +1,14 @@
+{
+  "id": "全",
+  "reading": "전",
+  "meaning": "온전",
+  "source": "placeholder — Make Me a Hanzi(GPL) 교체 대상",
+  "viewBox": "0 0 200 200",
+  "morphPaths": [
+    "M 100,15 L 145,30 L 175,65 L 185,110 L 165,155 L 125,180 L 75,180 L 35,155 L 15,110 L 25,65 Z",
+    "M 100,15 L 150,40 L 165,85 L 180,130 L 140,160 L 110,180 L 70,170 L 40,140 L 25,90 L 50,45 Z",
+    "M 25,25 L 175,25 L 175,100 L 175,175 L 100,175 L 25,175 L 25,100 L 100,100 L 100,25 L 25,100 Z"
+  ],
+  "strokeCount": null,
+  "notes": "3-step morph placeholder. 마지막 단계는 system CJK 글리프 fallback (TRD §3.2) 으로 자동 대체."
+}

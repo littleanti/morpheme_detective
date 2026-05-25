@@ -544,31 +544,64 @@
   text-align: center;
 }
 
+/* ── F15 급수 필터 chip 행 ── */
+.collection-filter {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto 14px;
+  max-width: 880px;
+}
+.filter-chip {
+  font-family: 'Jua', sans-serif;
+  font-size: 0.95rem;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 2px solid var(--navy);
+  background: var(--color-surface);
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s;
+}
+.filter-chip.active {
+  background: var(--coral);
+  color: #fff;
+  border-color: var(--coral);
+}
+.filter-chip:hover { transform: translateY(-1px); }
+
+/* ── F14 100칸 그리드 ── */
 .collection-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
   width: 100%;
-  max-width: 480px;
+  max-width: 880px;
   margin: 0 auto;
 }
-
-@media (max-width: 400px) {
-  .collection-grid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) {
+  .collection-grid { grid-template-columns: repeat(8, 1fr); gap: 10px; }
+}
+@media (min-width: 1080px) {
+  .collection-grid { grid-template-columns: repeat(10, 1fr); }
+}
+@media (max-width: 360px) {
+  .collection-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
 }
 
 .collection-card {
   background: var(--color-surface);
-  border: 3px solid var(--navy);
-  border-radius: 16px;
-  padding: 12px 8px;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  padding: 6px 4px;
   text-align: center;
-  min-height: 90px;
+  min-height: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 0 var(--navy);
+  box-shadow: 0 3px 0 var(--navy);
 }
 
 .collection-card.locked {
@@ -578,27 +611,36 @@
 
 .collection-card-hanja {
   font-family: 'Jua', sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   color: var(--navy);
   line-height: 1;
 }
 
 .collection-card-reading {
   font-family: 'Gowun Dodum', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--coral);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .collection-card-meaning {
   font-family: 'Gowun Dodum', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   color: var(--color-text-dim);
+  line-height: 1.1;
+}
+
+.collection-card-grade {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 0.6rem;
+  color: var(--color-text-dim);
+  margin-top: 2px;
+  opacity: 0.7;
 }
 
 .collection-card-lock {
-  font-size: 1.4rem;
-  margin-top: 4px;
+  font-size: 1rem;
+  margin-top: 2px;
 }
 
 .collection-actions {

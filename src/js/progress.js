@@ -23,7 +23,7 @@ export function saveProgress() {
 }
 
 // 별 정책: 같은 한자는 처음 발견 시에만 1별 지급
-// MVP 8한자(車/水/火/木/山/日/月/人) 기준 최대 8별 — game.js 표시 상한과 일치
+// 한국어문회 7·8급 100자 기준 최대 100별 — game.js 표시 상한은 시각적으로 10별
 export function recordDiscovery(hanjaId) {
   const isNew = !state.progress.collected.has(hanjaId);
   state.progress.collected.add(hanjaId);
