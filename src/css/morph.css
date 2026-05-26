@@ -69,10 +69,13 @@
   40%, 60%  { opacity: 1; transform: scale(1);    }
 }
 
-/* 세로 모드: 컨테이너 축소 */
+/* 세로 모드: 컨테이너 축소 — 글리프도 함께 축소해 누출 방지 */
 @media (orientation: portrait) {
   .morph-container {
     width: 120px;
     height: 120px;
+  }
+  .hanja-glyph {
+    font-size: 100px;
   }
 }
