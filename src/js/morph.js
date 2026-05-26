@@ -102,15 +102,18 @@ export async function morphSequence(pathEl, morphPaths, durationMs = MORPH_DURAT
 }
 
 // ── cross-fade 폴백 (보간 불가 / 저사양) ──────────────────────────
-// container 안에 morphPaths.length 개의 <path> 를 스택, opacity 시퀀싱
-export async function crossFadeSequence(container, morphPaths, durationMs = MORPH_DURATION) {
-  container.innerHTML = '';
+// container 안에 morphPaths.length 개의 <path> 를 스택, opacity 시퀀싱.
+// viewBox 는 호출 측이 hanjaData.viewBox 를 넘긴다 — 누락 시 200×200 기본.
+//  (hanzi-writer-data 는 1024×1024 좌표라 기본값을 쓰면 ~5x 오버스케일·누출됨)
+export async function crossFadeSequence(container, morphPaths, durationMs = MORPH_DURATION, viewBox = '0 0 200 200') {
+  // .morph-stage 만 제거 — morph-backdrop 등 형제 요소는 보존
+  container.querySelectorAll('.morph-stage').forEach(s => s.remove());
   const stages = morphPaths.map((d, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'morph-stage' + (i === 0 ? ' active' : '');
     const svg = document.createElementNS(SVG_NS, 'svg');
     svg.setAttribute('class', 'morph-svg');
-    svg.setAttribute('viewBox', '0 0 200 200');
+    svg.setAttribute('viewBox', viewBox);
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     const p = document.createElementNS(SVG_NS, 'path');
     p.setAttribute('class', 'morph-path');
@@ -207,7 +210,7 @@ export async function runMorph(container, hanjaData, durationMs = MORPH_DURATION
   } else {
     console.info('[morph] cross-fade fallback (mismatch or low-end)');
     if (intermediatePaths.length >= 2) {
-      pathOk = await crossFadeSequence(container, intermediatePaths, pathDuration);
+      pathOk = await crossFadeSequence(container, intermediatePaths, pathDuration, hanjaData.viewBox || '0 0 200 200');
     } else {
       container.querySelectorAll('.morph-stage').forEach(s => s.remove());
       const stage = document.createElement('div');
