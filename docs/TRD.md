@@ -2,7 +2,7 @@
 
 > Technical Requirements Document
 > Last updated: 2026-05-25
-> Status: **M9 한자 풀 100자 + 사건 10건 데이터 레이어 완료** — 사건 10종 / 한자 100자(한국어문회 7·8급, placeholder path + system CJK 글리프 fallback) / 어휘 429개(자동 생성) / morph 좌표 lerp + cross-fade + 저사양 감지 / 도감 100칸 반응형(5/8/10열) + 급수 필터 / 줌·팬(휠·핀치·드래그, 1x~3x, 경계 클램프) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) / `4md:` localStorage / PWA SW v4 (145 URLs) / 좌표 기반 hit-zone 4단계 라우팅 / 카드 탭 → 위 음절 블록 단어 갱신. 자동 생성 스크립트: `gen-hanja-json`·`gen-vocab`·`gen-stage-svg`·`gen-sw` (npm 통합). 남은 작업: 실 일러스트 10장 손그림 / morph path 정식 자산(Make Me a Hanzi) / 실기기 매트릭스 / Noto Sans CJK 서브셋 / F18.
+> Status: **M9 한자 풀 100자 + 사건 10건 데이터 레이어 완료** — 사건 10종 / 한자 100자(한국어문회 7·8급, placeholder path + system CJK 글리프 fallback) / 어휘 429개(자동 생성) / morph 좌표 lerp + cross-fade + 저사양 감지 / 도감 100칸 반응형(5/8/10열) + 급수 필터(F15) / 줌·팬(휠·핀치·드래그, 1x~3x, 경계 클램프) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) / `4md:` localStorage / PWA SW v8 (auto-gen) / 좌표 기반 hit-zone 4단계 라우팅 / 카드 탭 → 위 음절 블록 단어 갱신 / F18 10초 미발견 강화 펄스. 자동 생성 스크립트: `gen-hanja-json`·`gen-vocab`·`gen-stage-svg`·`gen-sw`·`gen-all` (npm 통합, `hanzi-writer-data` 좌표계). 남은 작업: 실 일러스트 10장 손그림 / morph path 정식 자산(Make Me a Hanzi) / 실기기 매트릭스 / Noto Sans CJK 서브셋.
 > Target: 모바일 태블릿 1순위, 폰 2순위, PC 보조
 
 ## 1. 기술 스택

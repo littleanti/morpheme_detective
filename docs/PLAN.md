@@ -2,7 +2,7 @@
 
 > 개발 계획 및 진행 상태
 > Last updated: 2026-05-25
-> Status: **M7 다중 사건·컬렉션·줌/팬 완료 + M8 PWA SW v3 + 설정 페이지(F19) + 카드 격자 + 한자 글리프 fallback + 클릭 라우팅 견고화 + 카드 탭 → 위 음절 블록 단어 갱신(UX) — 실기기 매트릭스 / Noto Sans CJK 서브셋 / F15·F18 남음**
+> Status: **M9 한자 풀 100자 + 사건 10건 데이터 레이어 완료** — M7·M8 위에 한자 100자(한국어문회 7·8급) / 사건 10건 / 어휘 429개(자동 생성) / 도감 100칸 + 급수 필터(F15) / F18 10초 미발견 강화 펄스 / PWA SW v8(auto-gen) / 자동 생성 스크립트 4종(`gen-hanja-json`·`gen-vocab`·`gen-stage-svg`·`gen-sw` + `gen-all`) / `hanzi-writer-data` 좌표계로 morph cross-fade 정합. 남은 작업: 실 일러스트 10장 손그림 / morph path 정식 자산(Make Me a Hanzi) / 실기기 매트릭스 / Noto Sans CJK 서브셋.
 
 ## 📌 현재 상태
 
@@ -24,7 +24,8 @@
 | M6 | MVP 게임 루프 | F1 ~ F12 완성, 1개 사건 완주 + 미션 카드 출력 |
 | M7 | 다중 사건 + 확장 | 사건 4개+, F13 ~ F19 확장 기능 |
 | M8 | 모바일 QA + 출시 | 실기기 매트릭스 통과, PWA 배포 |
-| M9 | v2+ 로드맵 | SRL, 부모 대시보드, 발음 평가, 5단계 연동 |
+| M9 | 한자 풀 100자 + 사건 10건 | 한국어문회 7·8급 100자 / 사건 10건 / 어휘 429개 / 자동 생성 파이프라인 / F15·F18 ✅ |
+| M10 | v2+ 로드맵 | SRL, 부모 대시보드, 발음 평가, 5단계 연동 |
 
 ## 🚧 M0 — 문서 합의 (현재)
 
@@ -394,18 +395,44 @@ npm run gen-icons   # icon-192.png, icon-512.png, apple-touch-icon.png 생성
 - [ ] 한자 폰트 서브셋 < 200KB (pyftsubset + Noto Sans CJK 필요)
 - [ ] 사용자 시범 (만 7·8세 각 2 ~ 3명) 1개 사건 완주 가능 확인
 
-## 🔭 M9 — v2+ 로드맵 (아이디어)
+## 🌳 M9 — 한자 풀 100자 + 사건 10건 (진행 중 · 2026-05-25)
+
+### P0 (필수) — 데이터 레이어 ✅
+- [x] **한자 100자 메타** (`src/data/hanja.js`) — 한국어문회 7·8급(8급 50 + 7급Ⅱ 50)
+- [x] **사건 10건 메타** (`src/data/stages.js`) — 각 10자 분배, `buildStage()` 헬퍼 + 2행×5열 grid placeholder polygon
+  - parking-lot · classroom · family-home · school-cafeteria · fire-station · nature-park · market · sky-time · street · numbers-class
+- [x] **어휘 429개 자동 매핑** (`scripts/gen-vocab.mjs` → `src/data/vocab.js`)
+- [x] **한자 JSON 100개 placeholder** (`scripts/gen-hanja-json.mjs` → `src/assets/hanja/*.json`)
+- [x] **일러스트 10장 grid placeholder** (`scripts/gen-stage-svg.mjs` → `src/assets/stages/*.svg`)
+- [x] **PWA SW 자동 생성** (`scripts/gen-sw.mjs` → `service-worker.js` v8, 자산 list 동기화 + cache version bump)
+- [x] **`hanzi-writer-data` 좌표계 정합** — morph cross-fade viewBox 일치 (커밋 `eaba9b6`)
+- [x] **`npm run gen-all`** — 4개 생성 스크립트 한 번에 실행
+- [x] **F15 도감 급수 필터** — 전체 / 8급 / 7급Ⅱ 칩, `4md:collectionFilter` localStorage 영속
+- [x] **F18 강화 펄스** — 10초 미발견 시 미발견 hit zone 에 `.pulse-strong` (코랄 톤 + drop-shadow + 0.9s 주기), 설정 발광 힌트 OFF 시 비활성
+- [x] **도감 100칸 반응형 그리드** — 5/8/10열 분기
+
+### P1 (잔여) — 자산 + 폴리시
+- [ ] **실 일러스트 10장 손그림** — 현재 grid placeholder. 사건별 맥락 일러스트 제작 필요
+- [ ] **morph path 정식 자산** — Make Me a Hanzi(GPL) 100자 실데이터로 placeholder 교체
+- [ ] **Noto Sans CJK Korean 서브셋** — `pyftsubset` woff2 < 200KB (사용 한자 100자 한정)
+- [ ] **실기기 매트릭스** — iPad Mini / iPad Pro / 갤럭시 탭 A8 / iPhone SE / 보급형 안드로이드
+
+### 종료 기준 (Definition of Done)
+- [x] `npm run validate` 통과 — 한자 100 / 어휘 429 / 사건 10 교차 검증
+- [x] `npm run gen-all` 일관성 보장 — 데이터 변경 시 한자 JSON / 어휘 / 스테이지 SVG / SW 한 번에 재생성
+- [ ] 사용자 시범 (만 7·8세) 사건 10건 중 임의 1건 완주 가능 확인
+- [ ] Lighthouse 모바일 PWA 스코어 ≥ 90
+
+## 🔭 M10 — v2+ 로드맵 (아이디어)
 
 ### P2
 - [ ] **IndexedDB SRL**: 발견 한자별 재노출 스케줄 (에빙하우스 곡선)
 - [ ] **5단계 연동**: 발견 한자 → `5_vocabulary_tree` 학습 큐 자동 전달 (`4md:collected` → `5vt:queue`)
 - [ ] **부모 대시보드(웹)**: 발견 한자, 취약 한자, 세션 시간 시각화
 - [ ] **발음 평가**: Web Speech API + Levenshtein 거리 → 어휘 카드 따라 읽기 채점
-- [ ] **다크 모드 + 폰트 크기 조절**: 접근성 강화
 - [ ] **사용자 기여 어휘**: 부모/교사가 추가 어휘 등록(JSON import)
 
 ### P3 (실험)
-- [ ] **8 ~ 7급 한자 100자 풀**: AGENTS.md 권장 범위 전체
 - [ ] **상형 추리 모드**: 한자 → 실루엣 역방향 추리(보상 연계)
 - [ ] **클래스룸 모드**: 교사 PC에서 학생 태블릿 진척도 LAN 미러링
 - [ ] **사건 자동 생성기**: 학습자 어휘 풀 기반 일러스트 추천

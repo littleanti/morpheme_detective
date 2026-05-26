@@ -4,7 +4,7 @@
 # 4_morpheme_detective — 형태소 탐정 게임
 
 ## Status
-**M7 다중 사건·컬렉션·줌·팬 완료 + M8 PWA 코드 작업 완료** — Vanilla JS + 인라인 SVG + CSS, 빌드 단계 없음. 포트 **4324**. 사건 4종(주차장·학교 급식실·소방서·약수터) / 한자 8자(車·水·火·木·山·日·月·人) 모두 발견 가능. PWA Service Worker v3 / 도감 / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) 동작. 잔여 작업: 실기기 매트릭스 / Noto Sans CJK 서브셋 / F15(한자 풀 필터)·F18(부분 힌트).
+**M9 한자 풀 100자 + 사건 10건 데이터 레이어 완료** — Vanilla JS + 인라인 SVG + CSS, 빌드 단계 없음. 포트 **4324**. 한자 **100자(한국어문회 7·8급)** / 사건 **10건**(주차장·교실·가족 집·급식실·소방서·자연공원·시장·하늘·거리·숫자) / 어휘 **429개**(자동 생성) / 도감 100칸 + 급수 필터(F15) / F18 10초 미발견 강화 펄스 / PWA Service Worker v8 (auto-gen) / 설정 페이지(TTS·효과음·발광 힌트·글자 크기·다크 모드·진행 초기화) 동작. 자동 생성 스크립트 4종(`gen-hanja-json`·`gen-vocab`·`gen-stage-svg`·`gen-sw` + `gen-all`)으로 데이터 일관성 보장. 잔여 작업: 실 일러스트 10장 손그림 / morph path 정식 자산(Make Me a Hanzi) / 실기기 매트릭스 / Noto Sans CJK 서브셋.
 
 ## Purpose
 이미 익숙하게 사용하던 한국어 단어 속에 한자(뜻글자)가 형태소로 숨어 있다는 사실을 시각적·서사적으로 깨닫게 하는 게임. 한자를 강제로 암기시키는 대신, 이미지 처리 우뇌와 논리 처리 좌뇌를 동시에 자극하여 형태소적 인식(morphological awareness)을 자연스럽게 형성한다.
@@ -24,9 +24,20 @@
 | File | Description |
 |------|-------------|
 | `index.html` | 앱 진입점 — start/stage-select/play/settings/mission/end/collection 화면 포함 |
-| `package.json` | `npm run dev` → `npx serve -p 4324`, `npm run validate` (데이터 정합성), `npm run gen-icons` (PWA PNG 아이콘) |
+| `package.json` | `npm run dev` → `npx serve -p 4324`, `npm run validate` (데이터 정합성), `npm run gen-all` (한자 JSON · 어휘 · 스테이지 SVG · SW 일괄 재생성) |
 | `manifest.webmanifest` | PWA 매니페스트 (홈 화면 추가, orientation: any) |
-| `service-worker.js` | PWA 오프라인 캐시 v3 — App Shell(Cache First) + Google Fonts(SWR) |
+| `service-worker.js` | **AUTO-GENERATED** — PWA 오프라인 캐시 v8, App Shell(Cache First) + Google Fonts(SWR). 직접 편집 금지 |
+
+### Generation Scripts (`scripts/`)
+
+| Script | 역할 |
+|--------|------|
+| `gen-hanja-json.mjs` | `hanja.js` → `src/assets/hanja/{id}.json` 100개 (placeholder 3-step path) |
+| `gen-vocab.mjs` | `hanja.js` + `stages.js` → `src/data/vocab.js` (429 어휘 자동 매핑) |
+| `gen-stage-svg.mjs` | `stages.js` → `src/assets/stages/{id}.svg` 10장 (grid placeholder) |
+| `gen-sw.mjs` | 자산 list 동기화 + cache version bump → `service-worker.js` |
+| `gen-icons.mjs` | PWA PNG 아이콘 (sharp) — `icon-192.png` / `icon-512.png` / `apple-touch-icon.png` |
+| `validate-data.js` | 한자/어휘/스테이지 교차 검증 (`npm run validate`, 오류 0 / 경고 0 유지) |
 
 ### Key JS Modules (`src/js/`)
 
@@ -57,16 +68,16 @@
 
 | File | 역할 |
 |------|------|
-| `hanja.js` | 한자 메타 8자 — `{id, reading, meaning, grade, morphPathsRef, vocab[5]}` |
-| `vocab.js` | 어휘 → 한자 매핑 36개 — `{syllableMap: {idx: HanjaId}, familiarity: 1\|2\|3}` |
-| `stages.js` | 사건 4종 — `{viewBox, illustrationSrc, clickableObjects[], words{}}` |
+| `hanja.js` | 한자 메타 **100자** (한국어문회 7·8급) — `{id, reading, meaning, grade, morphPathsRef, vocab[5]}` |
+| `vocab.js` | 어휘 → 한자 매핑 **429개** (`gen-vocab.mjs` 자동 생성) — `{syllableMap: {idx: HanjaId}, familiarity: 1\|2\|3}` |
+| `stages.js` | 사건 **10종** — 각 10자, `buildStage()` 헬퍼 + 2행×5열 grid placeholder polygon |
 
 ### Key Assets (`src/assets/`)
 
 | Path | 내용 |
 |------|------|
-| `stages/*.svg` | 사건별 일러스트 4종 (parking-lot / school-cafeteria / fire-station / water-spring) |
-| `hanja/*.json` | 한자별 3-step morph path (M+9L+Z=11 토큰, 보간 호환). placeholder — 실데이터 교체는 M9 |
+| `stages/*.svg` | 사건별 일러스트 **10장** (parking-lot · classroom · family-home · school-cafeteria · fire-station · nature-park · market · sky-time · street · numbers-class). 현재 grid placeholder — 실 손그림은 M9 잔여 |
+| `hanja/*.json` | 한자별 3-step morph path **100개** (M+9L+Z=11 토큰, 보간 호환). placeholder — Make Me a Hanzi 실데이터 교체 잔여 |
 | `icons/` | PWA 아이콘 — `icon.svg` / `icon-192.png` / `icon-512.png` / `apple-touch-icon.*` |
 
 ## Game Mechanics
@@ -79,17 +90,23 @@
 5. **상형문자 변형 애니메이션**: 객체의 실루엣(예: 수레바퀴)이 한자(車)로 점진적 변형
 6. 같은 한자를 공유하는 친숙한 어휘 3 ~ 5개 동시 제시 (자동차, 기차, 자전거)
 
-### 추천 한자 풀 (초등 8급 ~ 7급 기준)
+### 한자 풀 (한국어문회 7·8급 100자)
+사건 10건 × 10자 = 100자 분배. 8급 50자(기초 한자 — 一二三四五六七八九十, 父母兄弟學校 등) + 7급Ⅱ 50자(생활 한자 — 車場道動方 등). 상세 분배는 `src/data/hanja.js` 사건별 주석 참조.
+
+대표 한자 (모든 사건 공통 학습 사이클):
+
 | 한자 | 음·뜻 | 어휘 예시 | 시각적 변형 소스 |
 |------|-------|----------|-----------------|
-| 車 | 차 / 수레 | 자동차, 기차, 자전거, 마차 | 수레바퀴 |
+| 車 | 차 / 수레 | 자동차, 기차, 마차, 주차장 | 수레바퀴 |
 | 水 | 수 / 물 | 생수, 수영, 약수, 정수기 | 흐르는 물결 |
-| 火 | 화 / 불 | 화재, 화산, 점화, 소방차 | 불꽃 |
-| 木 | 목 / 나무 | 목재, 식목일, 목공, 산림 | 가지 달린 나무 |
-| 山 | 산 / 산 | 등산, 화산, 산맥, 산소 | 세 봉우리 |
-| 日 | 일 / 해·날 | 일출, 일기, 매일, 일요일 | 떠오르는 해 |
-| 月 | 월 / 달 | 월요일, 매월, 보름달, 정월 | 초승달 |
-| 人 | 인 / 사람 | 인간, 노인, 미인, 한국인 | 서 있는 사람 |
+| 火 | 화 / 불 | 화산, 화재, 소화기, 불꽃 | 불꽃 |
+| 木 | 목 / 나무 | 목요일, 식목일, 목재, 나무 | 가지 달린 나무 |
+| 山 | 산 / 산 | 등산, 산악, 산림, 화산 | 세 봉우리 |
+| 日 | 일 / 해·날 | 일요일, 생일, 매일, 일출 | 떠오르는 해 |
+| 月 | 월 / 달 | 월요일, 월급, 매월, 달력 | 초승달 |
+| 人 | 인 / 사람 | 인간, 인기, 외국인, 사람 | 서 있는 사람 |
+| 學 | 학 / 배우다 | 학교, 학생, 학년, 입학 | 책상 위 책 |
+| 教 | 교 / 가르치다 | 교실, 교사, 교과서, 교육 | 칠판 |
 
 ### 부모-자녀 연계 활동
 게임 종료 화면에서 "오늘은 'ㅇㅇ' 한자를 발견했어요. 집에 가는 길에 함께 찾아보세요"라는 미션 카드 발급 — 일상 환경으로 학습 전이.
@@ -130,18 +147,20 @@
 - 데이터 변경 후 반드시 `npm run validate` (오류 0 / 경고 0 유지) — `scripts/validate-data.js` 가 한자/어휘/스테이지 교차 검증.
 
 ### Implementation Status (이미 구현된 항목)
-1. **상형문자 변형 애니메이션** ✅ — `morph.js` 좌표 lerp + cross-fade 폴백 + system CJK 글리프 fallback. `isLowEndDevice()` 자동 분기.
-2. **한자-어휘 매핑 데이터** ✅ — 한자 8자 × 어휘 5개 = 36개 어휘 (`familiarity` 정렬)
+1. **상형문자 변형 애니메이션** ✅ — `morph.js` 좌표 lerp + cross-fade 폴백 + system CJK 글리프 fallback. `isLowEndDevice()` 자동 분기. `hanzi-writer-data` 좌표계 정합.
+2. **한자-어휘 매핑 데이터** ✅ — 한자 **100자** × 어휘 평균 4.3개 = **429개** 어휘 (`gen-vocab.mjs` 자동 생성, `familiarity` 정렬)
 3. **돋보기 인터랙션** ✅ — `magnifier.js` 자석 흡착(`MAGNET_PX=40·dpr`) + 화면 좌표 기준 일정 거리
-4. **일러스트 자산** ✅ — 사건 4종 SVG 자체 제작 (`viewBox 1600×900`)
+4. **일러스트 자산** ✅ — 사건 **10종** SVG (`gen-stage-svg.mjs` grid placeholder, `viewBox 1600×900`) — 실 손그림은 잔여
 5. **줌·팬 컨트롤** ✅ — `viewport.js` Pointer Events 기반 핀치/휠 줌(1x~3x) + 단일 포인터 팬, 경계 클램프
+6. **F15 도감 급수 필터** ✅ — 전체 / 8급 / 7급Ⅱ 칩, `4md:collectionFilter` localStorage 영속
+7. **F18 강화 펄스** ✅ — 10초 미발견 시 미발견 hit zone 에 `.pulse-strong` (코랄 톤 + drop-shadow + 0.9s 주기), 설정 발광 힌트 OFF 시 비활성
+8. **PWA 자동 생성** ✅ — `gen-sw.mjs` 가 자산 list 동기화 + cache version bump → SW v8
 
-### 잔여 작업 (PLAN.md M8 ~ M9 참조)
+### 잔여 작업 (PLAN.md M9 P1 참조)
+- [ ] 실 일러스트 10장 손그림 (현재 grid placeholder)
+- [ ] Make Me a Hanzi(GPL) 실 morph path 데이터로 100개 placeholder 교체
+- [ ] Noto Sans CJK 서브셋 woff2 < 200KB (`pyftsubset` 운영 스크립트, 사용 한자 100자 한정)
 - [ ] 실기기 매트릭스 (iPad Mini / iPad Pro / 갤럭시 탭 A8 / iPhone SE / 보급형 안드로이드)
-- [ ] Noto Sans CJK 서브셋 woff2 < 200KB (`pyftsubset` 운영 스크립트)
-- [ ] F15 한자 풀 필터 — 교사·부모 학습 한자 부분집합 지정
-- [ ] F18 부분 힌트 — 일정 시간 미발견 시 펄스 강도 ↑
-- [ ] Make Me a Hanzi(GPL) 실 morph path 데이터로 placeholder 교체
 
 ### Key Behaviors to Preserve
 - **한자 자체의 암기를 강요하지 않음** — 게임 내 한자 쓰기 입력 절대 금지 (PRD §7 정책)
@@ -161,16 +180,17 @@
 
 ### Runtime
 - 외부 npm 의존성 **없음** — 모든 인터랙션은 표준 Web API 직접 사용 (Pointer Events / Web Speech / Web Audio / Service Worker)
-- 한자 폰트는 현재 시스템 CJK 글리프 사용 — M9 에서 Noto Sans CJK Korean 서브셋(< 200KB) 임베드 예정
+- 한자 폰트는 현재 시스템 CJK 글리프 사용 — Noto Sans CJK Korean 서브셋(< 200KB) 임베드는 잔여
 
 ### Dev
 - `npx serve` — 정적 파일 서버 (포트 4324)
 - `sharp` (devDependency) — PWA PNG 아이콘 생성 (`npm run gen-icons`)
-- `pyftsubset` (외부, 운영 스크립트) — 한자 폰트 서브셋 추출 (M9 잔여)
+- `hanzi-writer-data` (devDependency) — 한자 path 좌표계 참조 (`gen-hanja-json.mjs`, morph cross-fade viewBox 정합)
+- `pyftsubset` (외부, 운영 스크립트) — 한자 폰트 서브셋 추출 (잔여)
 
 ### Data
-- 한자 메타 8자 (PRD MVP 범위) + Make Me a Hanzi(GPL) 실 path 교체 예정 (M9)
-- 사건 4종 일러스트 SVG (자체 제작)
+- 한자 메타 **100자** (한국어문회 7·8급) + Make Me a Hanzi(GPL) 실 path 교체 잔여
+- 사건 **10종** 일러스트 SVG (grid placeholder, 실 손그림 잔여)
 
 ## Design Consistency (홈·설정·완료 화면)
 
