@@ -86,15 +86,19 @@
   opacity: 0.5;
 }
 
-/* ── 세로(portrait): 도크 세로 스택 → 카드만 가로 스크롤 ───── */
+/* ── 세로(portrait): 좁은 뷰포트에서도 5장 한눈에 — wrap 격자 ──── */
 @media (orientation: portrait) {
   #card-deck-container {
-    flex-wrap: nowrap;
-    overflow-x: auto;      /* 카드 가로 스크롤 (컨테이너 내부) */
+    /* 가로 스크롤은 좁은 폰에서 끝까지 가도 가장자리 카드가 살짝 잘리는
+       문제(dock overflow-x:hidden 와 합쳐) 가 있어 wrap 격자로 전환.
+       카드 폭을 줄여 5장 모두 한 줄에 들어가도록 함. */
+    flex-wrap: wrap;
+    overflow-x: visible;
     overflow-y: visible;
     align-items: center;
-    gap: 10px;
-    padding: 4px 4px 8px;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 4px 10px;
     /* 세로: 아래에서 슬라이드업 */
     transform: translateY(60px);
     transition: transform 0.4s ease, opacity 0.3s ease;
@@ -104,12 +108,12 @@
     transform: translateY(0);
   }
 
-  /* portrait: 카드 더 크게 + 아래에서 진입 */
+  /* portrait: 좁은 화면에서도 5장이 한 줄에 들어가도록 폭 축소 */
   .vocab-card {
-    flex: 0 0 84px;
-    width: 84px;
-    min-height: 80px;
-    font-size: 1.05rem;
+    flex: 0 0 60px;
+    width: 60px;
+    min-height: 64px;
+    font-size: 0.95rem;
     transform: translateY(12px);
   }
 
