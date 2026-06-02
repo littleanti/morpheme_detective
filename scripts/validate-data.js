@@ -95,6 +95,38 @@ for (const [sid, stage] of Object.entries(STAGES)) {
 }
 ok(`스테이지 ${STAGE_IDS.length}개 검증 완료`);
 
+// ── 5. SVG data-hit 마커 ↔ clickableObjects 정합성 ───────────────
+// 장면형으로 재작성된 SVG(= data-hit 마커 보유)는 마커 개수가
+// clickableObjects 개수와 정확히 일치해야 한다(SoT 정렬 보장).
+// 마커가 0개면 grid 폴백 장면이므로 검사 생략.
+for (const [sid, stage] of Object.entries(STAGES)) {
+  const src = stage.illustrationSrc;
+  if (!src) continue;
+  let svgText;
+  try { svgText = readFileSync(join(root, src), 'utf8'); }
+  catch (_) { continue; } // SVG 없음 — 별도 단계 외(생략)
+  const markers = svgText.match(/data-hit\s*=/g) || [];
+  if (markers.length === 0) continue; // grid 폴백 장면 — 검사 생략
+  const objCount = stage.clickableObjects?.length ?? 0;
+  const indices = (svgText.match(/data-hit\s*=\s*["'](\d+)["']/g) || [])
+    .map(m => parseInt(m.replace(/\D+/g, ''), 10));
+  if (markers.length !== objCount) {
+    err(`stage '${sid}': data-hit 마커 ${markers.length}개 ≠ clickableObjects ${objCount}개`);
+  }
+  const seen = new Set();
+  for (let i = 0; i < objCount; i++) {
+    if (!indices.includes(i)) err(`stage '${sid}': data-hit="${i}" 마커 누락`);
+  }
+  for (const idx of indices) {
+    if (seen.has(idx)) err(`stage '${sid}': data-hit="${idx}" 중복`);
+    seen.add(idx);
+    if (idx < 0 || idx >= objCount)
+      err(`stage '${sid}': data-hit="${idx}" 범위 초과(0~${objCount - 1})`);
+  }
+  if (markers.length === objCount && indices.length === objCount)
+    ok(`stage '${sid}': data-hit 마커 ${objCount}개 정렬 OK`);
+}
+
 // ── 결과 ────────────────────────────────────────────────────────
 console.log('\n' + '─'.repeat(44));
 console.log(`결과: 오류 ${errors}개  경고 ${warnings}개`);
