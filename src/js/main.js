@@ -1,6 +1,8 @@
 // 진입점 — 화면 전환·TTS/Audio unlock·스테이지 로드
 import { SCREENS }                      from './config.js';
 import { STAGES, STAGE_IDS }           from '../data/stages.js';
+import { HANJA_IDS }                   from '../data/hanja.js';
+import { state }                       from './state.js';
 import { loadStage, unloadStage }       from './stage.js';
 import { unlock as unlockTts,
          cancel as cancelTts }          from './tts.js';
@@ -22,6 +24,14 @@ let activeScreen   = null;
 let selectedStageId = null;
 let _collectionReturnTo = null; // 도감 진입 직전 화면 → 돌아가기에서 사용
 
+// 홈 화면 진행률 — "찾은 한자 N / 전체" (도감 수집 현황과 동일 소스)
+function _renderHomeProgress() {
+  const found = document.getElementById('home-progress-found');
+  const total = document.getElementById('home-progress-total');
+  if (found) found.textContent = String(state.progress.collected.size);
+  if (total) total.textContent = String(HANJA_IDS.length);
+}
+
 export function showScreen(id) {
   cancelTts();
   stopAudio();
@@ -32,6 +42,8 @@ export function showScreen(id) {
     detachViewport();
     clearCards();
   }
+  // 홈 진입 시 최신 수집 현황 반영 (게임·도감을 거쳐 돌아와도 갱신)
+  if (id === SCREENS.START) _renderHomeProgress();
 
   if (activeScreen) activeScreen.classList.remove('active');
   activeScreen = document.getElementById(id);
