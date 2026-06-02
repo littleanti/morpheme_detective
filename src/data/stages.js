@@ -76,7 +76,7 @@ export const STAGES = {
       { word: '자동차',  hanjaId: '車', syllableIdx: 2, label: '자동차' },
       { word: '주차장',  hanjaId: '場', syllableIdx: 2, label: '주차장 표지판' },
       { word: '차도',    hanjaId: '道', syllableIdx: 1, label: '차도 표시' },
-      { word: '운동',    hanjaId: '動', syllableIdx: 1, label: '운동 표지' },
+      { word: '운동',    hanjaId: '動', syllableIdx: 1, label: '운동하는 사람' },
       { word: '동력',    hanjaId: '力', syllableIdx: 1, label: '전기차 충전기' },
       { word: '국립',    hanjaId: '立', syllableIdx: 1, label: '국립공원 안내' },
       { word: '방향',    hanjaId: '方', syllableIdx: 0, label: '방향 안내판' },

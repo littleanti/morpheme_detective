@@ -107,7 +107,92 @@ export async function loadStage(stageId) {
   console.log(`[stage] ${stageId} 로드 완료 — hit zone ${stage.clickableObjects.length}개`);
 }
 
+// ── SVG 마커(data-hit) → viewBox 좌표 polygon 도출 ───────────────
+// 재작성된 장면(parking-lot)은 클릭 아이템 그룹마다 data-hit="<index>" 를 갖는다.
+// 그룹의 getBBox()(로컬 좌표) 4모서리를 그룹 CTM(svg root 기준)으로 변환해
+// viewBox 좌표계 사각형 polygon 을 만든다 → 그림 위치와 히트존 자동 일치(SoT).
+//
+// index 는 stages.js entries 순서(0~9)와 1:1 → clickableObjects[i] 에 매핑.
+// 마커가 없으면 null 반환 → 호출부가 기존 obj.polygon(gridPoly) 폴백 사용.
+function deriveHitPolygonsFromMarkers(svg, objects) {
+  const markers = svg.querySelectorAll('[data-hit]');
+  if (!markers.length) return null;
+
+  // 클릭 라우터(clientToSvgPoint)와 "동일한" 변환을 쓴다: 화면 사각형
+  // (getBoundingClientRect) → getScreenCTM().inverse() → viewBox 좌표.
+  // getBBox()×getCTM() 은 중첩/transform 그룹에서 viewport 좌표를 정확히 주지
+  // 못해(클릭 판정과 어긋남) 사용하지 않는다. 숨김/미렌더 시 rect 가 0 → skip 되고
+  // 호출부(syncMarkerPolygons)의 rAF 재시도가 화면 표시 후 다시 도출한다.
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return null;
+  const inv = ctm.inverse();
+  const pt  = svg.createSVGPoint();
+  const toViewBox = (clientX, clientY) => {
+    pt.x = clientX; pt.y = clientY;
+    const p = pt.matrixTransform(inv);
+    return [p.x, p.y];
+  };
+
+  const polygons = new Array(objects.length).fill(null);
+  markers.forEach(el => {
+    const idx = parseInt(el.getAttribute('data-hit'), 10);
+    if (!Number.isInteger(idx) || idx < 0 || idx >= objects.length) return;
+    const r = el.getBoundingClientRect();
+    if (!r || r.width === 0 || r.height === 0) return; // 숨김/미렌더 → rAF 재시도에 맡김
+
+    polygons[idx] = [
+      toViewBox(r.left,  r.top),
+      toViewBox(r.right, r.top),
+      toViewBox(r.right, r.bottom),
+      toViewBox(r.left,  r.bottom),
+    ];
+  });
+  return polygons;
+}
+
+// shoelace 면적 — 퇴화(0) polygon 검출용.
+function polygonArea(poly) {
+  if (!poly || poly.length < 3) return 0;
+  let a = 0;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    a += (poly[j][0] + poly[i][0]) * (poly[j][1] - poly[i][1]);
+  }
+  return Math.abs(a / 2);
+}
+
+// 마커 기반 좌표는 SVG 가 실제로 렌더된 뒤에만 getBBox 가 유효하다.
+// loadStage 는 showScreen(PLAY) 보다 먼저 실행되므로(main.js), attach 시점엔
+// play-screen 이 display:none → getBBox 가 전부 0(퇴화) 을 반환한다.
+// → 화면 표시 후 rAF 로 재도출하여 obj.polygon 과 오버레이 polygon 을 함께 갱신.
+function syncMarkerPolygons(svg, objects, overlay, tries = 0) {
+  if (!svg.isConnected) return; // 이미 stage 이탈(unload) → 중단
+  const derived = deriveHitPolygonsFromMarkers(svg, objects);
+  const valid = derived && derived.some(p => polygonArea(p) > 1);
+  if (valid) {
+    objects.forEach((obj, i) => {
+      if (!derived[i] || polygonArea(derived[i]) <= 1) return;
+      obj.polygon = derived[i];
+      const sel = `.hit-zone[data-object-id="${CSS.escape ? CSS.escape(obj.id) : obj.id}"]`;
+      const el  = overlay.querySelector(sel);
+      if (el) el.setAttribute('points', obj.polygon.map(p => p.join(',')).join(' '));
+    });
+    return;
+  }
+  if (tries < 30) requestAnimationFrame(() => syncMarkerPolygons(svg, objects, overlay, tries + 1));
+}
+
 function attachHitZones(canvas, svg, objects) {
+  // SVG 마커가 있으면 거기서 좌표를 도출해 obj.polygon 을 덮어쓴다.
+  // (덮어써야 findHitZoneByPoint 의 ray-casting 도 동일 좌표를 본다)
+  // 단, 숨김 상태에서 getBBox 가 0 을 반환할 수 있으므로 유효(면적>1)할 때만 채택.
+  // 퇴화 시엔 gridPoly 폴백을 유지하고 아래 rAF 동기화가 화면 표시 후 교정한다.
+  const derived = deriveHitPolygonsFromMarkers(svg, objects);
+  if (derived) {
+    objects.forEach((obj, i) => {
+      if (derived[i] && polygonArea(derived[i]) > 1) obj.polygon = derived[i];
+    });
+  }
+
   const overlay = document.createElementNS(SVG_NS, 'g');
   overlay.setAttribute('id', 'hit-zone-overlay');
 
@@ -125,6 +210,9 @@ function attachHitZones(canvas, svg, objects) {
 
   svg.appendChild(overlay);
   state.stage.hitZones = objects.slice();
+
+  // 마커가 있으면 화면 표시 후 좌표 재동기화 예약(getBBox 유효 시점까지 rAF 재시도).
+  if (svg.querySelector('[data-hit]')) syncMarkerPolygons(svg, objects, overlay);
 
   hitListener = e => {
     // PC 마우스 / 터치 공통 — 4단계 라우팅으로 e.target 의존성 제거.
