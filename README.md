@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> **이 저장소는 [`hangul_game`](https://github.com/littleanti/hangul_game) 모노레포로 통합되었습니다.**
+> 앞으로 모든 개발·유지보수는 모노레포에서 진행되며, 이 저장소는 보관(archive)용입니다.
+> 🎮 통합 플레이 사이트: https://littleanti.github.io/hangul_game/
+
 # 🔍 형태소 탐정 (Morpheme Detective)
 
 익숙한 한국어 단어 속에 형태소로 숨어 있는 한자(뜻글자)를 일상 공간 일러스트에서 시각적으로 발견하는 모바일 우선 학습 웹앱입니다.
